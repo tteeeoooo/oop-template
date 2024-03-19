@@ -16,10 +16,7 @@ public:
 
     //construcotri de initializare + supraincarcare
 
-    Drink(const Drink &bauturica) {
-        drinkChoice = bauturica.drinkChoice;
-        price = bauturica.price;
-    }
+    Drink(const Drink &bauturica): drinkChoice(bauturica.drinkChoice), price(bauturica.price) {}
 
     Drink &operator=(const Drink &bauturica) {
         if (this != &bauturica) {
@@ -104,11 +101,6 @@ public:
         return price;
     }
 
-//    static void coutAvailableMenu(vector<Drink> menu) {
-//        for (int item = 0; item < menu.size(); item ++ ) {
-//            cout << menu[item] << endl;
-//        }
-//    }
 
     Cart& operator=(const Cart& shopping) {
         if (this != &shopping) {
@@ -122,7 +114,7 @@ public:
 
     friend ostream& operator<<(ostream& coutt, const Cart& shopping) {
         coutt<<"Your shopping cart status:"<<endl;
-        for (int x = 0; x < size(shopping.myDrinks); x ++) {
+        for (int x = 0; x < int(size(shopping.myDrinks)); x ++) {
             coutt << "Product "<<x + 1<<": "<<shopping.myDrinks[x] << "  " << endl;
         }
         coutt << shopping.price<<endl;
@@ -186,7 +178,7 @@ void textToFinish();
 
 void orderAndExit() ;
 
-void creditCardInfo(Cart &cart);
+void creditCardInfo(const Cart &cart);
 
 void deliveryAddress(const Cart &cart);
 
@@ -305,7 +297,7 @@ int main() {
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
-    float newPrice;
+    float newPrice = 0;
     menuText();
     menuOptions(coffeeMenu);
     input = 1;
@@ -411,7 +403,7 @@ void deliveryAddress(const Cart &cart) {
 }
 
 
-void creditCardInfo(Cart &cart) {
+void creditCardInfo(const Cart &cart) {
     long int creditCard;
     short int input;
     cout << "Introduce your credit card information" << endl;
