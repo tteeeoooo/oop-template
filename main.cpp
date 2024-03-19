@@ -165,7 +165,7 @@ float priceCalculation(float oldPrice, float sale);
 
 float order(Cart &cart, vector<Drink> coffeeMenu);
 
-void atAddressPayment(const Cart cart);
+void atAddressPayment(const Cart &cart);
 
 void giveATip(const Cart &cart);
 
@@ -186,15 +186,15 @@ void todaysSales();
 int main() {
     Cart cart;
     Account user;
-    vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.99), Drink("Cold Brew", 3.99),
-                                Drink("Matcha Latte", 6.49), Drink("Pink Drink Refresher", 4.59),
-                                Drink("Vanilla Sweet Cream Cold Brew", 6.49), Drink("Vanilla Cremè", 5.49),
-                                Drink("Cinnamon Caramel Cream Cold Brew", 3.99),
-                                Drink("Cold Brew", 4.99), Drink("Caramel Ribbon Crunch Frappucino", 5.49),
-                                Drink("Caramel Ribbon Crunch Frappucino", 6.99),
-                                Drink("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.49),
-                                Drink("Iced Matcha Tea Latte With Oatmilk", 6.49), Drink("Espresso", 2.99),
-                                Drink("Caffè Americano", 3.49), Drink("Fiji Water", 3.29)};
+    vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.9), Drink("Cold Brew", 3.9),
+                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.6),
+                                Drink("Vanilla Sweet Cream Cold Brew", 6.5), Drink("Vanilla Cremè", 5.5),
+                                Drink("Cinnamon Caramel Cream Cold Brew", 4.0),
+                                Drink("Cold Brew", 5.0), Drink("Caramel Ribbon Crunch Frappucino", 5.5),
+                                Drink("Caramel Ribbon Crunch Frappucino", 7.0),
+                                Drink("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5),
+                                Drink("Iced Matcha Tea Latte With Oatmilk", 6.5), Drink("Espresso", 3.0),
+                                Drink("Caffè Americano", 3.5), Drink("Fiji Water", 3.3)};
 
     cout << "Chamberlain Coffee - Easy Mobile & Online Ordering & Delivery" << endl;
     todaysSales();
@@ -426,7 +426,7 @@ void creditCardInfo(const Cart &cart) {
     }
 }
 
-void atAddressPayment (const Cart cart) {
+void atAddressPayment (const Cart &cart) {
     short int input;
     cout << "Are you sure you want to pay at the delivery?" << endl;
     cout << "Press 1 for yes" << endl;
