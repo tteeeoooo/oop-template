@@ -292,7 +292,6 @@ int main() {
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
-    //float newPrice;
     menuText();
     menuOptions(coffeeMenu);
     input = 1;
