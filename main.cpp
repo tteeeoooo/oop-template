@@ -8,20 +8,14 @@ private:
     string drinkChoice;       //tipul bauturii
     float price;              //pretul bauturii
 public:
-    Drink(string drinkName = "", float priceTag = 0) {
+    //explicit Drink(string drinkName = "", float priceTag = 0) {}
+
+    explicit Drink(const string &drinkName = "", float priceTag = 0) {
         drinkChoice = drinkName;
         price = priceTag;
     }
 
-    Drink(string drinkName) {
-        drinkChoice = drinkName;
-        price = 0;
-    }
-
-    Drink(float priceTag) {
-        drinkChoice = "";
-        price = priceTag;
-    }
+    //explicit Drink(const string &drinkName): drinkChoice(drinkName), price(0) {}
 
     //construcotri de initializare + supraincarcare
 
@@ -40,8 +34,9 @@ public:
     }
 
     friend Drink operator+(Drink &bauturica, Drink &menu) {
-        menu.price += bauturica.price;
-        return menu.price;
+        Drink calcul;
+        calcul.price = menu.price + bauturica.price;
+        return calcul;
     }
 
     friend ostream& operator<<(ostream &coutt, const Drink &myDrink) {
@@ -59,14 +54,14 @@ public:
     string getDrinkName() {
         return drinkChoice;
     }
-    float getDrinkPrice() {
+    [[nodiscard]] float getDrinkPrice() const{
         return price;
     }
 
-    ~Drink(){}
+    //~Drink(){}
 };
 
-Drink operator -=(Drink bauturica, float procent) {
+float operator -(const Drink &bauturica, float procent) {
     float reducere = (bauturica.getDrinkPrice() * procent) / 100;
     return bauturica.getDrinkPrice() + reducere;
 }
@@ -87,11 +82,11 @@ public:
         priceList = {};
     }
 
-    Cart(vector<Drink> bauturi) {
-        myDrinks = bauturi;
-        price = 0;
-        priceList = {};
-    }
+//    Cart(vector<Drink> bauturi) {
+//        myDrinks = bauturi;
+//        price = 0;
+//        priceList = {};
+//    }
 
 //    Cart(float pret) {
 //        myDrinks = {};
@@ -106,34 +101,28 @@ public:
         priceList = cos.priceList;
     }
 
-    void productAdd(Drink bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
+    void productAdd(const Drink &bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
         //amount ++;
         myDrinks.push_back(bautura);
         price += bautura.getDrinkPrice();//productPrice;
         priceList.push_back(bautura.getDrinkPrice());
     };
     void productDelete(int index){    //pentru cand stergem un produs din cos, sa actualizam nr. de produse
-        if (myDrinks.size() > 0) {
+        if (!myDrinks.empty() ) {
             //amount --;
             myDrinks.erase(myDrinks.begin() + index);
             price -= priceList[index];
         }
     }
-    float cartPrice() {
+    [[nodiscard]] float cartPrice() const {
         return price;
     }
 
-    void coutAvailableMenu(vector<Drink> menu) {
-        for (int item = 0; item < menu.size(); item ++ ) {
-            cout << menu[item] << endl;
-        }
-    }
-
-
-    void applySale(int off) {
-        price = price - (price * off) / 100;
-    }
-
+//    static void coutAvailableMenu(vector<Drink> menu) {
+//        for (int item = 0; item < menu.size(); item ++ ) {
+//            cout << menu[item] << endl;
+//        }
+//    }
 
     Cart& operator=(const Cart& shopping) {
         if (this != &shopping) {
@@ -159,7 +148,11 @@ public:
 //        return cinn;
 //    }
 
-    ~Cart() {}
+    ~Cart() {
+        myDrinks = {};
+        price = 0;
+        priceList = {};
+    }
 };
 
 class Account {
@@ -167,11 +160,6 @@ private:
     string userName;                //nume de utlizator
     string password;                //parola
 public:
-    Account(string name = "", string Password = "") {
-        userName = name;
-        password = Password;
-    }
-
     void userRead() {
         cout << "Username: ";
         cin >> userName;
@@ -200,7 +188,7 @@ void underLine();
 
 void upperLine();
 
-float priceCalculation(float oldPrice, int sale);
+float priceCalculation(float oldPrice, float sale);
 
 float order(Cart &cart, vector<Drink> coffeeMenu);
 
@@ -222,9 +210,7 @@ void coutAbortedOrder();
 
 void todaysSales();
 
-void underLine();
 
-void upperLine();
 
 
 
@@ -258,11 +244,6 @@ int main() {
     cin >> input;
     if (input == 1) {
         while (input != 0) {
-//            while (true) {
-//                order(cart, coffeeMenu);
-//            }
-        //pana aici se face cosul
-        // se poate modifica de cate ori este nevoie => e ok
         order(cart, coffeeMenu);
         //finishOrder();
         textToFinish();
@@ -330,7 +311,6 @@ int main() {
    }
         orderAndExit();
 
-
 }
 
     if (input == 0){
@@ -339,12 +319,11 @@ int main() {
     return 0;
 }
 
-
+// NOLINTNEXTLINE
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
     float newPrice;
-    Cart cart2 = cart;
     menuText();
     menuOptions(coffeeMenu);
     input = 1;
@@ -355,9 +334,8 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
                 cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
                 cout << cart;
                 if (cart.cartPrice() > 30) {
-                    //newPrice = cart.cartPrice() - (cart.cartPrice() * 25) / 100;
                     newPrice = priceCalculation(cart.cartPrice(), 25);
-                    if (appliedSale == false) {
+                    if (!appliedSale) {
                         cout << "You are now eligible for the sale! :)" << endl;
                         appliedSale = true;
                     }
@@ -389,12 +367,10 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
         }
     }
     return cart.cartPrice();
-}
+}   //NOLINT
 
 
-float priceCalculation(float oldPrice, int sale) {
-    float newPrice;
-    newPrice = oldPrice - (oldPrice * sale) / 100;
+float priceCalculation(float oldPrice, float sale) {
     return oldPrice - (oldPrice * sale) / 100;
 }
 
@@ -503,9 +479,6 @@ void atAddressPayment (Cart cart) {
     if (input == 1) {
         giveATip(cart);
     }
-    else {
-        ;
-    }
 }
 
 void coutFinishedOrder() {
@@ -562,3 +535,4 @@ void upperLine() {
     }
     cout<<endl;
 }
+
