@@ -29,7 +29,7 @@ public:
         return *this;
     }
 
-    friend Drink operator+(Drink &bauturica, Drink &menu) {
+    friend Drink operator+(const Drink &bauturica, const Drink &menu) {
         Drink calcul;
         calcul.price = menu.price + bauturica.price;
         return calcul;
@@ -71,14 +71,10 @@ private:
     vector<float> priceList;            //lista prteurilor
 
 public:
-    Cart(){              //constructor de initializare
-        myDrinks = {};
-        //amount = 0;
-        price = 0;
-        priceList = {};
-    }
+    Cart(): myDrinks({}), price(0), priceList(0) {}
+
     // NOLINTNEXTLINE
-    explicit Cart(vector<Drink> bauturi): myDrinks(bauturi), price(0) {}
+    explicit Cart(vector<Drink> &bauturi): myDrinks(bauturi), price(0) {}
     //NOLINT
 
     // NOLINTNEXTLINE
@@ -184,7 +180,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu);
 
 void atAddressPayment(Cart cart);
 
-void giveATip(Cart &cart);
+void giveATip(const Cart &cart);
 
 void textToFinish();
 
@@ -192,17 +188,13 @@ void orderAndExit() ;
 
 void creditCardInfo(Cart &cart);
 
-void deliveryAddress(Cart &cart);
+void deliveryAddress(const Cart &cart);
 
 void coutFinishedOrder();
 
 void coutAbortedOrder();
 
 void todaysSales();
-
-
-
-
 
 int main() {
     Cart cart;
@@ -399,7 +391,7 @@ void textToFinish() {
     cout << "Press 0 to exit :(" << endl;
 }
 
-void deliveryAddress(Cart &cart) {
+void deliveryAddress(const Cart &cart) {
     string address;
     int zipCode;
     cout << "You are being redirected on the checkout page..." << endl;
@@ -486,7 +478,7 @@ void todaysSales() {
     upperLine();
 }
 
-void giveATip(Cart &cart) {
+void giveATip(const Cart &cart) {
     short int input;
     float tip;
     cout << "How much would you like to tip your delivery person?" << endl;
