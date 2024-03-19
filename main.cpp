@@ -121,11 +121,6 @@ public:
         return coutt;
     }
 
-//    friend istream &operator>>(istream &cinn, Cart& shopping) {
-//        cinn >> shopping.price >> shopping.myDrinks >> shopping.priceList;
-//        return cinn;
-//    }
-
     ~Cart() {
         myDrinks = {};
         price = 0;
@@ -170,7 +165,7 @@ float priceCalculation(float oldPrice, float sale);
 
 float order(Cart &cart, vector<Drink> coffeeMenu);
 
-void atAddressPayment(Cart cart);
+void atAddressPayment(const Cart cart);
 
 void giveATip(const Cart &cart);
 
@@ -297,7 +292,7 @@ int main() {
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
-    float newPrice = 0;
+    //float newPrice;
     menuText();
     menuOptions(coffeeMenu);
     input = 1;
@@ -308,7 +303,6 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
                 cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
                 cout << cart;
                 if (cart.cartPrice() > 30) {
-                    newPrice = priceCalculation(cart.cartPrice(), 25);
                     if (!appliedSale) {
                         cout << "You are now eligible for the sale! :)" << endl;
                         appliedSale = true;
@@ -316,7 +310,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
                     else {
                         appliedSale = false;
                     }
-                    cout<<"Cart Price with 25% off: " << newPrice << endl;
+                    cout<<"Cart Price with 25% off: " << priceCalculation(cart.cartPrice(), 25) << endl;
                 }
             } else {
                 cout << "Are you sure you want to proceed to checkout?" << endl;
@@ -432,7 +426,7 @@ void creditCardInfo(const Cart &cart) {
     }
 }
 
-void atAddressPayment (Cart cart) {
+void atAddressPayment (const Cart cart) {
     short int input;
     cout << "Are you sure you want to pay at the delivery?" << endl;
     cout << "Press 1 for yes" << endl;
