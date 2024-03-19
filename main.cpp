@@ -9,12 +9,9 @@ private:
     float price;              //pretul bauturii
 public:
     //explicit Drink(string drinkName = "", float priceTag = 0) {}
-
-    explicit Drink(const string &drinkName = "", float priceTag = 0) {
-        drinkChoice = drinkName;
-        price = priceTag;
-    }
-
+    // NOLINTNEXTLINE
+    explicit Drink(const string &drinkName = "", float priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
+    //NOLINT
     //explicit Drink(const string &drinkName): drinkChoice(drinkName), price(0) {}
 
     //construcotri de initializare + supraincarcare
@@ -23,7 +20,6 @@ public:
         drinkChoice = bauturica.drinkChoice;
         price = bauturica.price;
     }
-    //constructorul de copiere
 
     Drink &operator=(const Drink &bauturica) {
         if (this != &bauturica) {
@@ -67,7 +63,7 @@ float operator -(const Drink &bauturica, float procent) {
 }
 
 
-class Cart: Drink{
+class Cart{
 private:
     vector<Drink> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
     //int amount;                         //nr de bauturi din cos
@@ -81,25 +77,19 @@ public:
         price = 0;
         priceList = {};
     }
+    // NOLINTNEXTLINE
+    explicit Cart(vector<Drink> bauturi): myDrinks(bauturi), price(0) {}
+    //NOLINT
 
-//    Cart(vector<Drink> bauturi) {
-//        myDrinks = bauturi;
-//        price = 0;
-//        priceList = {};
-//    }
+    // NOLINTNEXTLINE
+    explicit Cart(float pret): myDrinks({}), price(pret) {}
+    //NOLINT
 
-//    Cart(float pret) {
-//        myDrinks = {};
-//        price = pret;
-//        priceList = {};
-//    }
     //pana aici au fost constructorii supraincarcati
 
-    Cart(const Cart& cos) {
-        myDrinks = cos.myDrinks;
-        price = cos.price;
-        priceList = cos.priceList;
-    }
+    // NOLINTNEXTLINE
+    Cart(const Cart& cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
+    //NOLINT
 
     void productAdd(const Drink &bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
         //amount ++;
