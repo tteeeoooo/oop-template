@@ -6,7 +6,7 @@ using namespace std;
 class Drink{
 private:
     string drinkChoice;       //tipul bauturii
-    float price;              //pretul bauturii
+    float price;              //pretul bauturii 
 public:
     //explicit Drink(string drinkName = "", float priceTag = 0) {}
     // NOLINTNEXTLINE
