@@ -546,6 +546,7 @@ void giveATip(const Cart &cart) {
             tip = priceCalculation(cart.cartPrice(), 100);
             break;
     }
+    cout << "You will have to pay: " << cart.cartPrice() + tip << endl;
 }
     
 
