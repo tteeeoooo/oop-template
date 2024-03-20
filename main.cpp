@@ -184,7 +184,7 @@ int main() {
     Cart cart;   
     Account user;
     vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.0), Drink("Cold Brew", 3.0),
-                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.6),
+                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.60),
                                 Drink("Vanilla Sweet Cream Cold Brew", 6.5), Drink("Vanilla Cremè", 5.5),
                                 Drink("Cinnamon Caramel Cream Cold Brew", 4.0),
                                 Drink("Cold Brew", 5.0), Drink("Caramel Ribbon Crunch Frappucino", 5.5),
