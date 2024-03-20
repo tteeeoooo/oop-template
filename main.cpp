@@ -465,7 +465,7 @@ void todaysSales() {
 
 void giveATip(const Cart &cart) {
     short int input;
-    float tip;
+    float tip = 0;
     cout << "How much would you like to tip your delivery person?" << endl;
     cout << "Press 1 for 10%" << endl;
     cout << "Press 2 for 20%" << endl;
