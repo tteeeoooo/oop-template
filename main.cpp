@@ -474,17 +474,19 @@ void giveATip(const Cart &cart) {
     cout << "Press 0 to skip" << endl;
     cin >> input;
 
-    if (input == 1) {
-        tip = priceCalculation(cart.cartPrice(), 10);
-    }
-    if (input == 2) {
-        tip = priceCalculation(cart.cartPrice(), 20);
-    }
-    if (input == 3) {
-        tip = priceCalculation(cart.cartPrice(), 50);
-    }
-    if (input == 4) {
-        tip = priceCalculation(cart.cartPrice(), 100);
+    switch (input) {
+        case 1:
+            tip = priceCalculation(cart.cartPrice(), 10);
+            break;
+        case 2:
+            tip = priceCalculation(cart.cartPrice(), 20);
+            break;
+        case 3:
+            tip = priceCalculation(cart.cartPrice(), 50);
+            break;
+        case 4:
+            tip = priceCalculation(cart.cartPrice(), 100);
+            break;
     }
     cout << endl << "You will pay: " << cart.cartPrice() + tip << endl;
 }
