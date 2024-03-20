@@ -459,7 +459,7 @@ void coutAbortedOrder() {
 void todaysSales() {
     cout << "Here is today's deal!" << endl;
     underLine();
-    cout << "\uFE33" << "25% off for orders over $30" << "\uFE33" << endl;
+    cout << "25% off for orders over $30" << endl;
     upperLine();
 }
 
