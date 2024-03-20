@@ -70,19 +70,19 @@ private:
 public:
     Cart(): myDrinks({}), price(0), priceList(0) {}
 
-    // NOLINTNEXTLINE
+  
     explicit Cart(vector<Drink> &bauturi): myDrinks(bauturi), price(0) {}
-    //NOLINT
 
-    // NOLINTNEXTLINE
+
+
     explicit Cart(float pret): myDrinks({}), price(pret) {}
-    //NOLINT
+
 
     //pana aici au fost constructorii supraincarcati
 
-    // NOLINTNEXTLINE
+ 
     Cart(const Cart& cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
-    //NOLINT
+
 
     void productAdd(const Drink &bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
         //amount ++;
@@ -288,7 +288,7 @@ int main() {
     return 0;
 }
 
-// NOLINTNEXTLINE
+
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
@@ -334,7 +334,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
         }
     }
     return cart.cartPrice();
-}   //NOLINT
+}  
 
 
 float priceCalculation(float oldPrice, float sale) {
