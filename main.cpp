@@ -9,9 +9,9 @@ private:
     double price;              //pretul bauturii
 public:
     //explicit Drink(string drinkName = "", float priceTag = 0) {}
-    // NOLINTNEXTLINE
+
     explicit Drink(const string &drinkName = "", double priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
-    //NOLINT
+
     //explicit Drink(const string &drinkName): drinkChoice(drinkName), price(0) {}
 
     //construcotri de initializare + supraincarcare
