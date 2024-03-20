@@ -96,6 +96,7 @@ public:
         price += bautura.getDrinkPrice();//productPrice;
         priceList.push_back(bautura.getDrinkPrice());
     };
+
     void productDelete(int index){    //pentru cand stergem un produs din cos, sa actualizam nr. de produse
         if (!myDrinks.empty() ) {
             //amount --;
@@ -106,6 +107,8 @@ public:
     [[nodiscard]] float cartPrice() const {
         return price;
     }
+
+
 
 
     Cart& operator=(const Cart& shopping) {
@@ -202,14 +205,13 @@ int main() {
                                 Drink("Iced Matcha Tea Latte With Oatmilk", 6.5), Drink("Espresso", 3.0),
                                 Drink("Caffè Americano", 3.5), Drink("Fiji Water", 3.3)};
 
+    
     cout << "Chamberlain Coffee - Easy Mobile & Online Ordering & Delivery" << endl;
     todaysSales();
 
     cout << "Connect to your account: " << endl;
     user.userRead();
-    //pana aici utilizatorul a introdus datele personale -> de cautat cum fac ca atunci cand utilizatorul scrie
-    // de la tastatura sa apara * in loc de caracter??
-    //update: nu merge cum trebuie!!!
+    
 
     cout << "1: Menu" << endl;
     cout << "0: Exit" << endl << endl;
@@ -296,50 +298,50 @@ int main() {
 
 
 float order(Cart &cart, vector<Drink> coffeeMenu) {
-   short int input, input2, inputDelete;
-   bool appliedSale = false;
-   menuText();
-   menuOptions(coffeeMenu);
-   input = 1;
-   while (input != 0) {
-       cin >> input;
-       if (input != 20) {
-           if (input != 0) {
-               cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
-               cout << cart;
-               if (cart.cartPrice() > 30) {
-                   if (!appliedSale) {
-                       cout << "You are now eligible for the sale! :)" << endl;
-                       appliedSale = true;
-                   }
-                   else {
-                       appliedSale = false;
-                   }
-                   cout<<"Cart Price with 25% off: " << priceCalculation(cart.cartPrice(), 25) << endl;
-               }
-           } else {
-               cout << "Are you sure you want to proceed to checkout?" << endl;
-               cout << "Press 1 to go back to editing your shopping cart!" << endl;
-               cout << "Press 0 to go to checkout" << endl;
-               cin >> input2;
-               if (input2 == 0) {
-                   return cart.cartPrice();
-               }
-               else {
-                   order(cart, coffeeMenu);
-               }
-           }
-       }
-       else {
-           cout << "Choose the index of the product that you would like to delete from your cart!" << endl;
-           cin>> inputDelete;       //am gasit un produs pe care vrem sa il stergem & inputDelete retine al catelea produs sa fie sters;
-           cart.productDelete(inputDelete - 1);
-           cout << cart;
-           cout << "Press 0 if you want to proceed to payment" << endl;
-           cout << "If you want to continue to add/delete products from your cart, " << endl << "press on the index of the product from the menu!" << endl;
-       }
-   }
-   return cart.cartPrice();
+    short int input, input2, inputDelete;
+    bool appliedSale = false;
+    menuText();
+    menuOptions(coffeeMenu);
+    input = 1;
+    while (input != 0) {
+        cin >> input;
+        if (input != 20) {
+            if (input != 0) {
+                cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
+                cout << cart;
+                if (cart.cartPrice() > 30) {
+                    if (!appliedSale) {
+                        cout << "You are now eligible for the sale! :)" << endl;
+                        appliedSale = true;
+                    }
+                    else {
+                        appliedSale = false;
+                    }
+                    cout<<"Cart Price with 25% off: " << priceCalculation(cart.cartPrice(), 25) << endl;
+                }
+            } else {
+                cout << "Are you sure you want to proceed to checkout?" << endl;
+                cout << "Press 1 to go back to editing your shopping cart!" << endl;
+                cout << "Press 0 to go to checkout" << endl;
+                cin >> input2;
+                if (input2 == 0) {
+                    return cart.cartPrice();
+                }
+                else {
+                    order(cart, coffeeMenu);
+                }
+            }
+        }
+        else {
+            cout << "Choose the index of the product that you would like to delete from your cart!" << endl;
+            cin>> inputDelete;       //am gasit un produs pe care vrem sa il stergem & inputDelete retine al catelea produs sa fie sters;
+            cart.productDelete(inputDelete - 1);
+            cout << cart;
+            cout << "Press 0 if you want to proceed to payment" << endl;
+            cout << "If you want to continue to add/delete products from your cart, " << endl << "press on the index of the product from the menu!" << endl;
+        }
+    }
+    return cart.cartPrice();
 }
 
 
@@ -416,19 +418,25 @@ void creditCardInfo(const Cart &cart) {
     cin >> input;
     if (input == 1) {
         giveATip(cart);
-        cout << endl;
     }
     else {
-        cout << "Are you sure? :(" << endl;
-        cin >> input;
-        if (input == 0) {
-            cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
-        }
-        else {
-            giveATip(cart);
-            orderAndExit();
-        }
+        orderAndExit();
     }
+//        orderAndExit();
+//        cout << endl;
+//    }
+//    else {
+//        cout << "Are you sure? :(" << endl;
+//        cin >> input;
+//        if (input == 0) {
+//            cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
+//            return ;
+//        }
+//        else {
+//            Cart giveATip(cart);
+//            orderAndExit();
+//        }
+//    }
 }
 
 void atAddressPayment (const Cart &cart) {
@@ -444,6 +452,7 @@ void atAddressPayment (const Cart &cart) {
     else {
         cout << "You switched to credit card payment!" << endl;
         creditCardInfo(cart);
+        return ;
     }
     cout << "Would you like to give a tip to the delivery person?" << endl;
     cout << "Press 1 for yes! :)" << endl;
@@ -451,19 +460,17 @@ void atAddressPayment (const Cart &cart) {
     cin >> input;
     if (input == 1) {
         giveATip(cart);
+        orderAndExit();
     }
 }
-
 
 void coutFinishedOrder() {
     cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
 }
 
-
 void coutAbortedOrder() {
     cout << "We are sorry that you are leaving! See you next time!";
 }
-
 
 void todaysSales() {
     cout << "Here is today's deal!" << endl;
@@ -471,7 +478,6 @@ void todaysSales() {
     cout << "25% off for orders over $30" << endl;
     upperLine();
 }
-
 
 void giveATip(const Cart &cart) {
     short int input;
@@ -500,7 +506,7 @@ void giveATip(const Cart &cart) {
             break;
     }
     cout << "You will have to pay: " << cart.cartPrice() + tip << endl;
-}  
+}
 
 
 
@@ -510,7 +516,6 @@ void underLine() {
     }
     cout << endl;
 }
-
 
 void upperLine() {
     for (int i = 0; i < 30; i ++) {
