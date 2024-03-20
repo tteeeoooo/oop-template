@@ -130,11 +130,7 @@ public:
         return coutt;
     }
 
-    ~Cart() {
-        myDrinks = {};
-        price = 0;
-        priceList = {};
-    }
+    ~Cart() {}
 };
 
 class Account {
@@ -161,16 +157,16 @@ public:
         password = "";
     }
 };
-//
-//void menuText();
-//
-//void menuOptions(vector<Drink> coffeeMenu);
+
+void menuText();
+
+void menuOptions(vector<Drink> coffeeMenu);
 
 void underLine();
 
 void upperLine();
 
-//float priceCalculation(float oldPrice, float sale);
+float priceCalculation(float oldPrice, float sale);
 
 float order(Cart &cart, vector<Drink> coffeeMenu);
 
@@ -205,13 +201,14 @@ int main() {
                                 Drink("Iced Matcha Tea Latte With Oatmilk", 6.5), Drink("Espresso", 3.0),
                                 Drink("Caffè Americano", 3.5), Drink("Fiji Water", 3.3)};
 
-    
     cout << "Chamberlain Coffee - Easy Mobile & Online Ordering & Delivery" << endl;
     todaysSales();
 
     cout << "Connect to your account: " << endl;
     user.userRead();
-    
+    //pana aici utilizatorul a introdus datele personale -> de cautat cum fac ca atunci cand utilizatorul scrie
+    // de la tastatura sa apara * in loc de caracter??
+    //update: nu merge cum trebuie!!!
 
     cout << "1: Menu" << endl;
     cout << "0: Exit" << endl << endl;
@@ -346,7 +343,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
 
 
 float priceCalculation(float oldPrice, float sale) {
-    return oldPrice - (oldPrice * sale) / 100;
+    return (oldPrice * sale) / 100;
 }
 
 void orderAndExit() {
@@ -388,9 +385,9 @@ void deliveryAddress(const Cart &cart) {
     string address;
     int zipCode;
     cout << "You are being redirected on the checkout page..." << endl;
-    cout << "Subtotal: " << cart.cartPrice() ;     //de aici urmeaza partea de checkout etc!!
+    cout << "Subtotal: " << cart.cartPrice() << endl ;     //de aici urmeaza partea de checkout etc!!
     if (cart.cartPrice() >= 30) {
-        cout<< priceCalculation(cart.cartPrice(), 25) << endl;
+        cout<< priceCalculation(cart.cartPrice(), 25) + cart.cartPrice() << endl;
     }
     else {
         cout << cart.cartPrice() << endl;
@@ -505,7 +502,7 @@ void giveATip(const Cart &cart) {
             tip = priceCalculation(cart.cartPrice(), 100);
             break;
     }
-    cout << "You will have to pay: " << cart.cartPrice() + tip << endl;
+    cout << "You will have to pay: " << tip + cart.cartPrice() << endl;
 }
 
 
