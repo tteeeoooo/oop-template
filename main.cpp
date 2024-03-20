@@ -6,12 +6,12 @@ using namespace std;
 class Drink{
 private:
     string drinkChoice;       //tipul bauturii
-    float price;              //pretul bauturii 
+    double price;              //pretul bauturii
 public:
     //explicit Drink(string drinkName = "", float priceTag = 0) {}
-
-    explicit Drink(const string &drinkName = "", float priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
-
+    // NOLINTNEXTLINE
+    explicit Drink(const string &drinkName = "", double priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
+    //NOLINT
     //explicit Drink(const string &drinkName): drinkChoice(drinkName), price(0) {}
 
     //construcotri de initializare + supraincarcare
@@ -47,15 +47,15 @@ public:
     string getDrinkName() {
         return drinkChoice;
     }
-    [[nodiscard]] float getDrinkPrice() const{
+    [[nodiscard]] double getDrinkPrice() const{
         return price;
     }
 
     //~Drink(){}
 };
 
-float operator -(const Drink &bauturica, float procent) {
-    float reducere = (bauturica.getDrinkPrice() * procent) / 100;
+double operator -(const Drink &bauturica, double procent) {
+    double reducere = (bauturica.getDrinkPrice() * procent) / 100;
     return bauturica.getDrinkPrice() + reducere;
 }
 
@@ -70,16 +70,19 @@ private:
 public:
     Cart(): myDrinks({}), price(0), priceList(0) {}
 
-
+    // NOLINTNEXTLINE
     explicit Cart(vector<Drink> &bauturi): myDrinks(bauturi), price(0) {}
+    //NOLINT
 
-
+    // NOLINTNEXTLINE
     explicit Cart(float pret): myDrinks({}), price(pret) {}
+    //NOLINT
 
     //pana aici au fost constructorii supraincarcati
 
-
+    // NOLINTNEXTLINE
     Cart(const Cart& cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
+    //NOLINT
 
     void productAdd(const Drink &bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
         //amount ++;
@@ -181,10 +184,10 @@ void coutAbortedOrder();
 void todaysSales();
 
 int main() {
-    Cart cart;   
+    Cart cart;
     Account user;
-    vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.0), Drink("Cold Brew", 3.0),
-                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.60),
+    vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.9), Drink("Cold Brew", 3.9),
+                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.6),
                                 Drink("Vanilla Sweet Cream Cold Brew", 6.5), Drink("Vanilla Cremè", 5.5),
                                 Drink("Cinnamon Caramel Cream Cold Brew", 4.0),
                                 Drink("Cold Brew", 5.0), Drink("Caramel Ribbon Crunch Frappucino", 5.5),
@@ -285,7 +288,7 @@ int main() {
     return 0;
 }
 
-
+// NOLINTNEXTLINE
 float order(Cart &cart, vector<Drink> coffeeMenu) {
     short int input, input2, inputDelete;
     bool appliedSale = false;
@@ -331,7 +334,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu) {
         }
     }
     return cart.cartPrice();
-}  
+}   //NOLINT
 
 
 float priceCalculation(float oldPrice, float sale) {
@@ -456,7 +459,7 @@ void coutAbortedOrder() {
 void todaysSales() {
     cout << "Here is today's deal!" << endl;
     underLine();
-    cout << "25% off for orders over $30" << endl;
+    cout << "\uFE33" << "25% off for orders over $30" << "\uFE33" << endl;
     upperLine();
 }
 
@@ -499,5 +502,4 @@ void upperLine() {
     }
     cout<<endl;
 }
-
 
