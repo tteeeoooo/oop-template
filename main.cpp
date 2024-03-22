@@ -172,7 +172,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu);
 
 void atAddressPayment(const Cart &cart);
 
-float giveATip(Cart cart);
+void giveATip(const Cart &cart);
 
 int textToFinish();
 
@@ -479,7 +479,7 @@ void todaysSales() {
     upperLine();
 }
 
-float giveATip(Cart cart) {
+void giveATip(const Cart &cart) {
     short int input;
     float tip = 0;
     cout << "How much would you like to tip your delivery person?" << endl;
@@ -494,19 +494,22 @@ float giveATip(Cart cart) {
     switch (input) {
         case 1:
             tip = priceCalculation(cart.cartPrice(), 10);
+            //percent = 10;
             break;
         case 2:
             tip = priceCalculation(cart.cartPrice(), 20);
+            //percent = 20;
             break;
         case 3:
             tip = priceCalculation(cart.cartPrice(), 50);
+            //percent = 50;
             break;
         case 4:
             tip = priceCalculation(cart.cartPrice(), 100);
+            //percent = 100;
             break;
     }
-    cout << "You will have to pay: " ;
-    return tip;
+    cout << "You will have to pay: " << tip + cart.cartPrice() << endl;
 }
 
 
