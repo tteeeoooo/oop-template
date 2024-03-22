@@ -172,7 +172,7 @@ float order(Cart &cart, vector<Drink> coffeeMenu);
 
 void atAddressPayment(const Cart &cart);
 
-void giveATip(const Cart cart);
+float giveATip(const Cart cart);
 
 int textToFinish();
 
@@ -479,7 +479,7 @@ void todaysSales() {
     upperLine();
 }
 
-void giveATip(const Cart cart) {
+float giveATip(const Cart cart) {
     short int input;
     float tip = 0;
     cout << "How much would you like to tip your delivery person?" << endl;
@@ -505,7 +505,8 @@ void giveATip(const Cart cart) {
             tip = priceCalculation(cart.cartPrice(), 100);
             break;
     }
-    cout << "You will have to pay: " << tip + cart.cartPrice() << endl;
+    cout << "You will have to pay: " ;
+    return tip;
 }
 
 
