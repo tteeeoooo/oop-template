@@ -24,7 +24,7 @@ void upperLine();
 
 float priceCalculation(float oldPrice, float sale);
 
-int atAddressPayment(const Cart &cart);
+void atAddressPayment(const Cart &cart);
 
 void giveATip(const Cart &cart);
 
@@ -32,7 +32,7 @@ int textToFinish();
 
 float orderAndExit() ;
 
-int creditCardInfo(const Cart &cart);
+void creditCardInfo(const Cart &cart);
 
 void deliveryAddress(const Cart &cart);
 
@@ -519,7 +519,7 @@ void deliveryAddress(const Cart &cart) {
 }
 
 
-int creditCardInfo(const Cart &cart) {
+void creditCardInfo(const Cart &cart) {
     long int creditCard;
     short int input;
     cout << "Introduce your credit card information" << endl;
@@ -536,12 +536,10 @@ int creditCardInfo(const Cart &cart) {
     }
     else {
         orderAndExit();
-        return 0;
     }
-    //return 0;
 }
 
-int atAddressPayment(const Cart &cart) {
+void atAddressPayment(const Cart &cart) {
     short int input;
     cout << "Are you sure you want to pay at the delivery?" << endl;
     cout << "Press 1 for yes" << endl;
@@ -554,7 +552,6 @@ int atAddressPayment(const Cart &cart) {
     else {
         cout << "You switched to credit card payment!" << endl;
         creditCardInfo(cart);
-        return 0;
     }
     cout << "Would you like to give a tip to the delivery person?" << endl;
     cout << "Press 1 for yes! :)" << endl;
@@ -563,7 +560,6 @@ int atAddressPayment(const Cart &cart) {
     if (input == 1) {
         giveATip(cart);
         orderAndExit();
-        return 0;
     }
 }
 
