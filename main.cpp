@@ -214,9 +214,7 @@ public:
                     cout << "Press 0 to go to checkout" << endl;
                     cin >> input2;
                     if (input2 == 0) {
-                        input = 0;
                         return cart.cartPrice();
-                        //break;
                     }
                     else {
                         cart.order(cart, coffeeMenu);
@@ -238,7 +236,7 @@ public:
     }
 
 
-void readyToOrder(Cart &cart, vector<Drink> coffeeMenu) {
+void readyToOrder(Cart &cart, const vector<Drink> coffeeMenu) {
     Account user;
     short int input, input2;
     textToFinish();
@@ -265,7 +263,6 @@ void readyToOrder(Cart &cart, vector<Drink> coffeeMenu) {
             }
             else {
                 if (input2 == 1) {
-                    input = 0;
                     cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
                 }
                 else {
@@ -344,7 +341,7 @@ void readyToOrder(Cart &cart, vector<Drink> coffeeMenu) {
 int main() {
     Cart cart;
     Account user;
-    short int input, input2;
+    short int input;
     vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.9), Drink("Cold Brew", 3.9),
                                 Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.6),
                                 Drink("Vanilla Sweet Cream Cold Brew", 6.5), Drink("Vanilla Cremè", 5.5),
