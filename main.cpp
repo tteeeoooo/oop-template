@@ -365,94 +365,18 @@ int main() {
     cout << "Press 0 to exit the app :(" << endl;
     cin >> input;
     if (input == 1) {
-        while (input != 0) {
+        //while (input != 0) {
             cart.order(cart, coffeeMenu);
             cart.readyToOrder(cart, coffeeMenu);
-//            textToFinish();
-//            cin >> input;
-//
-//            if (input == 1) {
-//                deliveryAddress(cart);
-//                cout << endl << "Choose one of the following payment options: " << endl;
-//                cout << "1: Credit Card" << endl;
-//                cout << "2: Cash on delivery" << endl;
-//                cin >> input2;
-//                if (input2 == 1) {
-//                    creditCardInfo(cart);
-//
-//                    cout << endl << "Are your sure you want to place the order?" << endl;
-//                    cout << "Press 1 to confirm the order! :D" << endl;
-//                    cout << "Press 2 to switch to cash on delivery payment!" << endl;
-//                    cout << "Press 3 to go back to editing your cart" << endl;
-//                    cout << "Press 0 to exit the app! :(" << endl;
-//                    cin >> input2;
-//
-//                    if (input2 == 0) {
-//                        cout << "We are sorry that you are leaving!";
-//                        //input = 0;
-//                        return 0;
-//                    }
-//                    else {
-//                        if (input2 == 1) {
-//                            input = 0;
-//                            cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
-//                            return 0;
-//                        }
-//                        else {
-//                            if (input2 == 2) {
-//                                atAddressPayment(cart);
-//                            }
-//                            else {
-//                                if (input2 == 3) {
-//                                    cart.order(cart, coffeeMenu);
-//                                }
-//                                else {
-//                                    cout << "We are sorry that you are leaving!";
-//                                    return 0;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//
-//
-//                else {
-//                    if (input2 == 2) {
-//                        atAddressPayment(cart);
-//                    }
-//                    cout << "Press 1 to confirm the order!" << endl << "Press 0 to cancel and exit the app." << endl;
-//                    cin >> input2;
-//                    if (input2 == 0) {
-//                        cout << "We are sorry that you are leaving!";
-//                        return 0;
-//                    }
-//                    else {
-//                        coutFinishedOrder();
-//                        return 0;
-//                    }
-//                }
+//            if (input == 0) {
+//                return 0;
 //            }
-//            if (input == 2) {
-//                cart.order(cart, coffeeMenu);
-//            }
-//
-//            else {
-//                if (input == 0) {
-//                    cout << "We are sorry to see you leave!";
-//                    return 0;
-//                }
-//            }
+//            return 0;
 //        }
-//        orderAndExit();
-//        return 0;
-//
-//    }
-
-            if (input == 0) {
-                return 0;
-            }
-            return 0;
-        }
+    }
+    else {
+        cout << "We are sorry to see your leave. Hope to see you soon!";
+        return 0;
     }
 }
 
