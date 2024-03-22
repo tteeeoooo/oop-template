@@ -172,17 +172,17 @@ float order(Cart &cart, vector<Drink> coffeeMenu);
 
 void atAddressPayment(const Cart &cart);
 
-void giveATip(const Cart &cart);
+void giveATip(const Cart cart);
 
-void textToFinish();
+int textToFinish();
 
-void orderAndExit() ;
+float orderAndExit() ;
 
 void creditCardInfo(const Cart &cart);
 
 void deliveryAddress(const Cart &cart);
 
-void coutFinishedOrder();
+int coutFinishedOrder();
 
 void coutAbortedOrder();
 
@@ -346,7 +346,7 @@ float priceCalculation(float oldPrice, float sale) {
     return (oldPrice * sale) / 100;
 }
 
-void orderAndExit() {
+float orderAndExit() {
     short int input;
     cout <<endl << "Would you like to order your cart?" << endl;
     cout << "Press 1 to confirm!" << endl;
@@ -358,6 +358,7 @@ void orderAndExit() {
     else {
         coutAbortedOrder();
     }
+    return 0;
 }
 
 void menuText() {
@@ -374,11 +375,12 @@ void menuOptions(vector<Drink> coffeeMenu) {
     }
 }
 
-void textToFinish() {
+int textToFinish() {
     cout << endl << "Are you sure you don't want to edit your cart?" << endl;
     cout << "Press 1 to go introduce your delivery information!" << endl;
     cout << "Press 2 to go back to editing your cart!" << endl;
     cout << "Press 0 to exit :(" << endl;
+    return 0;
 }
 
 void deliveryAddress(const Cart &cart) {
@@ -461,8 +463,9 @@ void atAddressPayment (const Cart &cart) {
     }
 }
 
-void coutFinishedOrder() {
+int coutFinishedOrder() {
     cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
+    return 0;
 }
 
 void coutAbortedOrder() {
@@ -476,7 +479,7 @@ void todaysSales() {
     upperLine();
 }
 
-void giveATip(const Cart &cart) {
+void giveATip(const Cart cart) {
     short int input;
     float tip = 0;
     cout << "How much would you like to tip your delivery person?" << endl;
