@@ -236,8 +236,7 @@ public:
     }
 
 
-void readyToOrder(Cart &cart, const vector<Drink> coffeeMenu) {
-    Account user;
+void readyToOrder(Cart &cart, const vector<Drink> &coffeeMenu) {
     short int input, input2;
     textToFinish();
     cin >> input;
@@ -365,14 +364,8 @@ int main() {
     cout << "Press 0 to exit the app :(" << endl;
     cin >> input;
     if (input == 1) {
-        //while (input != 0) {
             cart.order(cart, coffeeMenu);
             cart.readyToOrder(cart, coffeeMenu);
-//            if (input == 0) {
-//                return 0;
-//            }
-//            return 0;
-//        }
     }
     else {
         cout << "We are sorry to see your leave. Hope to see you soon!";
