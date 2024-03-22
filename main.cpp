@@ -237,7 +237,7 @@ public:
 
 
 void readyToOrder(Cart &cart, const vector<Drink> &coffeeMenu) {
-    short int input, input2;
+    short int input;
     textToFinish();
     cin >> input;
 
@@ -246,6 +246,7 @@ void readyToOrder(Cart &cart, const vector<Drink> &coffeeMenu) {
         cout << endl << "Choose one of the following payment options: " << endl;
         cout << "1: Credit Card" << endl;
         cout << "2: Cash on delivery" << endl;
+        short int input2;
         cin >> input2;
         if (input2 == 1) {
             creditCardInfo(cart);
