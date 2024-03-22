@@ -51,7 +51,7 @@ public:
         return price;
     }
 
-    //~Drink(){}
+    ~Drink() = default;
 };
 
 double operator -(const Drink &bauturica, double procent) {
@@ -130,7 +130,7 @@ public:
         return coutt;
     }
 
-    ~Cart() {}
+    ~Cart() = default;
 };
 
 class Account {
@@ -152,10 +152,7 @@ public:
         return COUT;
     }
 
-    ~Account() {
-        userName = "";
-        password = ""; 
-    }
+    ~Account() = default;
 };
 
 void menuText();
