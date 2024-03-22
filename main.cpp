@@ -154,7 +154,7 @@ public:
 
     ~Account() {
         userName = "";
-        password = "";
+        password = ""; 
     }
 };
 
