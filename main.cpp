@@ -36,9 +36,9 @@ int creditCardInfo(const Cart &cart);
 
 void deliveryAddress(const Cart &cart);
 
-int coutFinishedOrder();
+void coutFinishedOrder();
 
-int coutAbortedOrder();
+void coutAbortedOrder();
 
 void todaysSales();
 
@@ -567,14 +567,12 @@ int atAddressPayment(const Cart &cart) {
     }
 }
 
-int coutFinishedOrder() {
+void coutFinishedOrder() {
     cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
-    return 0;
 }
 
-int coutAbortedOrder() {
+void coutAbortedOrder() {
     cout << "We are sorry that you are leaving! See you next time!";
-    return 0;
 }
 
 void todaysSales() {
