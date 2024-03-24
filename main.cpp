@@ -205,7 +205,7 @@ public:
                         else {
                             appliedSale = false;
                         }
-                        cout<<"Cart Price with 25% off: " << priceCalculation(cart.cartPrice(), 25) << endl;
+                        cout<<"Cart Price with 25% off: " << cart.cartPrice() - priceCalculation(cart.cartPrice(), 25) << endl;
                     }
                 }
                 else {
