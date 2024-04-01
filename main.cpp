@@ -3,9 +3,9 @@
 #include <vector>
 #include <fstream>
 #include <exception>
-using namespace std; 
+using namespace std;
 
- 
+
 class Cart;
 class Drink;
 class Account;
@@ -213,14 +213,6 @@ public:
 
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
 
-
-//    const string getSecretCode() {
-//        return secretCode;
-//    }
-//
-//    const string getEmail() {
-//        return email;
-//    }
 
     void create() {
         //short int input;
@@ -494,7 +486,7 @@ public:
     }
 
 
-    static void beginningCout(Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
+    static int beginningCout(Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
         Account *me = new EditAccount();
         me = &user;
@@ -507,15 +499,18 @@ public:
         cin >> input;
         if (input == 1) {
             Cart::everything(cart, coffeeMenu);
+            return 0;
         }
         else {
             if (input == 2) {
                 EditAccount::modificaDatele(*me, "fisier.txt");
                 cout << "Your password was changed successfully!" << endl;
                 beginningCout(user, cart, coffeeMenu);
+                return 0;
             }
             else {
                 cout << "We are sorry to see your leave. Hope to see you soon!";
+                return 11;
             }
         }
     }
@@ -612,6 +607,10 @@ int main() {
         cout<<"Well hello "<< user -> getName() <<"! We are glad to have you back! :)"<<endl;
         cout<<"What would you like to do today? Choose one of the following options!"<<endl;
         Cart::beginningCout(*user, cart, coffeeMenu);
+        if (Cart::beginningCout(*user, cart, coffeeMenu) == 11) {
+            return 0;
+        }
+
     }
     if (input == 2) {
             CreateAccount user;
@@ -623,7 +622,7 @@ int main() {
         do {
             cout << "Your input is invalid. Please press again!";
             cin >> input;
-            if (input == 1 || input == 2) {
+            if (input == 1 || input == 2 || input == 0) {
                 break;
             }
         } while (true);
@@ -640,6 +639,10 @@ int main() {
             user.create();
             cout << "What would you like to do today? Choose one of the following options!" << endl;
             Cart::beginningCout(user, cart, coffeeMenu);
+        }
+        if (input == 0) {
+            cout << "We are sorry to see you leave!" << endl;
+            return 0;
         }
     }
 //    if (input == 1) {
