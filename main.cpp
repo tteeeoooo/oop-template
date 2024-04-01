@@ -171,7 +171,7 @@ public:
 
 
 
-    EditAccount(const Account &cont, const string &parola): Account(cont), newPassword(parola) {}
+    EditAccount(const Account &cont, string parola): Account(cont), newPassword(parola) {}
 
     const string getNewPassword() {
         return newPassword;
@@ -617,36 +617,34 @@ int main() {
         cout<<"What would you like to do today? Choose one of the following options!"<<endl;
         Cart::beginningCout(*user, cart, coffeeMenu);
     }
-    else {
-        if (input == 2) {
+    if (input == 2) {
             CreateAccount user;
             user.create();
             cout<<"What would you like to do today? Choose one of the following options!"<<endl;
             Cart::beginningCout(user, cart, coffeeMenu);
+    }
+    else {
+        do {
+            cout << "Your input is invalid. Please press again!";
+            cin >> input;
+            if (input == 1 || input == 2) {
+                break;
+            }
+        } while (true);
+        if (input == 1) {
+            Account *user = new CreateAccount();
+            cout << "Connect to your account: " << endl;
+            user->userRead();
+            cout << "Well hello " << user->getName() << "! We are glad to have you back! :)" << endl;
+            cout << "What would you like to do today? Choose one of the following options!" << endl;
+            Cart::beginningCout(*user, cart, coffeeMenu);
         }
-        else
-            do {
-                cout << "Your input is invalid. Please press again!";
-                cin >> input;
-                if (input == 1 || input == 2) {
-                    break;
-                }
-            }
-            while (true);
-            if (input == 1) {
-                Account* user = new CreateAccount();
-                cout << "Connect to your account: " << endl;
-                user -> userRead();
-                cout<<"Well hello "<< user -> getName() <<"! We are glad to have you back! :)"<<endl;
-                cout<<"What would you like to do today? Choose one of the following options!"<<endl;
-                Cart::beginningCout(*user, cart, coffeeMenu);
-            }
-            if (input == 2) {
-                CreateAccount user;
-                user.create();
-                cout<<"What would you like to do today? Choose one of the following options!"<<endl;
-                Cart::beginningCout(user, cart, coffeeMenu);
-            }
+        if (input == 2) {
+            CreateAccount user;
+            user.create();
+            cout << "What would you like to do today? Choose one of the following options!" << endl;
+            Cart::beginningCout(user, cart, coffeeMenu);
+        }
     }
 //    if (input == 1) {
 //        Cart::everything(cart, coffeeMenu);     //practic face toata comanda
