@@ -169,15 +169,11 @@ public:
 //        return cinn;
 //    }
 
-
-
-    EditAccount(const string &nume, const string &parola, const string &parolaNoua): Account(nume, parola), newPassword(parolaNoua) {}
-
     const string getNewPassword() {
         return newPassword;
     };
 
-    void modificaDatele(Account user, const string &fileName) {
+    static void modificaDatele(Account user, const string &fileName) {
         string nume, parola, parolaNoua;
         nume = user.getName();
         parola = user.getPassword();
