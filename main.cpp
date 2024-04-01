@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <exception>
 using namespace std;
 
 
@@ -101,7 +102,7 @@ protected:
     string password;
 
 public:
-    explicit Account(string nume = "", string parola = ""): userName(nume), password(parola) {}
+    explicit Account(const string &nume = "", const string &parola = ""): userName(nume), password(parola) {}
 
     const string getName() {
         return userName;
@@ -160,13 +161,13 @@ class EditAccount: public Account{
 private:
     string newPassword;
 public:
-    explicit EditAccount(const string &name = "", const string &oldPassword = "", const string newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
+    explicit EditAccount(const string &name = "", const string &oldPassword = "", const string &newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
 
     friend istream& operator>>(std::istream& is, EditAccount& pass) {
         return is >> pass.newPassword;
     }
 
-    EditAccount(const string &parola): newPassword(parola) {}
+    EditAccount(const Account &cont, const string &parola): Account(cont), newPassword(parola) {}
 
     const string getNewPassword() {
         return newPassword;
@@ -211,14 +212,15 @@ public:
     //CreateAccount(const string nume, const string parola, const string cod, const string mail): Account(nume, parola), secretCode(cod), email(mail) {}
 
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
+    
 
-    const string getSecretCode() {
-        return secretCode;
-    }
-
-    const string getEmail() {
-        return email;
-    }
+//    const string getSecretCode() {
+//        return secretCode;
+//    }
+//
+//    const string getEmail() {
+//        return email;
+//    }
 
     void create() {
         //short int input;
@@ -367,7 +369,7 @@ public:
     }
 
 
-    float order(Cart &cart, const vector<Drink> coffeeMenu) {
+    float order(Cart &cart, const vector<Drink> &coffeeMenu) {
         short int input, input2, inputDelete;
         bool appliedSale = false;
         menuText();
@@ -492,7 +494,7 @@ public:
     }
 
 
-    static void beginningCout(Account &user, Cart cart, const vector<Drink> coffeeMenu) {
+    static void beginningCout(Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
         Account *me = new EditAccount();
         me = &user;
@@ -573,7 +575,7 @@ public:
     }
 
 
-    static void everything(Cart cart, const vector<Drink> coffeeMenu) {
+    static void everything(Cart cart, const vector<Drink> &coffeeMenu) {
         cart.order(cart, coffeeMenu);
         cart.readyToOrder(cart, coffeeMenu);
     }   //fac cosul gen
