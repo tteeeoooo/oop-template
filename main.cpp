@@ -177,7 +177,7 @@ public:
         return newPassword;
     };
 
-    static Account modificaDatele(Account user, const string fileName) {
+    static Account modificaDatele(Account user, const string &fileName) {
         string nume, parola, parolaNoua;
         nume = user.getName();
         parola = user.getPassword();
