@@ -139,13 +139,13 @@ public:
     }       // se scriu numele si parola in fisier
 
 
-    Account& operator=(const Account& account) {
-        if (this != &account) { // Verificare auto-atribuire
-            userName = account.userName;
-            password = account.password;
-        }
-        return *this;
-    }
+//    Account& operator=(const Account& account) {
+//        if (this != &account) { // Verificare auto-atribuire
+//            userName = account.userName;
+//            password = account.password;
+//        }
+//        return *this;
+//    }
 
 
     friend ostream& operator<<(ostream& COUT, const Account& acc) {
@@ -171,7 +171,7 @@ public:
 
 
 
-    EditAccount(const Account &cont, string parola): Account(cont), newPassword(parola) {}
+    EditAccount(const string &nume, const string &parola, const string &parolaNoua): Account(nume, parola), newPassword(parolaNoua) {}
 
     const string getNewPassword() {
         return newPassword;
