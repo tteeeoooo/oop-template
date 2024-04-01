@@ -163,9 +163,13 @@ private:
 public:
     explicit EditAccount(const string &name = "", const string &oldPassword = "", const string &newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
 
-    friend istream& operator>>(std::istream& is, EditAccount& pass) {
-        return is >> pass.newPassword;
-    }
+
+//    friend istream& operator>>(istream &cinn, Drink &myDrink) {
+//        cinn >> myDrink.drinkChoice >>myDrink.price;
+//        return cinn;
+//    }
+
+
 
     EditAccount(const Account &cont, const string &parola): Account(cont), newPassword(parola) {}
 
@@ -212,7 +216,7 @@ public:
     //CreateAccount(const string nume, const string parola, const string cod, const string mail): Account(nume, parola), secretCode(cod), email(mail) {}
 
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
-    
+
 
 //    const string getSecretCode() {
 //        return secretCode;
