@@ -496,7 +496,7 @@ public:
     }
 
 
-    static int beginningCout(CreateAccount user, Cart cart, const vector<Drink> &coffeeMenu) {
+    static int beginningCout(const CreateAccount &user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
         cout << "1: Menu" << endl;
         cout << "2: Change your password!" << endl;
@@ -647,9 +647,12 @@ int main() {
             CreateAccount *newUser = static_cast<CreateAccount*>(first);
             if (newUser != nullptr) {
                 newUser -> create();
+                cout << "What would you like to do today? Choose one of the following options!" << endl;
+                Cart::beginningCout(*newUser, cart, coffeeMenu);
             }
-            cout << "What would you like to do today? Choose one of the following options!" << endl;
-            Cart::beginningCout(*newUser, cart, coffeeMenu);
+            else {
+                cout << "Nu merge";
+            }
         }
         if (input == 0) {
             cout << "We are sorry to see you leave!" << endl;
