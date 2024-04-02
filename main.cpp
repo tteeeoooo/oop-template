@@ -140,10 +140,8 @@ public:
 
 
     Account& operator=(const Account& cont) {
-        if (this != &cont) {
-            userName = cont.userName;
-            password = cont.password;
-        }
+        userName = cont.userName;
+        password = cont.password;
         return *this;
     }
 
