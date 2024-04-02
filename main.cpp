@@ -158,19 +158,8 @@ public:
         return cinn;
     }
 
-    /*
-     are:
-     -operator=
-     -cc
-     -apelarea constructorului din clasa de bază din constructori din derivate
-     - op <</>>
-     mai trebuie: destructor virtual
-     */
-    
-    //~Account() = default;
-
     virtual ~Account() {
-        std::cout << "Merge destructorul pentru account! :) \n";
+        //std::cout << "Merge destructorul pentru account! :) \n";
     }
 };
 
@@ -188,8 +177,6 @@ public:
 
     static void modificaDatele(const string &fileName) {
         string nume, parola, parolaNoua;
-//        nume = user.getName();
-//        parola = user.getPassword();
         ofstream f(fileName);
         if (f.is_open()) {
             cout << "Introduce the new password: " << endl;
@@ -222,21 +209,12 @@ public:
         cinn >> newPassword;
         return cinn;
     }
-
-    //~EditAccount() = default;
     
-    virtual ~EditAccount() { 
-        cout << "merge destructorul si pentru clasa EditAccount!" << endl;
-    }
 
-    /*
-     are:
-     -operator=
-     -cc
-     -apelarea constructorului din clasa de bază din constructori din derivate
-     - op <</>>
-     mai trebuie: destructor virtual
-     */
+    virtual ~EditAccount() {
+        //cout << "merge destructorul si pentru clasa EditAccount!" << endl;
+    }
+    
 };
 
 class CreateAccount: public Account {
@@ -306,7 +284,7 @@ public:
     //~CreateAccount() = default;
 
     virtual ~CreateAccount() {
-        cout << "merge destructorul si pentru clasa CreateAccount!" << endl;
+        //cout << "merge destructorul si pentru clasa CreateAccount!" << endl;
     }
 
 };
@@ -328,9 +306,6 @@ public:
 
 
     explicit Cart(float pret): myDrinks({}), price(pret) {}
-
-
-    //pana aici au fost constructorii supraincarcati
 
 
     Cart(const Cart& cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
@@ -776,5 +751,3 @@ void upperLine() {
     }
     cout<<endl;
 }
-
-
