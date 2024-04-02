@@ -12,7 +12,7 @@ class Account;
 class EditAccount;
 class CreateAccount;
 
-
+  
 void menuText();
 
 float priceCalculation(const float oldPrice, const float sale);
