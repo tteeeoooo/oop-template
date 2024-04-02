@@ -140,7 +140,7 @@ public:
             }
         }
     }       // se scriu numele si parola in fisier
-    
+
 
     Account& operator=(const Account &acesta) {
         if (this != &acesta) {
@@ -176,10 +176,10 @@ public:
         return newPassword;
     };
 
-    static void modificaDatele(Account user, const string &fileName) {
+    static void modificaDatele(const Account &user, const string &fileName) {
         string nume, parola, parolaNoua;
-        nume = user.getName();
-        parola = user.getPassword();
+//        nume = user.getName();
+//        parola = user.getPassword();
         ofstream f(fileName);
         if (f.is_open()) {
             cout << "Introduce the new password: " << endl;
