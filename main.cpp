@@ -496,7 +496,7 @@ public:
     }
 
 
-    static int beginningCout(const CreateAccount &user, Cart cart, const vector<Drink> &coffeeMenu) {
+    static int beginningCout(const Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
         cout << "1: Menu" << endl;
         cout << "2: Change your password!" << endl;
