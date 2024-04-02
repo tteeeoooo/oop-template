@@ -109,11 +109,11 @@ public:
 
     Account(const Account& cont): userName(cont.userName), password(cont.password) {}
 
-    const string getName() {
+    string getName() const {
         return userName;
     }
 
-    const string getPassword() {
+    string getPassword() const {
         return password;
     }
 
@@ -172,14 +172,14 @@ private:
 public:
     explicit EditAccount(const string &name = "", const string &oldPassword = "", const string &newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
 
-    EditAccount(Account editare): Account(editare.getName(), editare.getPassword()),  newPassword(editare.getNewPassword() {}
+    EditAccount(const EditAccount &editare): Account(editare.getName(), editare.getPassword()), newPassword(editare.getNewPassword()) {}
 
 //    friend istream& operator>>(istream &cinn, Drink &myDrink) {
 //        cinn >> myDrink.drinkChoice >>myDrink.price;
 //        return cinn;
 //    }
 
-    const string getNewPassword() {
+    string getNewPassword() const{
         return newPassword;
     };
 
