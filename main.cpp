@@ -223,7 +223,18 @@ public:
 
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
 
-
+    CreateAccount(const CreateAccount &create): Account(create.getName(), create.getPassword()), secretCode(create.getSecretCode()), email(create.getEmail()) {}
+    
+    
+    string getSecretCode() const {
+        return secretCode;
+    }
+    
+    string getEmail() const {
+        return email;
+    }
+    
+    
     void create() {
         //short int input;
         cout << "Username: ";
