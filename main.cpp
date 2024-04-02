@@ -50,7 +50,7 @@ public:
         }
         return *this;
     }
-    
+
 
     friend Drink operator+(const Drink &bauturica, const Drink &menu) {
         Drink calcul;
@@ -158,8 +158,20 @@ public:
         return cinn;
     }
 
+    /*
+     are:
+     -operator=
+     -cc
+     -apelarea constructorului din clasa de bază din constructori din derivate
+     - op <</>>
+     mai trebuie: destructor virtual
+     */
+    
+    //~Account() = default;
 
-    ~Account() = default;
+    virtual ~Account() {
+        std::cout << "Merge destructorul pentru account! :) \n";
+    }
 };
 
 class EditAccount: public Account{
@@ -211,7 +223,20 @@ public:
         return cinn;
     }
 
-    ~EditAccount() = default;
+    //~EditAccount() = default;
+    
+    virtual ~EditAccount() { 
+        cout << "merge destructorul si pentru clasa EditAccount!" << endl;
+    }
+
+    /*
+     are:
+     -operator=
+     -cc
+     -apelarea constructorului din clasa de bază din constructori din derivate
+     - op <</>>
+     mai trebuie: destructor virtual
+     */
 };
 
 class CreateAccount: public Account {
@@ -278,15 +303,12 @@ public:
         return cinn;
     }
 
-    ~CreateAccount() = default;
+    //~CreateAccount() = default;
 
-    /*
-     are:
-     -operator=
-     -cc
-     -apelarea constructorului din clasa de bază din constructori din derivate
-     mai trebuie: destructor virtual
-     */
+    virtual ~CreateAccount() {
+        cout << "merge destructorul si pentru clasa CreateAccount!" << endl;
+    }
+
 };
 
 
@@ -754,3 +776,5 @@ void upperLine() {
     }
     cout<<endl;
 }
+
+
