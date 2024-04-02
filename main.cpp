@@ -194,7 +194,7 @@ public:
             cout << "Your changes could not be saved. Please come back later";
         }
     }
-    
+
 
     EditAccount& operator=(const EditAccount& account) {
         if (this != &account) { // Verificare auto-atribuire
@@ -205,12 +205,16 @@ public:
         return *this;
     }
 
-    void read(std::istream& reading) {
-        reading >> newPassword;
-    }
-
-    void print(std::ostream& writing) const {
-        writing << "Password: " << newPassword << std::endl;
+//    void read(std::istream& reading) {
+//        reading >> newPassword;
+//    }
+//
+//    void print(std::ostream& writing) const {
+//        writing << "Password: " << newPassword << std::endl;
+//    }
+    std::ostream& operator<<(std::ostream& coutt) const {
+        coutt << "New password: " << newPassword << endl;
+        return coutt;
     }
 
     ~EditAccount() = default;
