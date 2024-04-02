@@ -111,9 +111,9 @@ public:
         return userName;
     }
 
-    const string getPassword() {
-        return password;
-    }
+//    const string getPassword() {
+//        return password;
+//    }
 
     void userRead() {
         short int input;
@@ -176,7 +176,7 @@ public:
         return newPassword;
     };
 
-    static void modificaDatele(const Account &user, const string &fileName) {
+    static void modificaDatele(const string &fileName) {
         string nume, parola, parolaNoua;
 //        nume = user.getName();
 //        parola = user.getPassword();
@@ -513,7 +513,7 @@ public:
         }
         else {
             if (input == 2) {
-                EditAccount::modificaDatele(*me, "fisier.txt");
+                EditAccount::modificaDatele("fisier.txt");
                 cout << "Your password was changed successfully!" << endl;
                 beginningCout(user, cart, coffeeMenu);
                 return 0;
