@@ -496,10 +496,8 @@ public:
     }
 
 
-    static int beginningCout(Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
+    static int beginningCout(CreateAccount user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
-//        Account *me = new EditAccount();
-//        me = &user;
         cout << "1: Menu" << endl;
         cout << "2: Change your password!" << endl;
         cout << "0: Exit" << endl << endl;
@@ -637,7 +635,7 @@ int main() {
             }
         } while (true);
         if (input == 1) {
-            Account *user = new CreateAccount();
+            CreateAccount *user = new CreateAccount();
             cout << "Connect to your account: " << endl;
             user->userRead();
             cout << "Well hello " << user->getName() << "! We are glad to have you back! :)" << endl;
@@ -645,10 +643,13 @@ int main() {
             Cart::beginningCout(*user, cart, coffeeMenu);
         }
         if (input == 2) {
-            CreateAccount user;
-            user.create();
+            Account* first = new CreateAccount();
+            CreateAccount *newUser = static_cast<CreateAccount*>(first);
+            if (newUser != nullptr) {
+                newUser -> create();
+            }
             cout << "What would you like to do today? Choose one of the following options!" << endl;
-            Cart::beginningCout(user, cart, coffeeMenu);
+            Cart::beginningCout(*newUser, cart, coffeeMenu);
         }
         if (input == 0) {
             cout << "We are sorry to see you leave!" << endl;
