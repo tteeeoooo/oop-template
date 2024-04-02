@@ -174,11 +174,6 @@ public:
 
     EditAccount(const EditAccount &editare): Account(editare.getName(), editare.getPassword()), newPassword(editare.getNewPassword()) {}
 
-//    friend istream& operator>>(istream &cinn, Drink &myDrink) {
-//        cinn >> myDrink.drinkChoice >>myDrink.price;
-//        return cinn;
-//    }
-
     string getNewPassword() const{
         return newPassword;
     };
@@ -199,6 +194,7 @@ public:
             cout << "Your changes could not be saved. Please come back later";
         }
     }
+    
 
     EditAccount& operator=(const EditAccount& account) {
         if (this != &account) { // Verificare auto-atribuire
@@ -209,7 +205,13 @@ public:
         return *this;
     }
 
+    void read(std::istream& reading) {
+        reading >> newPassword;
+    }
 
+    void print(std::ostream& writing) const {
+        writing << "Password: " << newPassword << std::endl;
+    }
 
     ~EditAccount() = default;
 };
@@ -224,17 +226,16 @@ public:
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
 
     CreateAccount(const CreateAccount &create): Account(create.getName(), create.getPassword()), secretCode(create.getSecretCode()), email(create.getEmail()) {}
-    
-    
+
     string getSecretCode() const {
         return secretCode;
     }
-    
+
     string getEmail() const {
         return email;
     }
-    
-    
+
+
     void create() {
         //short int input;
         cout << "Username: ";
@@ -260,16 +261,6 @@ public:
         }
     }
 
-//    CreateAccount& operator=(const CreateAccount& myAccount) {
-//        if (this != &myAccount) {
-//            this -> userName = account.userName;
-//            this -> password = account.password;
-//            this -> Account = myAccount.Account;
-//            this -> newPassword = account.newPassword;
-//        }
-//        return *this;
-//    }
-
     CreateAccount& operator=(const CreateAccount& acesta) {
         Account::operator=(acesta);
         this -> secretCode = acesta.secretCode;
@@ -277,8 +268,15 @@ public:
         return *this;
     }
 
-
     ~CreateAccount() = default;
+
+    /*
+     are:
+     -operator=
+     -cc
+     -apelarea constructorului din clasa de bază din constructori din derivate
+     mai trebuie: destructor virtual
+     */
 };
 
 
