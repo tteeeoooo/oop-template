@@ -498,8 +498,8 @@ public:
 
     static int beginningCout(Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
         short int input;
-        Account *me = new EditAccount();
-        me = &user;
+//        Account *me = new EditAccount();
+//        me = &user;
         cout << "1: Menu" << endl;
         cout << "2: Change your password!" << endl;
         cout << "0: Exit" << endl << endl;
