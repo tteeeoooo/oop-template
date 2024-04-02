@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <exception>
 using namespace std;
 
 
@@ -110,6 +109,7 @@ public:
         return password;
     }
 
+    virtual void gdpr() = 0;
 
     void userRead() {
         short int input;
@@ -175,7 +175,7 @@ public:
         return newPassword;
     };
 
-    static void modificaDatele(const string &fileName) {
+    int modificaDatele(string fileName) {
         string nume, parola, parolaNoua;
         ofstream f(fileName);
         if (f.is_open()) {
@@ -187,6 +187,23 @@ public:
         }
         else {
             cout << "Your changes could not be saved. Please come back later";
+        }
+        EditAccount::gdpr();
+        return 0;
+    }
+
+    void gdpr() override {
+        short int input;
+        cout << endl << "Right now, your data is not used by us in the scope of imporiving the app (according to the UE GDPR), which is what you selected when you created this account. Would you like to change your optin?" << endl;
+        cout << "Press 1 if you agree with your data to be used for the user-experience improvement of this app" << endl;
+        cout << "Press 2 if you do not agree." << endl;
+        cout << "Note: your data will not be shared across other platforms and your experience won't have to suffer from your choice." << endl;
+        cin >> input;
+        if (input == 1) {
+            cout << "Thank you for your help. We will use your data to improve your experience on this app." << endl;
+        }
+        else {
+            cout << "You chose not to have your data shared ." << endl;
         }
     }
 
@@ -209,12 +226,12 @@ public:
         cinn >> newPassword;
         return cinn;
     }
-    
+
 
     virtual ~EditAccount() {
         //cout << "merge destructorul si pentru clasa EditAccount!" << endl;
     }
-    
+
 };
 
 class CreateAccount: public Account {
@@ -235,6 +252,20 @@ public:
         return email;
     }
 
+    void gdpr() override {
+        short int input;
+        cout << "By default, the GDPR imposes that your personal data (username, password, history etc.) can under no circumstances be used in any scope other than your personal usage of the app" << endl;
+        cout << "Press 1 if you agree" << endl;
+        cout << "Press 2 if you agree with your data to be used for the user-experience improvement of this app" << endl;
+        cout << "Note: your data will not be shared across other platforms." << endl;
+        cin >> input;
+        if (input == 1) {
+            cout << "You chose not to have your data shared ." << endl;
+        }
+        else {
+            cout << "Thank you for your help. We will use your data to improve your experience on this app." << endl;
+        }
+    }
 
     void create() {
         //short int input;
@@ -249,7 +280,8 @@ public:
         cout << "Introduce your email: ";
         cin >> email;
         save("tastatura.txt");
-    }
+        CreateAccount::gdpr();
+    }   //dupa create sa apelez gdpr!
 
     void save(const string &fileName) override{
         ofstream f(fileName);
@@ -530,18 +562,28 @@ public:
         cin >> input;
         if (input == 1) {
             Cart::everything(cart, coffeeMenu);
-            return 0;
+            try {
+                return 0;
+            }
+            catch (int x) {
+                return 11;
+            }
         }
         else {
             if (input == 2) {
-                EditAccount::modificaDatele("fisier.txt");
+                EditAccount cont;
+                cont.modificaDatele("fisier.txt");
                 cout << "Your password was changed successfully!" << endl;
                 beginningCout(user, cart, coffeeMenu);
-                return 0;
+                try {
+                    return 0;
+                }
+                catch (int x) {
+                    return 11;
+                }
             }
             else {
                 cout << "We are sorry to see your leave. Hope to see you soon!";
-                return 11;
             }
         }
     }
@@ -675,6 +717,7 @@ int main() {
             }
             else {
                 cout << "Nu merge";
+                return 0;
             }
         }
         if (input == 0) {
@@ -682,9 +725,6 @@ int main() {
             return 0;
         }
     }
-//    if (input == 1) {
-//        Cart::everything(cart, coffeeMenu);     //practic face toata comanda
-//    }
     return 0;
 }
 
@@ -751,3 +791,5 @@ void upperLine() {
     }
     cout<<endl;
 }
+
+
