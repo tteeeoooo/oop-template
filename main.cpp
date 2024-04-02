@@ -142,13 +142,18 @@ public:
     }       // se scriu numele si parola in fisier
 
 
-    const Account& operator=(const Account &cont) {
+    Account& operator=(Account &cont) {
         if (this != &cont){
             this->userName = cont.userName;
             this->password = cont.password;
         }
         return *this;
     }
+
+//    friend void assign(Account& first, const Account& second) {
+//        first.userName = second.userName;
+//        first.password = second.password;
+//    }
 
 
 
