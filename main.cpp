@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <exception>
 using namespace std;
 
 
@@ -575,15 +576,11 @@ public:
                 cont.modificaDatele("fisier.txt");
                 cout << "Your password was changed successfully!" << endl;
                 beginningCout(user, cart, coffeeMenu);
-                try {
-                    return 0;
-                }
-                catch (int x) {
-                    return 11;
-                }
+                return 0;
             }
             else {
                 cout << "We are sorry to see your leave. Hope to see you soon!";
+                return 11;
             }
         }
     }
