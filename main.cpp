@@ -55,6 +55,9 @@ public:
         }
         return *this;
     }
+    
+    
+    
 
     friend Drink operator+(const Drink &bauturica, const Drink &menu) {
         Drink calcul;
@@ -139,12 +142,15 @@ public:
     }       // se scriu numele si parola in fisier
 
 
-    Account& operator=(const Account& cont) {
-        userName = cont.userName;
-        password = cont.password;
+    Account& operator=(const Account &cont) {
+        if (this != &cont){
+            this -> userName = cont.userName;
+            this ->password = cont.password;
+        }
         return *this;
     }
-
+    
+    
 
     friend ostream& operator<<(ostream& COUT, const Account& acc) {
         COUT<< acc.userName;
