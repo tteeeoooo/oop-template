@@ -38,13 +38,8 @@ private:
     string drinkChoice;       //tipul bauturii
     double price;              //pretul bauturii
 public:
-    //explicit Drink(string drinkName = "", float priceTag = 0) {}
 
     explicit Drink(const string &drinkName = "", double priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
-
-    //explicit Drink(const string &drinkName): drinkChoice(drinkName), price(0) {}
-
-    //construcotri de initializare + supraincarcare
 
     Drink(const Drink &bauturica): drinkChoice(bauturica.drinkChoice), price(bauturica.price) {}
 
@@ -55,9 +50,7 @@ public:
         }
         return *this;
     }
-
-
-
+    
 
     friend Drink operator+(const Drink &bauturica, const Drink &menu) {
         Drink calcul;
@@ -117,9 +110,6 @@ public:
         return password;
     }
 
-//    const string getPassword() {
-//        return password;
-//    }
 
     void userRead() {
         short int input;
@@ -161,6 +151,11 @@ public:
         coutt << "Username: " << userName << endl;
         cout << "Password: " << password << endl;
         return coutt;
+    }
+
+    std::istream& operator>>(std::istream& cinn) {
+        cinn >> userName >> password;
+        return cinn;
     }
 
 
@@ -209,6 +204,11 @@ public:
     std::ostream& operator<<(std::ostream& coutt) const {
         coutt << "New password: " << newPassword << endl;
         return coutt;
+    }
+
+    std::istream& operator>>(std::istream& cinn) {
+        cinn >> newPassword;
+        return cinn;
     }
 
     ~EditAccount() = default;
@@ -754,5 +754,3 @@ void upperLine() {
     }
     cout<<endl;
 }
-
-
