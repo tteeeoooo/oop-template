@@ -155,11 +155,12 @@ public:
         }
         return *this;
     }
+    
 
-
-    friend ostream& operator<<(ostream& COUT, const Account& acc) {
-        COUT<< acc.userName;
-        return COUT;
+    std::ostream& operator<<(std::ostream& coutt) const {
+        coutt << "Username: " << userName << endl;
+        cout << "Password: " << password << endl;
+        return coutt;
     }
 
 
@@ -204,14 +205,7 @@ public:
         }
         return *this;
     }
-
-//    void read(std::istream& reading) {
-//        reading >> newPassword;
-//    }
-//
-//    void print(std::ostream& writing) const {
-//        writing << "Password: " << newPassword << std::endl;
-//    }
+    
     std::ostream& operator<<(std::ostream& coutt) const {
         coutt << "New password: " << newPassword << endl;
         return coutt;
@@ -225,7 +219,6 @@ private:
     string secretCode;
     string email;
 public:
-    //CreateAccount(const string nume, const string parola, const string cod, const string mail): Account(nume, parola), secretCode(cod), email(mail) {}
 
     CreateAccount(): Account("", ""), secretCode(""), email("") {}
 
@@ -270,6 +263,14 @@ public:
         this -> secretCode = acesta.secretCode;
         this -> email = acesta.email;
         return *this;
+    }
+
+    std::ostream& operator<<(std::ostream& coutt) const {
+        coutt << "Username: " << userName << endl;
+        coutt << "Password: " << password << endl;
+        cout << "Secret code: " << secretCode << endl;
+        coutt << "Email: " << email << endl;
+        return coutt;
     }
 
     ~CreateAccount() = default;
