@@ -12,7 +12,7 @@ class Account;
 class EditAccount;
 class CreateAccount;
 
-  
+
 void menuText();
 
 float priceCalculation(const float oldPrice, const float sale);
@@ -156,7 +156,6 @@ public:
     }
 
 
-
     friend ostream& operator<<(ostream& COUT, const Account& acc) {
         COUT<< acc.userName;
         return COUT;
@@ -246,6 +245,23 @@ public:
                 f.close();
             }
         }
+    }
+
+//    CreateAccount& operator=(const CreateAccount& myAccount) {
+//        if (this != &myAccount) {
+//            this -> userName = account.userName;
+//            this -> password = account.password;
+//            this -> Account = myAccount.Account;
+//            this -> newPassword = account.newPassword;
+//        }
+//        return *this;
+//    }
+
+    CreateAccount& operator=(const CreateAccount& acesta) {
+        Account::operator=(acesta);
+        this -> secretCode = acesta.secretCode;
+        this -> email = acesta.email;
+        return *this;
     }
 
 
