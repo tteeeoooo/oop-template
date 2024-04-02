@@ -107,8 +107,14 @@ protected:
 public:
     explicit Account(const string &nume = "", const string &parola = ""): userName(nume), password(parola) {}
 
+    Account(const Account& cont): userName(cont.userName), password(cont.password) {}
+
     const string getName() {
         return userName;
+    }
+
+    const string getPassword() {
+        return password;
     }
 
 //    const string getPassword() {
@@ -166,6 +172,7 @@ private:
 public:
     explicit EditAccount(const string &name = "", const string &oldPassword = "", const string &newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
 
+    EditAccount(Account editare): Account(editare.getName(), editare.getPassword()),  newPassword(editare.getNewPassword() {}
 
 //    friend istream& operator>>(istream &cinn, Drink &myDrink) {
 //        cinn >> myDrink.drinkChoice >>myDrink.price;
@@ -496,7 +503,7 @@ public:
     }
 
 
-    static int beginningCout(const Account &user, Cart cart, const vector<Drink> &coffeeMenu) {
+    static int beginningCout(const Account &user, Cart cart, const vector<Drink> &coffeeMenu) { //sau createaccount in loc de account &user
         short int input;
         cout << "1: Menu" << endl;
         cout << "2: Change your password!" << endl;
