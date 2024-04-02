@@ -155,7 +155,7 @@ public:
         }
         return *this;
     }
-    
+
 
     std::ostream& operator<<(std::ostream& coutt) const {
         coutt << "Username: " << userName << endl;
@@ -205,7 +205,7 @@ public:
         }
         return *this;
     }
-    
+
     std::ostream& operator<<(std::ostream& coutt) const {
         coutt << "New password: " << newPassword << endl;
         return coutt;
@@ -271,6 +271,11 @@ public:
         cout << "Secret code: " << secretCode << endl;
         coutt << "Email: " << email << endl;
         return coutt;
+    }
+
+    std::istream& operator>>(std::istream& cinn) {
+        cinn >> userName >> password >> secretCode >> email;
+        return cinn;
     }
 
     ~CreateAccount() = default;
