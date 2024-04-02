@@ -55,9 +55,9 @@ public:
         }
         return *this;
     }
-    
-    
-    
+
+
+
 
     friend Drink operator+(const Drink &bauturica, const Drink &menu) {
         Drink calcul;
@@ -142,15 +142,15 @@ public:
     }       // se scriu numele si parola in fisier
 
 
-    Account& operator=(const Account &cont) {
+    const Account& operator=(const Account &cont) {
         if (this != &cont){
-            this -> userName = cont.userName;
-            this ->password = cont.password;
+            this->userName = cont.userName;
+            this->password = cont.password;
         }
         return *this;
     }
-    
-    
+
+
 
     friend ostream& operator<<(ostream& COUT, const Account& acc) {
         COUT<< acc.userName;
@@ -196,9 +196,9 @@ public:
 
     EditAccount& operator=(const EditAccount& account) {
         if (this != &account) { // Verificare auto-atribuire
-            userName = account.userName;
-            password = account.password;
-            newPassword = account.newPassword;
+            this -> userName = account.userName;
+            this -> password = account.password;
+            this -> newPassword = account.newPassword;
         }
         return *this;
     }
@@ -241,16 +241,6 @@ public:
                 f.close();
             }
         }
-    }
-
-    CreateAccount& operator=(const CreateAccount& account) {
-        if (this != &account) { // Verificare auto-atribuire
-            userName = account.userName;
-            password = account.password;
-            secretCode = account.secretCode;
-            email = account.email;
-        }
-        return *this;
     }
 
 
