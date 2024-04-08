@@ -3,6 +3,8 @@
 #include <vector>
 #include <fstream>
 #include <exception>
+
+
 using namespace std;
 
 
@@ -11,6 +13,7 @@ class Drink;
 class Account;
 class EditAccount;
 class CreateAccount;
+
 
 
 void menuText();
@@ -32,14 +35,15 @@ void coutAbortedOrder();
 void todaysSales();
 
 
-
 class Drink{
-private:
+protected:
     string drinkChoice;       //tipul bauturii
     double price;              //pretul bauturii
 public:
 
-    explicit Drink(const string &drinkName = "", double priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
+    explicit Drink(const string &drinkName = "", const double &priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
+
+    //Drink(string drinkName, double priceTag): drinkChoice(drinkName), price(priceTag) {}
 
     Drink(const Drink &bauturica): drinkChoice(bauturica.drinkChoice), price(bauturica.price) {}
 
@@ -51,24 +55,30 @@ public:
         return *this;
     }
 
+    virtual int getAlc() const = 0;
 
-    friend Drink operator+(const Drink &bauturica, const Drink &menu) {
-        Drink calcul;
-        calcul.price = menu.price + bauturica.price;
-        return calcul;
+    virtual int getCalories() const = 0;
+
+    virtual void description() const = 0;
+    //prima functie pure virtual
+
+    virtual double priceModifier() const{
+        return price;
     }
+    //a doua functie pur virtuala
+
 
     friend ostream& operator<<(ostream &coutt, const Drink &myDrink) {
         coutt<<myDrink.drinkChoice<<" "<<myDrink.price;
         return coutt;
     }
-    //supraincarcarea operatorului de cout
+
 
     friend istream& operator>>(istream &cinn, Drink &myDrink) {
         cinn >> myDrink.drinkChoice >>myDrink.price;
         return cinn;
     }
-    //supraincarcarea oepratorului din cin
+
 
     string getDrinkName() {
         return drinkChoice;
@@ -77,20 +87,172 @@ public:
         return price;
     }
 
-    static void menuOptions(vector<Drink> coffeeMenu) {
+
+    static void menuOptions(vector<Drink*> coffeeMenu) {
         cout << endl << "Here are your options:" << endl;
-        for (int x = 0; x < 15; x++) {
-            cout << "Product " << x + 1 << ": " << coffeeMenu[x].getDrinkName() << " " << coffeeMenu[x].getDrinkPrice() << " " << endl;
+        for (int x = 0; x < int(coffeeMenu.size()); x++) {
+            cout << "Product " << x + 1 << ": " << coffeeMenu[x]->getDrinkName() << " "
+                 << coffeeMenu[x]->getDrinkPrice() << " " << endl;
         }
     }
 
-    ~Drink() = default;
+
+    virtual ~Drink() = 0;
 };
+Drink::~Drink() {}
+
 
 double operator -(const Drink &bauturica, double procent) {
     double reducere = (bauturica.getDrinkPrice() * procent) / 100;
     return bauturica.getDrinkPrice() + reducere;
 }
+
+
+
+class NoAlc: public Drink {
+private:
+    int calories;
+
+public:
+    explicit NoAlc(const string &nume = "", const double &pret = 0, const int &calorii = 0): Drink(nume, pret), calories(calorii) {};
+
+    //NoAlc(string nume, double pret, int calorii): Drink(nume, pret), calories(calorii) {};
+
+    NoAlc(const NoAlc& notGood): Drink(notGood), calories(notGood.calories) {}
+
+    virtual void description() const override {
+        cout << "This drink contains " << NoAlc::getCalories() << " calories!" << endl;
+    }
+
+
+    virtual int getAlc() const override {
+        ;
+    }
+
+
+    virtual double priceModifier() const override {
+        return price + (price * 19) / 100;
+    }
+
+
+    virtual int getCalories() const override{
+        return calories;
+    }
+
+
+    int calorieCalc(vector <NoAlc> drinkities) {
+        int s = 0;
+        for (int i = 0; i < int(drinkities.size()); i++) {
+            s += drinkities[i].getCalories();
+        }
+        return s;
+    }
+
+    friend ostream& operator<<(ostream &coutt, const NoAlc &myDrink) {
+        coutt << myDrink.drinkChoice << " " << myDrink.price << " " <<myDrink.calories;
+        return coutt;
+    }
+    //supraincarcarea operatorului de cout
+
+    friend istream& operator>>(istream &cinn, NoAlc &myDrink) {
+        cinn >> myDrink.drinkChoice >> myDrink.price >> myDrink.calories;
+        return cinn;
+    }
+
+
+    NoAlc& operator=(const NoAlc& hydrating) {
+        if (this != &hydrating) {
+            drinkChoice = hydrating.drinkChoice;
+            price = hydrating.price;
+            calories = hydrating.calories;
+        }
+        return *this;
+    }
+
+
+    ~NoAlc() override{}
+};
+
+
+
+class WithAlc: public Drink {
+private:
+    int alcohol;
+public:
+    explicit WithAlc(const string &nume = "", const double &pret = 0, const int &alc = 0): Drink(nume, pret), alcohol(alc) {};
+
+   // WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
+
+   WithAlc(const WithAlc& notGood): Drink(notGood), alcohol(notGood.alcohol) {}
+
+    virtual void description() const override {
+        cout << "This drink contains alcohol in a percentage of " << WithAlc::getAlc() << "%" << endl;
+    }
+
+    virtual int getCalories() const override{
+        ;
+    }
+
+    virtual int getAlc() const override{
+        return alcohol;
+    }
+
+    virtual double priceModifier() const override {
+        return (price + (price * 19) / 100) + (price + (price * 19) / 100) / 20;
+    }   //returneaza pretul cu tva + acciza de 5% pe bauturile alcoolice
+
+    float alcQuantity(vector <WithAlc> drink) {
+        float s = 0;
+//        for (const auto &bautura: drink)
+//            s += 750 * (alcohol / 100);
+        for (int i = 0; i < int(drink.size()); i++) {
+            s += 750 * (alcohol / 100);
+        }
+        return s;
+    }
+
+    static bool ageCheck() {
+        short int input;
+        cout << "Please enter your age: ";
+        cin >> input;
+        if (input < 21) {
+            return false;
+        }
+        else {
+            cout << "You can have access to alcoholic drinks!" << endl;
+            cout << "Side note: according to the Romanian regulations regarding selling fo alcoholic drinks, you will be imposed with a 5% excise tax!" << endl;
+            return true;
+        }
+    }
+
+    friend ostream& operator<<(ostream &coutt, const WithAlc &myDrink) {
+        coutt << myDrink.drinkChoice << " " << myDrink.price << myDrink.alcohol;
+        return coutt;
+    }
+    //supraincarcarea operatorului de cout
+
+    friend istream& operator>>(istream &cinn, WithAlc &myDrink) {
+        cinn >> myDrink.drinkChoice >> myDrink.price >> myDrink.alcohol;
+        return cinn;
+    }
+
+
+
+    WithAlc& operator=(const WithAlc& hydrating) {
+        if (this != &hydrating) {
+            drinkChoice = hydrating.drinkChoice;
+            price = hydrating.price;
+            alcohol = hydrating.alcohol;
+        }
+        return *this;
+    }
+
+    ~WithAlc() override{}
+
+};
+
+
+
 
 class Account {
 protected:
@@ -110,8 +272,6 @@ public:
         return password;
     }
 
-    virtual void gdpr() = 0;
-
     void userRead() {
         short int input;
         cout << "Username: ";
@@ -125,18 +285,142 @@ public:
             cout << "Secret code: ";
         }
         cin >> password;
-        save("fisier1.txt");
+        Account cont(userName, password);
+        save("date.txt");
+        cout << endl << "You are currently using the free version of the app. Would you like to update to one of our exclusive versions?" << endl;
+        cout << "Press 1 to see our options" << endl;
+        cout << "Press 0 to go ahead with this version" << endl;
+        cin >> input;
+
+        if (input == 0) {
+            cout << "Are you sure?" << endl;
+            cin >> input;
+            if (input == 0) {
+                cout << "Ok, thank you for your time! Hope you will enjoy our services!";
+            }
+            else {
+                premiumText();
+                upgrade();
+            }
+        }
+        else {
+            premiumText();
+            upgrade();
+        }
     }
+
+
+    void premiumText() {
+        cout << "Discover the advantages of premium! With our premium accounts, you can have advatages for yourself or for your team as well!" << endl;
+        cout << "Premium advatages:" << endl;
+        cout << "Collect stars for discounts (you can either keep them for yourself or give them to a friend, who must have a premium/premium plus/business casual account as well)" << endl;
+        cout << "Exclusive discounts at our products" << endl;
+        cout << "Priority at delivery" << endl << endl;
+
+        cout << "Premium Plus advatages: " << endl;
+        cout << "Exclusive access to unreleased coffee products" << endl;
+        cout << "at every 5 orders, the 6th one has 90% off" << endl;
+        cout << "Collect stars for discounts (you can either keep them for yourself or give them to a friend, who must have a premium/premium plus/business casual account as well)" << endl;
+        cout << "Exclusive discounts at our products" << endl;
+        cout << "Priority at delivery" << endl << endl;
+
+    }
+
+    void inputData() {
+        string data;
+        cout << endl << endl << "Step 2: introduce your credit card information: " << endl;
+        cout << "Card number: ";
+        cin >> data;
+        cout << "Card holder :";
+        cin >> data;
+        cout << "CVV/CVC : (if the card does not have this, write -1)";
+        cin >> data;
+    }
+
+    string inputVisual(short int input) {
+        string data;
+        premiumText();
+        cin >> input;
+        string type = "";
+        switch(input) {
+            case 1:
+                data = "Premium plus";
+                break;
+            case 2:
+                data = "Premium";
+                break;
+            case 3:
+                data = "Business casual";
+                break;
+            case 0:
+                data = "abort mission";
+                break;
+        }
+        type = data;
+        return data;
+    }
+
+    void upgrade() {
+        short int input;
+        string data, tip;
+        cout << "Premium - 3.99/month : press 1" << endl;
+        cout << "Premium plus - 5.49/month : press 2" << endl;
+        cout << "Press 0 to cancel" << endl;
+        cin >> input;
+        if (input != 0) {
+            tip = inputVisual(input);
+            cout << tip;
+            if (tip == "abort mission") {
+                cout << "Are you sure?" << endl;
+                cout << "Press 1 to change" << endl;
+                cout << "Press 0 to exit" << endl;
+                cin >> input;
+                if (inputVisual(input) != "abort mission") {
+                    cout << tip;
+                    inputData();
+                    cout << endl << "Are you sure you want to confirm your subscription?" << endl;
+                    cin >> input;
+                    if (input == 1) {
+                        cout << "We are proceeding your payment..." << endl;
+                        cout << "Payment done successfully" << endl;
+                        cout << "Thank you for your loyalty!" << endl;
+                    } else {
+                        cout << "We are sorry to see your leave! Whenever you change your mind, you can come back!"
+                             << endl;
+                    }
+                }
+            }
+            else {
+                inputData();
+                cout << endl << "Are you sure you want to confirm your subscription?" << endl;
+                cin >> input;
+                if (input == 1) {
+                    cout << "We are proceeding your payment..." << endl;
+                    cout << "Payment done successfully" << endl;
+                    cout << "Thank you for your loyalty!" << endl;
+                } else {
+                    cout << "We are sorry to see your leave! Whenever you change your mind, you can come back!" << endl;
+                }
+            }
+        }
+        else {
+            cout << "Thank you for your time. You can always change your option" << endl;
+        }
+    }
+
+
+
 
     virtual void save(const string &fileName) {
         ofstream f(fileName);
-        if (!f.fail()) {
-            if (f.is_open()) {
-                f << userName << endl << password;
-                f.close();
-            }
+        if (f.is_open()) {
+            f << userName << endl << password;
+            f.close();
         }
-    }       // se scriu numele si parola in fisier
+        else {
+            cout << "Nu s-a putut deschide fisierul";
+        }
+    }
 
 
     Account& operator=(const Account &acesta) {
@@ -164,192 +448,18 @@ public:
     }
 };
 
-class EditAccount: public Account{
-private:
-    string newPassword;
-public:
-    explicit EditAccount(const string &name = "", const string &oldPassword = "", const string &newpassword = ""): Account(name, oldPassword), newPassword(newpassword) {}
-
-    EditAccount(const EditAccount &editare): Account(editare.getName(), editare.getPassword()), newPassword(editare.getNewPassword()) {}
-
-    string getNewPassword() const{
-        return newPassword;
-    };
-
-    int modificaDatele(string fileName) {
-        string nume, parola, parolaNoua;
-        ofstream f(fileName);
-        if (f.is_open()) {
-            cout << "Introduce the new password: " << endl;
-            cin >> parolaNoua;
-            EditAccount cont(nume, parola, parolaNoua);
-            f << cont.getName() << endl << cont.getNewPassword();
-            f.close();
-        }
-        else {
-            cout << "Your changes could not be saved. Please come back later";
-        }
-        EditAccount::gdpr();
-        return 0;
-    }
-
-    void gdpr() override {
-        short int input;
-        cout << endl << "Right now, your data is not used by us in the scope of imporiving the app (according to the UE GDPR), which is what you selected when you created this account. Would you like to change your optin?" << endl;
-        cout << "Press 1 if you agree with your data to be used for the user-experience improvement of this app" << endl;
-        cout << "Press 2 if you do not agree." << endl;
-        cout << "Note: your data will not be shared across other platforms and your experience won't have to suffer from your choice." << endl;
-        cin >> input;
-        if (input == 1) {
-            cout << "Thank you for your help. We will use your data to improve your experience on this app." << endl;
-        }
-        else {
-            cout << "You chose not to have your data shared ." << endl;
-        }
-    }
-
-
-    EditAccount& operator=(const EditAccount& account) {
-        if (this != &account) { // Verificare auto-atribuire
-            this -> userName = account.userName;
-            this -> password = account.password;
-            this -> newPassword = account.newPassword;
-        }
-        return *this;
-    }
-
-    std::ostream& operator<<(std::ostream& coutt) const {
-        coutt << "New password: " << newPassword << endl;
-        return coutt;
-    }
-
-    std::istream& operator>>(std::istream& cinn) {
-        cinn >> newPassword;
-        return cinn;
-    }
-
-
-    virtual ~EditAccount() {
-        //cout << "merge destructorul si pentru clasa EditAccount!" << endl;
-    }
-
-};
-
-class CreateAccount: public Account {
-private:
-    string secretCode;
-    string email;
-public:
-
-    CreateAccount(): Account("", ""), secretCode(""), email("") {}
-
-    CreateAccount(const CreateAccount &create): Account(create.getName(), create.getPassword()), secretCode(create.getSecretCode()), email(create.getEmail()) {}
-
-    string getSecretCode() const {
-        return secretCode;
-    }
-
-    string getEmail() const {
-        return email;
-    }
-
-    void gdpr() override {
-        short int input;
-        cout << "By default, the GDPR imposes that your personal data (username, password, history etc.) can under no circumstances be used in any scope other than your personal usage of the app" << endl;
-        cout << "Press 1 if you agree" << endl;
-        cout << "Press 2 if you agree with your data to be used for the user-experience improvement of this app" << endl;
-        cout << "Note: your data will not be shared across other platforms." << endl;
-        cin >> input;
-        if (input == 1) {
-            cout << "You chose not to have your data shared ." << endl;
-        }
-        else {
-            cout << "Thank you for your help. We will use your data to improve your experience on this app." << endl;
-        }
-    }
-
-    void create() {
-        //short int input;
-        cout << "Username: ";
-        cin >> userName;
-        cout << "Password: ";
-        cin >> password;
-        save("fisier1.txt");
-        cout << "Please select a secret code to use in case you do not remember your password." << endl;
-        cout << "Warning: this secret code cannot be changed, so please: do not forget it!" << endl;
-        cin >> secretCode;
-        cout << "Introduce your email: ";
-        cin >> email;
-        save("tastatura.txt");
-        CreateAccount::gdpr();
-    }   //dupa create sa apelez gdpr!
-
-    void save(const string &fileName) override{
-        ofstream f(fileName);
-        if (!f.fail()) {
-            if (f.is_open()) {
-                f << userName << endl << password << endl << secretCode << endl << email;
-                f.close();
-            }
-        }
-    }
-
-    CreateAccount& operator=(const CreateAccount& acesta) {
-        Account::operator=(acesta);
-        this -> secretCode = acesta.secretCode;
-        this -> email = acesta.email;
-        return *this;
-    }
-
-    std::ostream& operator<<(std::ostream& coutt) const {
-        coutt << "Username: " << userName << endl;
-        coutt << "Password: " << password << endl;
-        cout << "Secret code: " << secretCode << endl;
-        coutt << "Email: " << email << endl;
-        return coutt;
-    }
-
-    std::istream& operator>>(std::istream& cinn) {
-        cinn >> userName >> password >> secretCode >> email;
-        return cinn;
-    }
-
-    //~CreateAccount() = default;
-
-    virtual ~CreateAccount() {
-        //cout << "merge destructorul si pentru clasa CreateAccount!" << endl;
-    }
-
-};
-
 
 
 class Cart{
 private:
-    vector<Drink> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
+    vector<Drink*> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
     float price;                        //suma care urmeaza sa fie platita
     vector<float> priceList;            //lista prteurilor
 
 public:
-    Cart(): myDrinks({}), price(0), priceList(0) {}
+    explicit Cart(const vector<Drink*> &bauturi = {}, float pret = 0, vector<float> preturi = {}): myDrinks(bauturi), price(pret), priceList(preturi) {}
 
-
-    explicit Cart(vector<Drink> &bauturi): myDrinks(bauturi), price(0) {}
-
-
-
-    explicit Cart(float pret): myDrinks({}), price(pret) {}
-
-
-    Cart(const Cart& cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
-
-
-    void productAdd(const Drink &bautura) { //, float productPrice){       //pentru cand adaugam un produs in cos, sa actualizam nr. de produse
-        //amount ++;
-        myDrinks.push_back(bautura);
-        price += bautura.getDrinkPrice();//productPrice;
-        priceList.push_back(bautura.getDrinkPrice());
-    };
+    Cart(const Cart& cos) = default; //: myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
 
     void productDelete(int index){    //pentru cand stergem un produs din cos, sa actualizam nr. de produse
         if (!myDrinks.empty() ) {
@@ -376,11 +486,12 @@ public:
     friend ostream& operator<<(ostream& coutt, const Cart& shopping) {
         coutt<<"Your shopping cart status:"<<endl;
         for (int x = 0; x < int(size(shopping.myDrinks)); x ++) {
-            coutt << "Product "<<x + 1<<": "<<shopping.myDrinks[x] << "  " << endl;
+            coutt << "Product "<<x + 1<<": "<<shopping.myDrinks[x]->getDrinkName() << "  " << endl;
         }
         coutt << shopping.price<<endl;
         return coutt;
     }
+
 
     void atAddressPayment(const Cart &cart) {
         short int input;
@@ -406,6 +517,7 @@ public:
         }
     }
 
+
     void creditCardInfo(const Cart &cart) {
         long int creditCard;
         short int input;
@@ -427,7 +539,7 @@ public:
     }
 
 
-    float order(Cart &cart, const vector<Drink> &coffeeMenu) {
+    float order(Cart &cart, vector<Drink*> coffeeMenu) {
         short int input, input2, inputDelete;
         bool appliedSale = false;
         menuText();
@@ -436,7 +548,27 @@ public:
             cin >> input;
             if (input != 20) {
                 if (input != 0) {
-                    cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
+                    //cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
+                    if (input >= int(coffeeMenu.size()) - 4) {
+                        if (WithAlc::ageCheck() == true) {
+                            Drink *bauturaUnsafe = coffeeMenu[input - 1];
+                            cout << "This product has "  << bauturaUnsafe->getAlc() << "% alcohol" << endl;
+                            myDrinks.push_back(coffeeMenu[input - 1]);
+                            price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
+                            priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
+                        }
+                        else {
+                            cout << "We are sorry, but you are not elligible to buy alcoholic products! But you are still welcome to choose" << endl;
+                            cout << "from our range of caffeinated drinks!" << endl;
+                        }
+                    }
+                    else {
+                        Drink *bauturaSafe = coffeeMenu[input - 1];
+                        bauturaSafe->description();
+                        myDrinks.push_back(coffeeMenu[input - 1]);
+                        price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
+                        priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
+                    }
                     cout << cart;
                     if (cart.cartPrice() > 30) {
                         if (!appliedSale) {
@@ -448,6 +580,7 @@ public:
                         }
                         cout<<"Cart Price with 25% off: " << cart.cartPrice() - priceCalculation(cart.cartPrice(), 25) << endl;
                     }
+
                 }
                 else {
                     cout << "Are you sure you want to proceed to checkout?" << endl;
@@ -473,11 +606,11 @@ public:
         }
         while (input != 0);
         return 0;
-        //return cart.cartPrice();
     }
 
 
-    void readyToOrder(Cart &cart, const vector<Drink> &coffeeMenu) {
+
+    void readyToOrder(Cart &cart, vector<Drink*> coffeeMenu) {
         short int input;
         textToFinish();
         cin >> input;
@@ -552,38 +685,6 @@ public:
     }
 
 
-    static int beginningCout(const Account &user, Cart cart, const vector<Drink> &coffeeMenu) { //sau createaccount in loc de account &user
-        short int input;
-        cout << "1: Menu" << endl;
-        cout << "2: Change your password!" << endl;
-        cout << "0: Exit" << endl << endl;
-        cout << "Press 1 to see the menu / start adding products to your cart! :D" << endl;
-        cout << "Press 2 to change your password!" << endl;
-        cout << "Press 0 to exit the app :(" << endl;
-        cin >> input;
-        if (input == 1) {
-            Cart::everything(cart, coffeeMenu);
-            try {
-                return 0;
-            }
-            catch (int x) {
-                return 11;
-            }
-        }
-        else {
-            if (input == 2) {
-                EditAccount cont;
-                cont.modificaDatele("fisier.txt");
-                cout << "Your password was changed successfully!" << endl;
-                beginningCout(user, cart, coffeeMenu);
-                return 0;
-            }
-            else {
-                cout << "We are sorry to see your leave. Hope to see you soon!";
-                return 11;
-            }
-        }
-    }
 
 
     void deliveryAddress(const Cart &cart) {
@@ -604,6 +705,8 @@ public:
         cout << endl << "Zip code: ";
         cin >> zipCode;
     }
+
+
 
 
     void giveATip(const Cart &cart) const {
@@ -640,95 +743,91 @@ public:
     }
 
 
-    static void everything(Cart cart, const vector<Drink> &coffeeMenu) {
+
+    static int everything(Cart cart, vector<Drink*> coffeeMenu) {
         cart.order(cart, coffeeMenu);
         cart.readyToOrder(cart, coffeeMenu);
+        return 0;
     }   //fac cosul gen
 
-    ~Cart() = default;
+
+
+    virtual ~Cart() {}
+
+
 };
 
 
 
+
 int main() {
-    const Cart cart;
+    Cart cart({}, 0, {});
+    Account user;
     short int input;
-    vector<Drink> coffeeMenu = {Drink("Iced Latte", 5.9), Drink("Cold Brew", 3.9),
-                                Drink("Matcha Latte", 6.5), Drink("Pink Drink Refresher", 4.6),
-                                Drink("Vanilla Sweet Cream Cold Brew", 6.5), Drink("Vanilla Cremè", 5.5),
-                                Drink("Cinnamon Caramel Cream Cold Brew", 4.0),
-                                Drink("Cold Brew", 5.0), Drink("Caramel Ribbon Crunch Frappucino", 5.5),
-                                Drink("Caramel Ribbon Crunch Frappucino", 7.0),
-                                Drink("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5),
-                                Drink("Iced Matcha Tea Latte With Oatmilk", 6.5), Drink("Espresso", 3.0),
-                                Drink("Caffè Americano", 3.5), Drink("Fiji Water", 3.3)};
+    vector<Drink*> menu;
 
+    menu.push_back(new NoAlc("Iced Latte", 5.9, 96));
+    menu.push_back(new NoAlc("Cold Brew", 3.9, 23));
+    menu.push_back(new NoAlc("Vanilla Bean Crème Frappuccino® Blended Crème", 6.8, 407));
+    menu.push_back(new NoAlc("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5, 349));
+    menu.push_back(new NoAlc("Vanilla Sweet Cream Cold Brew", 6.5, 90));
+    menu.push_back(new NoAlc("Vanilla Cremè", 5.5, 137));
+    menu.push_back(new NoAlc("Cinnamon Caramel Cream Cold Brew", 4.0, 203));
+    menu.push_back(new NoAlc("Iced Blonde Vanilla Latte", 7.2, 231));
+    menu.push_back(new NoAlc("Caramel Ribbon Crunch Frappucino", 6.4, 189));
+    menu.push_back(new NoAlc("Iced White Chocolate Mocha", 5.8, 410));
+    menu.push_back(new NoAlc("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5, 349));
+    menu.push_back(new NoAlc("Espresso Frappuccino® Blended Beverage", 4.8, 278));
+    menu.push_back(new NoAlc("Lavender Crème Frappuccino® Blended Beverage", 7.5, 428));
+    menu.push_back(new NoAlc("Pink Drink Refresher", 4.6, 196));
+    menu.push_back(new NoAlc("Matcha Latte", 6.5, 125));
+    menu.push_back(new NoAlc("Iced Matcha Tea Latte With Oatmilk", 6.5, 126));
+    menu.push_back(new WithAlc("Chateau Lafite Rothschild", 876.0, 15));
+    menu.push_back(new WithAlc("Penfolds Grange Hermitage", 763.0, 12));
+    menu.push_back(new WithAlc("Chateau d'Yquem", 1973.0, 16));
 
-    cout << "Chamberlain Coffee - Easy Mobile & Online Ordering & Delivery" << endl;
+    cout << "Café de Flore - Easy Mobile & Online Ordering & Delivery" << endl;
     todaysSales();
 
-    cout << "Do you have an account? Press 1 to access it!" << endl;
-    cout << "If you don't have one, it's ok! You can create one now & enjoy our products! Press 2 to create one." << endl;
-    cin >> input;
-    if (input == 1) {
-        Account* user = new CreateAccount();
-        cout << "Connect to your account: " << endl;
-        user -> userRead();
-        cout<<"Well hello "<< user -> getName() <<"! We are glad to have you back! :)"<<endl;
-        cout<<"What would you like to do today? Choose one of the following options!"<<endl;
-        Cart::beginningCout(*user, cart, coffeeMenu);
-        if (Cart::beginningCout(*user, cart, coffeeMenu) == 11) {
-            return 0;
-        }
+    cout << "Connect to your account: " << endl;
+    user.userRead();
+    cout << "Well hello " << user.getName() << "! We are glad to have you back! :)" << endl;
+    cout << "What would you like to do today? Choose one of the following options!" << endl;
+    cout << "1. Menu" << endl;
+    cout << "0. Exit" << endl;
 
-    }
-    if (input == 2) {
-            CreateAccount user;
-            user.create();
-            cout<<"What would you like to do today? Choose one of the following options!"<<endl;
-            Cart::beginningCout(user, cart, coffeeMenu);
-    }
-    else {
-        do {
-            cout << "Your input is invalid. Please press again!";
-            cin >> input;
-            if (input == 1 || input == 2 || input == 0) {
-                break;
-            }
-        } while (true);
-        if (input == 1) {
-            CreateAccount *user = new CreateAccount();
-            cout << "Connect to your account: " << endl;
-            user->userRead();
-            cout << "Well hello " << user->getName() << "! We are glad to have you back! :)" << endl;
-            cout << "What would you like to do today? Choose one of the following options!" << endl;
-            Cart::beginningCout(*user, cart, coffeeMenu);
-        }
-        if (input == 2) {
-            Account* first = new CreateAccount();
-            CreateAccount *newUser = static_cast<CreateAccount*>(first);
-            if (newUser != nullptr) {
-                newUser -> create();
-                cout << "What would you like to do today? Choose one of the following options!" << endl;
-                Cart::beginningCout(*newUser, cart, coffeeMenu);
-            }
-            else {
-                cout << "Nu merge";
-                return 0;
-            }
-        }
+    cin >> input;
+    if (input == 0) {
+        cout << "Are you sure you want to exit the app?" << endl;
+        cout << "Press 1 to go back to order" << endl;
+        cout << "Press 0 to exit" << endl;
+        cin >> input;
         if (input == 0) {
-            cout << "We are sorry to see you leave!" << endl;
+            cout << "We are sorry to see you leave! We hope you will come back soon!" << endl;
             return 0;
         }
+        else {
+            Cart::everything(cart, menu);
+            cart.order(reinterpret_cast<Cart &>(cart), menu);
+            cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
+            return 0;
+        }
+    }       //float order(Cart &cart, const vector<Drink> &coffeeMenu)
+    else {
+        Cart::everything(cart, menu);
+        cart.order(reinterpret_cast<Cart &>(cart), menu);
+        cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
+        return 0;
     }
-    return 0;
+
+
 }
 
 
-float priceCalculation(const float oldPrice, const float sale){
+float priceCalculation(const float oldPrice, const float sale) {
     return (oldPrice * sale) / 100;
 }
+
 
 float orderAndExit() {
     short int input;
@@ -746,11 +845,13 @@ float orderAndExit() {
     }
 }
 
+
 void menuText() {
     cout << "Choose the index of a product each time your want to add it to your cart! :D"<<endl;
     cout << "If you want to delete a product from your cart, press '20'." << endl;
     cout << "When you are done making your cart, just press 0! :)" << endl << endl;
 }
+
 
 int textToFinish() {
     cout << endl << "Are you sure you don't want to edit your cart?" << endl;
@@ -760,13 +861,16 @@ int textToFinish() {
     return 0;
 }
 
+
 void coutFinishedOrder() {
     cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
 }
 
+
 void coutAbortedOrder() {
     cout << "We are sorry that you are leaving! See you next time!";
 }
+
 
 void todaysSales() {
     cout << "Here is today's deal!" << endl;
@@ -775,6 +879,7 @@ void todaysSales() {
     upperLine();
 }
 
+
 void underLine() {
     for (int i = 0; i < 30; i ++) {
         cout << "_";
@@ -782,11 +887,11 @@ void underLine() {
     cout << endl;
 }
 
+
 void upperLine() {
     for (int i = 0; i < 30; i ++) {
         cout << "‾";
     }
     cout<<endl;
 }
-
 
