@@ -356,7 +356,7 @@ public:
                 data = "abort mission";
                 break;
         }
-        type = data;
+        type = data; 
         return data;
     }
 
