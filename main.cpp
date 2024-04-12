@@ -384,7 +384,6 @@ public:
         string data;
         premiumText();
         cin >> input;
-        string type;
         switch(input) {
             case 1:
                 data = "Premium plus";
@@ -399,7 +398,6 @@ public:
                 data = "abort mission";
                 break;
         }
-        type = data;
         return data;
     }
 
@@ -478,6 +476,8 @@ public:
             ofstream f("date.txt");
             if (!f.is_open()) {
                 throw std::runtime_error("Problem!");
+            }
+            else {
                 f << userName << endl << password;
                 f.close();
             }
@@ -690,14 +690,14 @@ public:
                                      << cart.cartPrice() - priceCalculation(cart.cartPrice(), 25) << endl;
                             }
 
-                        } else {
+                        }
+                        else {
                             cout << "Are you sure you want to proceed to checkout?" << endl;
                             cout << "Press 1 to go back to editing your shopping cart!" << endl;
                             cout << "Press 0 to go to checkout" << endl;
                             cin >> input2;
                             if (input2 == 0) {
                                 return cart.cartPrice();
-                                break;
                             }
                             else if (input2 == 1) {
                                 cart.order(cart, coffeeMenu);
@@ -950,7 +950,6 @@ int main() {
                     throw std::invalid_argument("Your choice is invalid. Please try again!");
                 }
             }
-
             else {
                 Cart::everything(cart, menu);
                 cart.order(reinterpret_cast<Cart &>(cart), menu);
