@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 #include <fstream>
 #include <exception>
 
-
 using namespace std;
+
 
 
 class Cart;
@@ -18,7 +19,7 @@ class CreateAccount;
 
 void menuText();
 
-float priceCalculation(const float oldPrice, const float sale);
+float priceCalculation(float oldPrice, float sale);
 
 void underLine();
 
@@ -26,7 +27,7 @@ void upperLine();
 
 int textToFinish();
 
-float orderAndExit() ;
+void orderAndExit() ;
 
 void coutFinishedOrder();
 
@@ -35,17 +36,18 @@ void coutAbortedOrder();
 void todaysSales();
 
 
+
 class Drink{
 protected:
     string drinkChoice;       //tipul bauturii
     double price;              //pretul bauturii
 public:
 
-    explicit Drink(const string &drinkName = "", const double &priceTag = 0): drinkChoice(drinkName), price(priceTag) {}
+    explicit Drink(string drinkName = "", const double &priceTag = 0): drinkChoice(std::move(drinkName)), price(priceTag) {}
 
     //Drink(string drinkName, double priceTag): drinkChoice(drinkName), price(priceTag) {}
 
-    Drink(const Drink &bauturica): drinkChoice(bauturica.drinkChoice), price(bauturica.price) {}
+    Drink(const Drink &bauturica) = default;
 
     Drink &operator=(const Drink &bauturica) {
         if (this != &bauturica) {
@@ -83,7 +85,8 @@ public:
     string getDrinkName() {
         return drinkChoice;
     }
-    [[nodiscard]] double getDrinkPrice() const{
+
+    double getDrinkPrice() const{
         return price;
     }
 
@@ -97,15 +100,16 @@ public:
     }
 
 
-    virtual ~Drink() = 0;
+    virtual ~Drink() {
+        cout << "Destructor pentru clasa Drink" << endl;
+    }
 };
-Drink::~Drink() {}
-
 
 double operator -(const Drink &bauturica, double procent) {
     double reducere = (bauturica.getDrinkPrice() * procent) / 100;
     return bauturica.getDrinkPrice() + reducere;
 }
+
 
 
 
@@ -118,32 +122,32 @@ public:
 
     //NoAlc(string nume, double pret, int calorii): Drink(nume, pret), calories(calorii) {};
 
-    NoAlc(const NoAlc& notGood): Drink(notGood), calories(notGood.calories) {}
+    NoAlc(const NoAlc& notGood) = default;
 
-    virtual void description() const override {
+    void description() const override {
         cout << "This drink contains " << NoAlc::getCalories() << " calories!" << endl;
     }
 
 
-    virtual int getAlc() const override {
+    int getAlc() const override {
         ;
     }
 
 
-    virtual double priceModifier() const override {
+    double priceModifier() const override {
         return price + (price * 19) / 100;
     }
 
 
-    virtual int getCalories() const override{
+    int getCalories() const override{
         return calories;
     }
 
 
-    int calorieCalc(vector <NoAlc> drinkities) {
+    static int calorieCalc(const vector <NoAlc>& drinkities) {
         int s = 0;
-        for (int i = 0; i < int(drinkities.size()); i++) {
-            s += drinkities[i].getCalories();
+        for (const auto & drinkitie : drinkities) {
+            s += drinkitie.getCalories();
         }
         return s;
     }
@@ -183,33 +187,34 @@ public:
 
    // WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
 
-   WithAlc(const WithAlc& notGood): Drink(notGood), alcohol(notGood.alcohol) {}
+   WithAlc(const WithAlc& notGood) = default;
 
-    virtual void description() const override {
+    void description() const override {
         cout << "This drink contains alcohol in a percentage of " << WithAlc::getAlc() << "%" << endl;
     }
 
-    virtual int getCalories() const override{
-        ;
-    }
+
+    virtual int getCalories() const override{ return 0; }
+
 
     virtual int getAlc() const override{
         return alcohol;
     }
 
+
     virtual double priceModifier() const override {
         return (price + (price * 19) / 100) + (price + (price * 19) / 100) / 20;
     }   //returneaza pretul cu tva + acciza de 5% pe bauturile alcoolice
 
-    float alcQuantity(vector <WithAlc> drink) {
+
+    float alcQuantity(const vector <WithAlc>& drink) const {
         float s = 0;
-//        for (const auto &bautura: drink)
-//            s += 750 * (alcohol / 100);
         for (int i = 0; i < int(drink.size()); i++) {
             s += 750 * (alcohol / 100);
         }
         return s;
     }
+
 
     static bool ageCheck() {
         short int input;
@@ -225,17 +230,17 @@ public:
         }
     }
 
+
     friend ostream& operator<<(ostream &coutt, const WithAlc &myDrink) {
         coutt << myDrink.drinkChoice << " " << myDrink.price << myDrink.alcohol;
         return coutt;
     }
-    //supraincarcarea operatorului de cout
+
 
     friend istream& operator>>(istream &cinn, WithAlc &myDrink) {
         cinn >> myDrink.drinkChoice >> myDrink.price >> myDrink.alcohol;
         return cinn;
     }
-
 
 
     WithAlc& operator=(const WithAlc& hydrating) {
@@ -247,10 +252,10 @@ public:
         return *this;
     }
 
+
     ~WithAlc() override{}
 
 };
-
 
 
 
@@ -260,7 +265,7 @@ protected:
     string password;
 
 public:
-    explicit Account(const string &nume = "", const string &parola = ""): userName(nume), password(parola) {}
+    explicit Account(const string &nume = "", string parola = ""): userName(nume), password(std::move(parola)) {}
 
     Account(const Account& cont): userName(cont.userName), password(cont.password) {}
 
@@ -272,45 +277,83 @@ public:
         return password;
     }
 
+    void exc() {
+        short int input;
+        while (true) {
+            cin >> input;
+            try {
+                if (input == 1) {
+                    cout << "Secret code: ";
+                    break;
+                }
+                else if (input == 2) {
+                    cout << "Password: ";
+                    break;
+                }
+                else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
+                }
+            }
+            catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
+        }
+    }
+
+
     void userRead() {
         short int input;
         cout << "Username: ";
         cin >> userName;
         cout << "If you do not remember your password and want to enter your secret code, press 1; for password, press 2" << endl;
-        cin >> input;
-        if (input == 2) {
-            cout << "Password: ";
-        }
-        else {
-            cout << "Secret code: ";
-        }
+        exc();
+
         cin >> password;
         Account cont(userName, password);
-        save("date.txt");
+        save();
         cout << endl << "You are currently using the free version of the app. Would you like to update to one of our exclusive versions?" << endl;
         cout << "Press 1 to see our options" << endl;
         cout << "Press 0 to go ahead with this version" << endl;
-        cin >> input;
 
-        if (input == 0) {
-            cout << "Are you sure?" << endl;
+        while (true) {
             cin >> input;
-            if (input == 0) {
-                cout << "Ok, thank you for your time! Hope you will enjoy our services!";
+            try {
+                if (input == 0) {
+                    cout << "Are you sure?" << endl;
+                    cout << "Press 1 to change" << endl;
+                    cout << "Press 0 to confirm" << endl;
+                    cin >> input;
+                    if (input == 0) {
+                        cout << "Ok, thank you for your time! Hope you will enjoy our services!";
+                        break;
+                    }
+                    else if (input == 1){
+                        premiumText();
+                        upgrade();
+                        break;
+                    }
+                    else {
+                        throw std::invalid_argument("Your choice is invalid. Please try again!");
+                    }
+                }
+                else if (input == 1){
+                    premiumText();
+                    upgrade();
+                    break;
+                }
+                else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
+                }
             }
-            else {
-                premiumText();
-                upgrade();
+            catch (const std::exception& e) {
+                cerr << "Error: " << e.what() << endl;
             }
-        }
-        else {
-            premiumText();
-            upgrade();
         }
     }
 
 
     void premiumText() {
+
         cout << "Discover the advantages of premium! With our premium accounts, you can have advatages for yourself or for your team as well!" << endl;
         cout << "Premium advatages:" << endl;
         cout << "Collect stars for discounts (you can either keep them for yourself or give them to a friend, who must have a premium/premium plus/business casual account as well)" << endl;
@@ -341,7 +384,7 @@ public:
         string data;
         premiumText();
         cin >> input;
-        string type = "";
+        string type;
         switch(input) {
             case 1:
                 data = "Premium plus";
@@ -356,7 +399,7 @@ public:
                 data = "abort mission";
                 break;
         }
-        type = data; 
+        type = data;
         return data;
     }
 
@@ -366,61 +409,101 @@ public:
         cout << "Premium - 3.99/month : press 1" << endl;
         cout << "Premium plus - 5.49/month : press 2" << endl;
         cout << "Press 0 to cancel" << endl;
-        cin >> input;
-        if (input != 0) {
-            tip = inputVisual(input);
-            cout << tip;
-            if (tip == "abort mission") {
-                cout << "Are you sure?" << endl;
-                cout << "Press 1 to change" << endl;
-                cout << "Press 0 to exit" << endl;
-                cin >> input;
-                if (inputVisual(input) != "abort mission") {
+
+
+        while (true) {
+            cin >> input;
+            try {
+                if (input == 1 || input == 2) {
+                    tip = inputVisual(input);
                     cout << tip;
-                    inputData();
-                    cout << endl << "Are you sure you want to confirm your subscription?" << endl;
-                    cin >> input;
-                    if (input == 1) {
-                        cout << "We are proceeding your payment..." << endl;
-                        cout << "Payment done successfully" << endl;
-                        cout << "Thank you for your loyalty!" << endl;
+                    if (tip == "abort mission") {
+                        cout << "Are you sure?" << endl;
+                        cout << "Press 1 to change" << endl;
+                        cout << "Press 0 to exit" << endl;
+                        cin >> input;
+                        if (inputVisual(input) != "abort mission") {
+                            cout << tip;
+                            inputData();
+                            cout << endl << "Are you sure you want to confirm your subscription?" << endl;
+                            cout << "Press 1 to confirm" << endl;
+                            cout << "Press 0 to exit" << endl;
+                            cin >> input;
+                            if (input == 1) {
+                                cout << "We are proceeding your payment..." << endl;
+                                cout << "Payment done successfully" << endl;
+                                cout << "Thank you for your loyalty!" << endl;
+                            } else {
+                                cout
+                                        << "We are sorry to see your leave! Whenever you change your mind, you can come back!"
+                                        << endl;
+                            }
+                        }
                     } else {
-                        cout << "We are sorry to see your leave! Whenever you change your mind, you can come back!"
-                             << endl;
+                        inputData();
+                        cout << endl << "Are you sure you want to confirm your subscription?" << endl;
+                        cout << "Press 1 to confirm" << endl;
+                        cout << "Press 0 to decline" << endl;
+                        cin >> input;
+                        if (input == 1) {
+                            cout << "We are proceeding your payment..." << endl;
+                            cout << "Payment done successfully" << endl;
+                            cout << "Thank you for your loyalty!" << endl;
+                            break;
+                        }
+                        else {
+                            cout << "We are sorry to see your leave! Whenever you change your mind, you can come back!"<< endl;
+                            break;
+                        }
                     }
                 }
-            }
-            else {
-                inputData();
-                cout << endl << "Are you sure you want to confirm your subscription?" << endl;
-                cin >> input;
-                if (input == 1) {
-                    cout << "We are proceeding your payment..." << endl;
-                    cout << "Payment done successfully" << endl;
-                    cout << "Thank you for your loyalty!" << endl;
-                } else {
-                    cout << "We are sorry to see your leave! Whenever you change your mind, you can come back!" << endl;
+                else if (input == 0) {
+                    cout << "Thank you for your time. You can always change your option" << endl;
+                    break;
+                }
+                else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
                 }
             }
-        }
-        else {
-            cout << "Thank you for your time. You can always change your option" << endl;
+            catch (const std::exception &e) {
+                cerr << "Error: " << e.what() << endl;
+            }
         }
     }
 
 
 
+    virtual void save() {
+        try {
+            ofstream f("date.txt");
+            if (!f.is_open()) {
+                throw std::runtime_error("Problem!");
+                f << userName << endl << password;
+                f.close();
+            }
+        }
+        catch (const std::exception &e) {
+            std::cerr << "The process could not be executed " << e.what() << endl;
+        }
+    }
 
-    virtual void save(const string &fileName) {
-        ofstream f(fileName);
-        if (f.is_open()) {
-            f << userName << endl << password;
+
+    virtual void read() {
+        string name, pwd;
+        try {
+            ifstream f("date.txt");
+            if (!f.is_open()) {
+                throw std::runtime_error("Problem!");
+            }
+            getline(f, name);
+            getline(f, pwd);
             f.close();
         }
-        else {
-            cout << "Nu s-a putut deschide fisierul";
+        catch (const std::exception& e) {
+            std::cerr << "The file could not be opened. Error: " << e.what() << std::endl;
         }
     }
+
 
 
     Account& operator=(const Account &acesta) {
@@ -450,6 +533,8 @@ public:
 
 
 
+
+
 class Cart{
 private:
     vector<Drink*> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
@@ -468,7 +553,7 @@ public:
             price -= priceList[index];
         }
     }
-    [[nodiscard]] float cartPrice() const {
+    float cartPrice() const {
         return price;
     }
 
@@ -493,32 +578,46 @@ public:
     }
 
 
+
     void atAddressPayment(const Cart &cart) {
         short int input;
         cout << "Are you sure you want to pay at the delivery?" << endl;
         cout << "Press 1 for yes" << endl;
         cout << "Press 0 to switch to credit card payment" << endl;
-        cin >> input;
 
-        if (input == 1) {
-            cout << "You choose at delivery payment." << endl;
-        }
-        else {
-            cout << "You switched to credit card payment!" << endl;
-            creditCardInfo(cart);
-        }
-        cout << "Would you like to give a tip to the delivery person?" << endl;
-        cout << "Press 1 for yes! :)" << endl;
-        cout << "Press 0 for no!" << endl;
-        cin >> input;
-        if (input == 1) {
-            cart.giveATip(cart);
-            orderAndExit();
+        while (true) {
+            cin >> input;
+            try {
+                if (input == 1) {
+                    cout << "You choose at delivery payment." << endl;
+                } else {
+                    cout << "You switched to credit card payment!" << endl;
+                    creditCardInfo(cart);
+                }
+                cout << "Would you like to give a tip to the delivery person?" << endl;
+                cout << "Press 1 for yes! :)" << endl;
+                cout << "Press 0 for no!" << endl;
+                cin >> input;
+                if (input == 1) {
+                    cart.giveATip(cart);
+                    orderAndExit();
+                }
+                else if (input == 0) {
+                    orderAndExit();
+                }
+                else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
+                }
+            }
+            catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
         }
     }
 
 
-    void creditCardInfo(const Cart &cart) {
+
+    static void creditCardInfo(const Cart &cart) {
         long int creditCard;
         short int input;
         cout << "Introduce your credit card information" << endl;
@@ -530,13 +629,22 @@ public:
         cout << "Press 1 for yes! :)" << endl;
         cout << "Press 0 for no!" << endl;
         cin >> input;
-        if (input == 1) {
-            cart.giveATip(cart);
+        try {
+            if (input == 1) {
+                cart.giveATip(cart);
+            }
+            else if (input == 0){
+                orderAndExit();
+            }
+            else {
+                throw std::invalid_argument("Your choice is invalid. Please try again!");
+            }
         }
-        else {
-            orderAndExit();
+        catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
         }
     }
+
 
 
     float order(Cart &cart, vector<Drink*> coffeeMenu) {
@@ -546,62 +654,76 @@ public:
         Drink::menuOptions(coffeeMenu);
         do {
             cin >> input;
-            if (input != 20) {
-                if (input != 0) {
-                    //cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
-                    if (input >= int(coffeeMenu.size()) - 4) {
-                        if (WithAlc::ageCheck() == true) {
-                            Drink *bauturaUnsafe = coffeeMenu[input - 1];
-                            cout << "This product has "  << bauturaUnsafe->getAlc() << "% alcohol" << endl;
-                            myDrinks.push_back(coffeeMenu[input - 1]);
-                            price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
-                            priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
-                        }
-                        else {
-                            cout << "We are sorry, but you are not elligible to buy alcoholic products! But you are still welcome to choose" << endl;
-                            cout << "from our range of caffeinated drinks!" << endl;
+            try {
+                if (input <= 20) {
+                    if (input != 20) {
+                        if (input != 0) {
+                            //cart.productAdd(coffeeMenu[input - 1]);//.drinkName(), coffeeMenu[input - 1].drinkPrice());
+                            if (input >= int(coffeeMenu.size()) - 4) {
+                                if (WithAlc::ageCheck()) {
+                                    Drink *bauturaUnsafe = coffeeMenu[input - 1];
+                                    cout << "This product has " << bauturaUnsafe->getAlc() << "% alcohol" << endl;
+
+                                    myDrinks.push_back(coffeeMenu[input - 1]);
+                                    price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
+                                    priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
+                                } else {
+                                    cout << "We are sorry, but you are not elligible to buy alcoholic products! But you are still welcome to choose"<< endl;
+                                    cout << "from our range of caffeinated drinks!" << endl;
+                                }
+                            } else {
+                                Drink *bauturaSafe = coffeeMenu[input - 1];
+                                bauturaSafe->description();
+                                myDrinks.push_back(coffeeMenu[input - 1]);
+                                price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
+                                priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
+                            }
+                            cout << cart;
+                            if (cart.cartPrice() > 30) {
+                                if (!appliedSale) {
+                                    cout << "You are now eligible for the sale! :)" << endl;
+                                    appliedSale = true;
+                                } else {
+                                    appliedSale = false;
+                                }
+                                cout << "Cart Price with 25% off: "
+                                     << cart.cartPrice() - priceCalculation(cart.cartPrice(), 25) << endl;
+                            }
+
+                        } else {
+                            cout << "Are you sure you want to proceed to checkout?" << endl;
+                            cout << "Press 1 to go back to editing your shopping cart!" << endl;
+                            cout << "Press 0 to go to checkout" << endl;
+                            cin >> input2;
+                            if (input2 == 0) {
+                                return cart.cartPrice();
+                                break;
+                            }
+                            else if (input2 == 1) {
+                                cart.order(cart, coffeeMenu);
+                                break;
+                            }
+                            else {
+                                throw std::invalid_argument("Your choice is invalid. Please try again!");
+                            }
                         }
                     }
                     else {
-                        Drink *bauturaSafe = coffeeMenu[input - 1];
-                        bauturaSafe->description();
-                        myDrinks.push_back(coffeeMenu[input - 1]);
-                        price += coffeeMenu[input - 1]->getDrinkPrice();//productPrice;
-                        priceList.push_back(coffeeMenu[input - 1]->getDrinkPrice());
+                        cout << "Choose the index of the product that you would like to delete from your cart!" << endl;
+                        cin >> inputDelete;       //am gasit un produs pe care vrem sa il stergem & inputDelete retine al catelea produs sa fie sters;
+                        cart.productDelete(inputDelete - 1);
+                        cout << cart;
+                        cout << "Press 0 if you want to proceed to payment" << endl;
+                        cout << "If you want to continue to add/delete products from your cart, " << endl
+                             << "press on the index of the product from the menu!" << endl;
                     }
-                    cout << cart;
-                    if (cart.cartPrice() > 30) {
-                        if (!appliedSale) {
-                            cout << "You are now eligible for the sale! :)" << endl;
-                            appliedSale = true;
-                        }
-                        else {
-                            appliedSale = false;
-                        }
-                        cout<<"Cart Price with 25% off: " << cart.cartPrice() - priceCalculation(cart.cartPrice(), 25) << endl;
-                    }
-
                 }
                 else {
-                    cout << "Are you sure you want to proceed to checkout?" << endl;
-                    cout << "Press 1 to go back to editing your shopping cart!" << endl;
-                    cout << "Press 0 to go to checkout" << endl;
-                    cin >> input2;
-                    if (input2 == 0) {
-                        return cart.cartPrice();
-                    }
-                    else {
-                        cart.order(cart, coffeeMenu);
-                    }
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
                 }
             }
-            else {
-                cout << "Choose the index of the product that you would like to delete from your cart!" << endl;
-                cin>> inputDelete;       //am gasit un produs pe care vrem sa il stergem & inputDelete retine al catelea produs sa fie sters;
-                cart.productDelete(inputDelete - 1);
-                cout << cart;
-                cout << "Press 0 if you want to proceed to payment" << endl;
-                cout << "If you want to continue to add/delete products from your cart, " << endl << "press on the index of the product from the menu!" << endl;
+            catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
             }
         }
         while (input != 0);
@@ -610,86 +732,87 @@ public:
 
 
 
-    void readyToOrder(Cart &cart, vector<Drink*> coffeeMenu) {
+    void readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
         short int input;
         textToFinish();
-        cin >> input;
 
-        if (input == 1) {
-            deliveryAddress(cart);
-            cout << endl << "Choose one of the following payment options: " << endl;
-            cout << "1: Credit Card" << endl;
-            cout << "2: Cash on delivery" << endl;
-            short int input2;
-            cin >> input2;
-            if (input2 == 1) {
-                creditCardInfo(cart);
-
-                cout << endl << "Are your sure you want to place the order?" << endl;
-                cout << "Press 1 to confirm the order! :D" << endl;
-                cout << "Press 2 to switch to cash on delivery payment!" << endl;
-                cout << "Press 3 to go back to editing your cart" << endl;
-                cout << "Press 0 to exit the app! :(" << endl;
-                cin >> input2;
-
-                if (input2 == 0) {
-                    cout << "We are sorry that you are leaving!";
-                }
-                else {
+        while(true) {
+            cin >> input;
+            try {
+                if (input == 1) {
+                    deliveryAddress(cart);
+                    cout << endl << "Choose one of the following payment options: " << endl;
+                    cout << "1: Credit Card" << endl;
+                    cout << "2: Cash on delivery" << endl;
+                    short int input2;
+                    cin >> input2;
                     if (input2 == 1) {
-                        cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
+                        creditCardInfo(cart);
+
+                        cout << endl << "Are your sure you want to place the order?" << endl;
+                        cout << "Press 1 to confirm the order! :D" << endl;
+                        cout << "Press 2 to switch to cash on delivery payment!" << endl;
+                        cout << "Press 3 to go back to editing your cart" << endl;
+                        cout << "Press 0 to exit the app! :(" << endl;
+                        cin >> input2;
+
+                        if (input2 == 0) {
+                            cout << "We are sorry that you are leaving!";
+                            break;
+                        }
+                        else if (input2 == 1) {
+                            cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)";
+                            break;
+                        }
+                        else if (input2 == 2) {
+                            atAddressPayment(cart);
+                            break;
+                        }
+                        else if (input2 == 3) {
+                            cart.order(cart, coffeeMenu);
+                            readyToOrder(cart, coffeeMenu);
+                            break;
+                        }
+
+                        else {
+                            throw std::invalid_argument("Your choice is invalid. Please try again!");
+                        }
+                    }
+                    else if (input2 == 2) {
+                        atAddressPayment(cart);
+                        break;
                     }
                     else {
-                        if (input2 == 2) {
-                            atAddressPayment(cart);
-                        }
-                        else {
-                            if (input2 == 3) {
-                                cart.order(cart, coffeeMenu);
-                                readyToOrder(cart, coffeeMenu);
-                            }
-                            else {
-                                cout << "We are sorry that you are leaving!";
-                            }
+                        throw std::invalid_argument("Your choice is invalid. Please try again!");
+                    }
+
+                }
+                else {
+                    if (input == 2) {
+                        order(cart, coffeeMenu);
+                        readyToOrder(cart, coffeeMenu);
+                        break;
+                    }
+                    else if (input == 0) {
+                        cout << "We are sorry to see you leave!";
+                        break;
+                    }
+                    else {
+                            throw std::invalid_argument("Your choice is invalid. Please try again!");
                         }
                     }
                 }
-            }
-            else {
-                if (input2 == 2) {
-                    atAddressPayment(cart);
-                }
-                cout << "Press 1 to confirm the order!" << endl << "Press 0 to cancel and exit the app." << endl;
-                cin >> input2;
-                if (input2 == 0) {
-                    cout << "Have a good day! :)";
-                    //return 0;
-                }
-                else {
-                    coutFinishedOrder();
-                    //return 0;
-                }
+            catch (const std::exception &e) {
+                std::cerr << "Error: " << e.what() << std::endl;
             }
         }
-        else {
-            if (input == 2) {
-                order(cart, coffeeMenu);
-                readyToOrder(cart, coffeeMenu);
-            }
-            else {
-                if (input == 0) {
-                    cout << "We are sorry to see you leave!";
-                }
-            }
-        }
+
     }
 
 
 
-
     void deliveryAddress(const Cart &cart) {
-        string address;
-        int zipCode;
+        string address, zipCode;
         cout << "You are being redirected on the checkout page..." << endl;
         cout << "Subtotal: " << cart.cartPrice() << endl ;     //de aici urmeaza partea de checkout etc!!
         if (cart.cartPrice() >= 30) {
@@ -698,12 +821,19 @@ public:
         else {
             cout << cart.cartPrice() << endl;
         }
-        cout << "Our products do not support dropbox delivery! You will receive them through Doordash as soon as possible." << endl;
-        cout << endl << "Introduce the delivery information!" << endl;
-        cout << "Address: ";
-        cin >> address;
-        cout << endl << "Zip code: ";
-        cin >> zipCode;
+        try {
+            if (cart.cartPrice() > 0) {
+                cout << "Our products do not support dropbox delivery! You will receive them through Doordash as soon as possible." << endl;
+                cout << endl << "Introduce the delivery information!" << endl;
+                cout << "Address: ";
+                cin >> address;
+                cout << endl << "Zip code: ";
+                cin >> zipCode;
+            }
+        }
+        catch (const std::exception& e) {
+            cerr << "Your cart is empty. Please add products to it and return later " << e.what() << endl;
+        }
     }
 
 
@@ -718,7 +848,6 @@ public:
         cout << "Press 2 for 20%" << endl;
         cout << "Press 3 for 50%" << endl;
         cout << "Press 4 for 100%" << endl;
-        cout << "Press 0 to skip" << endl;
         cin >> input;
 
         switch (input) {
@@ -748,13 +877,11 @@ public:
         cart.order(cart, coffeeMenu);
         cart.readyToOrder(cart, coffeeMenu);
         return 0;
-    }   //fac cosul gen
+    }
 
 
 
     virtual ~Cart() {}
-
-
 };
 
 
@@ -765,6 +892,7 @@ int main() {
     Account user;
     short int input;
     vector<Drink*> menu;
+
 
     menu.push_back(new NoAlc("Iced Latte", 5.9, 96));
     menu.push_back(new NoAlc("Cold Brew", 3.9, 23));
@@ -786,42 +914,59 @@ int main() {
     menu.push_back(new WithAlc("Penfolds Grange Hermitage", 763.0, 12));
     menu.push_back(new WithAlc("Chateau d'Yquem", 1973.0, 16));
 
+
     cout << "Café de Flore - Easy Mobile & Online Ordering & Delivery" << endl;
     todaysSales();
 
     cout << "Connect to your account: " << endl;
     user.userRead();
+
     cout << "Well hello " << user.getName() << "! We are glad to have you back! :)" << endl;
     cout << "What would you like to do today? Choose one of the following options!" << endl;
     cout << "1. Menu" << endl;
     cout << "0. Exit" << endl;
 
-    cin >> input;
-    if (input == 0) {
-        cout << "Are you sure you want to exit the app?" << endl;
-        cout << "Press 1 to go back to order" << endl;
-        cout << "Press 0 to exit" << endl;
-        cin >> input;
-        if (input == 0) {
-            cout << "We are sorry to see you leave! We hope you will come back soon!" << endl;
+
+    while(true) {
+        try {
+            cin >> input;
+            if (input == 0) {
+                cout << "Are you sure you want to exit the app?" << endl;
+                cout << "Press 1 to go back to order" << endl;
+                cout << "Press 0 to exit" << endl;
+                cin >> input;
+
+                if (input == 0) {
+                    cout << "We are sorry to see you leave! We hope you will come back soon!" << endl;
+                    return 0;
+                }
+                else if (input == 1){
+                    Cart::everything(cart, menu);
+                    cart.order(reinterpret_cast<Cart &>(cart), menu);
+                    cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
+                    return 0;
+                }
+                else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
+                }
+            }
+
+            else {
+                Cart::everything(cart, menu);
+                cart.order(reinterpret_cast<Cart &>(cart), menu);
+                cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
+                break;
+                return 0;
+            }
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
             return 0;
         }
-        else {
-            Cart::everything(cart, menu);
-            cart.order(reinterpret_cast<Cart &>(cart), menu);
-            cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
-            return 0;
-        }
-    }       //float order(Cart &cart, const vector<Drink> &coffeeMenu)
-    else {
-        Cart::everything(cart, menu);
-        cart.order(reinterpret_cast<Cart &>(cart), menu);
-        cart.readyToOrder(reinterpret_cast<Cart &>(cart), menu);
-        return 0;
     }
-
-
+    return 0;
 }
+
 
 
 float priceCalculation(const float oldPrice, const float sale) {
@@ -829,21 +974,32 @@ float priceCalculation(const float oldPrice, const float sale) {
 }
 
 
-float orderAndExit() {
+void orderAndExit() {
     short int input;
     cout <<endl << "Would you like to order your cart?" << endl;
     cout << "Press 1 to confirm!" << endl;
     cout << "Press 0 to exit! :(" << endl;
-    cin >> input;
-    if (input == 1) {
-        coutFinishedOrder();
-        return 0;
-    }
-    else {
-        coutAbortedOrder();
-        return 0;
+    while (true) {
+        cin >> input;
+        try {
+            if (input == 1) {
+                coutFinishedOrder();
+                break;
+            }
+            else if (input == 0) {
+                coutAbortedOrder();
+                break;
+            }
+            else {
+                throw std::invalid_argument("Your choice is invalid. Please try again!");
+            }
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
     }
 }
+
 
 
 void menuText() {
