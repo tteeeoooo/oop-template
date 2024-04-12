@@ -144,14 +144,6 @@ public:
     }
 
 
-    static int calorieCalc(const vector <NoAlc>& drinkities) {
-        int s = 0;
-        for (const auto & drinkitie : drinkities) {
-            s += drinkitie.getCalories();
-        }
-        return s;
-    }
-
     friend ostream& operator<<(ostream &coutt, const NoAlc &myDrink) {
         coutt << myDrink.drinkChoice << " " << myDrink.price << " " <<myDrink.calories;
         return coutt;
@@ -162,6 +154,8 @@ public:
         cinn >> myDrink.drinkChoice >> myDrink.price >> myDrink.calories;
         return cinn;
     }
+
+//    calorieCalc(const vector <NoAlc>& drinkities)
 
 
     NoAlc& operator=(const NoAlc& hydrating) {
@@ -207,13 +201,13 @@ public:
     }   //returneaza pretul cu tva + acciza de 5% pe bauturile alcoolice
 
 
-    float alcQuantity(const vector <WithAlc>& drink) const {
-        float s = 0;
-        for (int i = 0; i < int(drink.size()); i++) {
-            s += 750 * (alcohol / 100);
-        }
-        return s;
-    }
+//    float alcQuantity(const vector <WithAlc>& drink) const {
+//        float s = 0;
+//        for (int i = 0; i < int(drink.size()); i++) {
+//            s += 750 * (alcohol / 100);
+//        }
+//        return s;
+//    }
 
 
     static bool ageCheck() {
@@ -273,9 +267,6 @@ public:
         return userName;
     }
 
-    string getPassword() const {
-        return password;
-    }
 
     void exc() {
         short int input;
@@ -488,21 +479,21 @@ public:
     }
 
 
-    virtual void read() {
-        string name, pwd;
-        try {
-            ifstream f("date.txt");
-            if (!f.is_open()) {
-                throw std::runtime_error("Problem!");
-            }
-            getline(f, name);
-            getline(f, pwd);
-            f.close();
-        }
-        catch (const std::exception& e) {
-            std::cerr << "The file could not be opened. Error: " << e.what() << std::endl;
-        }
-    }
+//    virtual void read() {
+//        string name, pwd;
+//        try {
+//            ifstream f("date.txt");
+//            if (!f.is_open()) {
+//                throw std::runtime_error("Problem!");
+//            }
+//            getline(f, name);
+//            getline(f, pwd);
+//            f.close();
+//        }
+//        catch (const std::exception& e) {
+//            std::cerr << "The file could not be opened. Error: " << e.what() << std::endl;
+//        }
+//    }
 
 
 
