@@ -128,11 +128,6 @@ public:
     }
 
 
-    double priceModifier(double d) const {
-        return price + (price * 19) / 100;
-    }
-
-
     int getCalories() const {
         return calories;
     }
@@ -270,7 +265,9 @@ public:
                 }
             }
             catch (const std::exception& e) {
+
                 std::cerr << "Error: " << e.what() << std::endl;
+                cin.clear();
             }
         }
     }
@@ -322,6 +319,7 @@ public:
             }
             catch (const std::exception& e) {
                 cerr << "Error: " << e.what() << endl;
+                cin.clear();
             }
         }
     }
@@ -378,7 +376,7 @@ public:
 
     void upgrade() {
         short int input;
-        string data, tip;
+        string tip;
         cout << "Premium - 3.99/month : press 1" << endl;
         cout << "Premium plus - 5.49/month : press 2" << endl;
         cout << "Press 0 to cancel" << endl;
@@ -445,6 +443,7 @@ public:
             }
             catch (const std::exception &e) {
                 cerr << "Error: " << e.what() << endl;
+                cin.clear();
             }
         }
     }
@@ -464,6 +463,7 @@ public:
         }
         catch (const std::exception &e) {
             std::cerr << "The process could not be executed " << e.what() << endl;
+            cin.clear();
         }
     }
 
@@ -577,6 +577,7 @@ public:
             }
             catch (const std::exception& e) {
                 std::cerr << "Error: " << e.what() << std::endl;
+                cin.clear();
             }
         }
     }
@@ -608,6 +609,7 @@ public:
         }
         catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
+            cin.clear();
         }
     }
 
@@ -683,7 +685,7 @@ public:
                         try {
                             do {
                                 cin >> inputDelete;       //am gasit un produs pe care vrem sa il stergem & inputDelete retine al catelea produs sa fie sters;
-                                if (inputDelete < getDrinks(cart).size()) {
+                                if (inputDelete < int(getDrinks(cart).size())) {
                                     cart.productDelete(inputDelete - 1);
                                     cout << cart;
                                     cout << "Press 0 if you want to proceed to payment" << endl;
@@ -698,6 +700,7 @@ public:
                         }
                         catch (const std::exception &e) {
                             std::cerr << "Error: " << e.what() << std::endl;
+                            cin.clear();
                         }
                     }
                 }
@@ -708,6 +711,7 @@ public:
             catch (const std::exception &e) {
                 input = 10;
                 std::cerr << "Error: " << e.what() << std::endl;
+                cin.clear();
             }
 
         while (input != 0);
@@ -788,6 +792,7 @@ public:
                 }
             catch (const std::exception &e) {
                 std::cerr << "Error: " << e.what() << std::endl;
+                cin.clear();
             }
         }
 
@@ -817,6 +822,7 @@ public:
         }
         catch (const std::exception& e) {
             cerr << "Your cart is empty. Please add products to it and return later " << e.what() << endl;
+            cin.clear();
         }
     }
 
@@ -857,7 +863,7 @@ public:
 
 
 
-    static int everything(Cart cart, vector<Drink*> &coffeeMenu) {
+    static int everything(Cart cart, const vector<Drink*> &coffeeMenu) {
         cart.order(cart, coffeeMenu);
         cart.readyToOrder(cart, coffeeMenu);
         return 0;
@@ -943,6 +949,7 @@ int main() {
         }
         catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
+            cin.clear();
             return 0;
         }
     }
@@ -978,6 +985,7 @@ void orderAndExit() {
         }
         catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
+            cin.clear();
         }
     }
 }
