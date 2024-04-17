@@ -60,7 +60,7 @@ NoAlc::NoAlc(const string &nume, const double &pret, const int &calorii): Drink(
 
 //NoAlc(string nume, double pret, int calorii): Drink(nume, pret), calories(calorii) {};
 
-NoAlc::NoAlc(const NoAlc& notGood) = default;
+//NoAlc::NoAlc(const NoAlc& notGood) = default;
 
 
 void NoAlc::description() const {
@@ -116,11 +116,11 @@ WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(
 
 // WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
 
-WithAlc::WithAlc(const WithAlc& notGood) = default;
+//WithAlc::WithAlc(const WithAlc& notGood) = default;
 
-void WithAlc::setAlc(int percent) {
-    alcohol = percent;
-}
+//void WithAlc::setAlc(int percent) {
+//    alcohol = percent;
+//}
 
 
 void WithAlc::description() const  {
@@ -1050,3 +1050,42 @@ int main() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
