@@ -463,10 +463,6 @@ std::istream& Account::operator>>(std::istream& cinn) {
     return cinn;
 }
 
-//Account::~Account() {
-//    //std::cout << "Merge destructorul pentru account! :) \n";
-//}
-
 
 
 
