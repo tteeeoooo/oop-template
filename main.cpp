@@ -118,9 +118,9 @@ WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(
 
 WithAlc::WithAlc(const WithAlc& notGood) = default;
 
-void WithAlc::setAlc(int percent) {
-    alcohol = percent;
-}
+// void WithAlc::setAlc(int percent) {
+//     alcohol = percent;
+// }
 
 
 void WithAlc::description() const  {
