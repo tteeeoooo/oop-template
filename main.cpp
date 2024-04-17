@@ -5,7 +5,7 @@
 #include "account.h"
 #include "cout.h"
 
-Drink::Drink(string drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
+Drink::Drink(const std::string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
 
 Drink::Drink(const Drink &bauturica) = default;
 
@@ -26,7 +26,7 @@ double Drink::priceModifier() const {
 }
 
 
-std::ostream& Drink::operator<<(std::ostream& coutt) {}
+std::ostream& Drink::operator<<(std::ostream& coutt) {return coutt;}
 
 
 string Drink::getDrinkName() {
