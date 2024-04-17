@@ -5,9 +5,9 @@
 #include "account.h"
 #include "cout.h"
 
-Drink::Drink(const std::string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
+// Drink::Drink(const std::string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
 
-Drink::Drink(const Drink &bauturica) = default;
+// Drink::Drink(const Drink &bauturica) = default;
 
 Drink& Drink::operator=(const Drink &bauturica) {
     if (this != &bauturica) {
@@ -112,7 +112,7 @@ NoAlc& NoAlc::operator=(const NoAlc& hydrating) {
 
 
 
-WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(nume, pret), alcohol(alc) {};
+//WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(nume, pret), alcohol(alc) {};
 
 // WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
 
@@ -183,10 +183,10 @@ WithAlc& WithAlc::operator=(const WithAlc& hydratingg) {
 
 
 
-Account::Account(const std::string &nume, std::string parola): userName(nume), password(std::move(parola)) {}
+// Account::Account(const std::string &nume, std::string parola): userName(nume), password(std::move(parola)) {}
 
 
-Account::Account(const Account& cont): userName(cont.userName), password(cont.password) {}
+// Account::Account(const Account& cont): userName(cont.userName), password(cont.password) {}
 
 
 string Account::getName() const {
@@ -471,10 +471,10 @@ std::istream& Account::operator>>(std::istream& cinn) {
 
 
 
-Cart::Cart(const vector<Drink*> &bauturi, float pret, const vector<float> &preturi): myDrinks(bauturi), price(pret), priceList(preturi) {}
+//Cart::Cart(const vector<Drink*> &bauturi, float pret, const vector<float> &preturi): myDrinks(bauturi), price(pret), priceList(preturi) {}
 
 
-Cart::Cart(const Cart& cos) = default; //: myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
+//Cart::Cart(const Cart& cos) = default; //: myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {}
 
 
 void Cart::productDelete(int index){    //pentru cand stergem un produs din cos, sa actualizam nr. de produse
