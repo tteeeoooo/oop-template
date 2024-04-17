@@ -5,14 +5,14 @@
 #include "account.h"
 #include "cout.h"
 
-Drink::Drink(const string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
+Drink::Drink(const std::string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
 
 Drink::Drink(const Drink &bauturica) = default;
 
-Drink& Drink::operator=(const Drink &bauturica) {   
+Drink& Drink::operator=(const Drink &bauturica) {
     if (this != &bauturica) {
         this -> drinkChoice = bauturica.drinkChoice;
-        this -> price = bauturica.price;   
+        this -> price = bauturica.price;
     }
     return *this;
 }
@@ -46,7 +46,7 @@ void Drink::menuOptions(vector<Drink*> coffeeMenu) {
 }
 
 
-Drink::~Drink() {}
+//Drink::~Drink() {}
 
 double operator -(const Drink &bauturica, double procent) {
     double reducere = (bauturica.getDrinkPrice() * procent) / 100;
@@ -108,7 +108,7 @@ NoAlc& NoAlc::operator=(const NoAlc& hydrating) {
 }
 
 
-NoAlc::~NoAlc() = default;
+//NoAlc::~NoAlc() = default;
 
 
 
@@ -118,9 +118,9 @@ WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(
 
 WithAlc::WithAlc(const WithAlc& notGood) = default;
 
-void WithAlc::setAlc(int percent) {
-    alcohol = percent;
-}
+//void WithAlc::setAlc(int percent) {
+//    alcohol = percent;
+//}
 
 
 void WithAlc::description() const  {
@@ -178,7 +178,7 @@ WithAlc& WithAlc::operator=(const WithAlc& hydratingg) {
 }
 
 
-WithAlc::~WithAlc() = default;
+//WithAlc::~WithAlc() = default;
 
 
 
@@ -463,9 +463,9 @@ std::istream& Account::operator>>(std::istream& cinn) {
     return cinn;
 }
 
-Account::~Account() {
-    //std::cout << "Merge destructorul pentru account! :) \n";
-}
+//Account::~Account() {
+//    //std::cout << "Merge destructorul pentru account! :) \n";
+//}
 
 
 
@@ -867,7 +867,7 @@ int Cart::everything(Cart cart, const vector<Drink*> &coffeeMenu) {
 }
 
 
-Cart::~Cart() {}
+//Cart::~Cart() {}
 
 
 
@@ -1050,3 +1050,4 @@ int main() {
         }
     }
 }
+
