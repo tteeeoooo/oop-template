@@ -13,7 +13,7 @@ private:
 public:
     explicit WithAlc(const string &nume = "", const double &pret = 0, const int &alc = 0);
     WithAlc(const WithAlc &notGood);
-    void setAlc(int percent);
+    //void setAlc(int percent);
 
     void description() const override;
     int getAlc() const;
