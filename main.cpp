@@ -4,7 +4,7 @@
 #include "cart.h"
 #include "account.h"
 #include "cout.h"
-
+  
 Drink::Drink(const std::string &drinkName, const double &priceTag): drinkChoice(drinkName), price(priceTag) {}
 
 Drink::Drink(const Drink &bauturica) = default;
