@@ -46,7 +46,7 @@ void Drink::menuOptions(vector<Drink*> coffeeMenu) {
 }
 
 
-Drink::~Drink() {}
+//Drink::~Drink() {}
 
 double operator -(const Drink &bauturica, double procent) {
     double reducere = (bauturica.getDrinkPrice() * procent) / 100;
@@ -108,7 +108,7 @@ NoAlc& NoAlc::operator=(const NoAlc& hydrating) {
 }
 
 
-NoAlc::~NoAlc() = default;
+//NoAlc::~NoAlc() = default;
 
 
 
@@ -118,9 +118,9 @@ WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(
 
 WithAlc::WithAlc(const WithAlc& notGood) = default;
 
-// void WithAlc::setAlc(int percent) {
-//     alcohol = percent;
-// }
+//void WithAlc::setAlc(int percent) {
+//    alcohol = percent;
+//}
 
 
 void WithAlc::description() const  {
@@ -178,7 +178,7 @@ WithAlc& WithAlc::operator=(const WithAlc& hydratingg) {
 }
 
 
-WithAlc::~WithAlc() = default;
+//WithAlc::~WithAlc() = default;
 
 
 
@@ -463,7 +463,7 @@ std::istream& Account::operator>>(std::istream& cinn) {
     return cinn;
 }
 
-Account::~Account() {
+//Account::~Account() {
 //    //std::cout << "Merge destructorul pentru account! :) \n";
 //}
 
@@ -867,7 +867,7 @@ int Cart::everything(Cart cart, const vector<Drink*> &coffeeMenu) {
 }
 
 
-Cart::~Cart() {}
+//Cart::~Cart() {}
 
 
 
