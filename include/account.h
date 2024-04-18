@@ -11,8 +11,9 @@ protected:
     string userName;
     string password;
 public:
-    // explicit Account(const string &nume = "", string parola = "");
-    // Account(const Account &cont);
+    explicit Account(const string &nume = "", string parola = "");
+    Account(const Account &cont);
+
     string getName() const;
 
     int exc();
