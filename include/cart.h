@@ -14,8 +14,8 @@ private:
     vector<float> priceList;            //lista prteurilor
 
 public:
-    // explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {});
-    // Cart(const Cart &cos);
+    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {});
+    Cart(const Cart &cos);
 
 
     void productDelete(int index);
