@@ -13,8 +13,10 @@ class NoAlc: public Drink {
 private:
     int calories;
 public:
-    // explicit NoAlc(const string &nume = "", const double &pret = 0, const int &calorii = 0);
-    // NoAlc(const NoAlc &notGood);
+
+    explicit NoAlc(const string &nume = "", const double &pret = 0, const int &calorii = 0);
+    NoAlc(const NoAlc &veryGood);
+
     void description() const override;
     int getCalories() const;
 //    virtual void setAlc(int percent) const = 0;
@@ -26,3 +28,4 @@ public:
 
     virtual ~NoAlc();
 };
+
