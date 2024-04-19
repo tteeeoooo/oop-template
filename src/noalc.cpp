@@ -1,8 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <fstream>
-#include <exception>
 #include "drink.h"
 #include "noalc.h"
 #include "withalc.h"
@@ -61,4 +58,4 @@ NoAlc& NoAlc::operator=(const NoAlc& hydrating) {
 }
 
 
-//NoAlc::~NoAlc() = default;
+NoAlc::~NoAlc(){};
