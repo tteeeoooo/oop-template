@@ -2,11 +2,11 @@
 #include <string>
 #include <vector>
 #include "drink.h"
-#include "noalc.h"
-#include "withalc.h"
-#include "cart.h"
-#include "account.h"
-#include "cout.h"
+//#include "noalc.h"
+//#include "withalc.h"
+//#include "cart.h"
+//#include "account.h"
+//#include "cout.h"
 
 using namespace std;
 
