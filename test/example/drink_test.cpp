@@ -1,31 +1,35 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <exception>
+#include "Drink.h"
+#include <gtest/gtest.h>
 
-using namespace std;
+TEST(DrinkTest, ConstructorTest) {
+    Drink drink("Cappuccino", 3.5);
+    EXPECT_EQ(drink.getDrinkName(), "Cappuccino");
+    EXPECT_DOUBLE_EQ(drink.getDrinkPrice(), 3.5);
+}
 
-class Drink {
-protected:
-    string drinkChoice;       //tipul bauturii
-    double price;
-public:
-    explicit Drink(const std::string &drinkName = "", const double &priceTag = 0);
-    Drink(const Drink &bauturica) = default;
+TEST(DrinkTest, CopyConstructorTest) {
+    Drink original("Latte", 4.0);
+    Drink copy(original);
+    EXPECT_EQ(copy.getDrinkName(), "Latte");
+    EXPECT_DOUBLE_EQ(copy.getDrinkPrice(), 4.0);
+}
 
-    Drink &operator=(const Drink &bauturica);
+TEST(DrinkTest, AssignmentOperatorTest) {
+    Drink original("Espresso", 2.5);
+    Drink copy;
+    copy = original;
+    EXPECT_EQ(copy.getDrinkName(), "Espresso");
+    EXPECT_DOUBLE_EQ(copy.getDrinkPrice(), 2.5);
+}
 
-    virtual void description() const = 0;
-    virtual double priceModifier() const = 0;
+TEST(DrinkTest, DescriptionTest) {
+    EXPECT_EQ(drink.description(), "Descrierea așteptată");
+}
 
-    virtual std::ostream& operator<<(std::ostream& coutt) = 0;
-    std::istream& operator>>(std::istream& cinn);
+TEST(DrinkTest, PriceModifierTest) {
+    EXPECT_DOUBLE_EQ(drink.priceModifier(), 3.0);
+}
 
-    string getDrinkName();
-    double getDrinkPrice() const;
-    static void menuOptions(vector<Drink*> coffeeMenu);
-    virtual ~Drink();
-};
-double operator -(const Drink &bauturica, double procent);
-
+TEST(DrinkTest, DestructorTest) {
+    ASSERT_NO_THROW(delete drink);
+}
