@@ -81,7 +81,7 @@ Nerespectarea duce la nepunctarea proiectului
    - [ ] ilustrarea RTTI pe clase template
    - [ ] instanțieri cu logică a claselor create
  - STL (2p)
-   - [ ] utilizarea a două structuri (containere) din (fără <vector>)
+   - [ ] utilizarea a două structuri (containere) din (fără vector)
    - [ ] utilizarea a unui algoritm cu funcție lambda (de exemplu, sort, transform)
  - Design Patterns (2p)
    - [ ] utilizarea a două șabloane de proiectare
