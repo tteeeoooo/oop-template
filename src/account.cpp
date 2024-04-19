@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <fstream>
 #include <exception>
 #include "drink.h"
@@ -291,3 +290,5 @@ std::istream& Account::operator>>(std::istream& cinn) {
     cinn >> userName >> password;
     return cinn;
 }
+
+Account::~Account() {};
