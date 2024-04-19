@@ -26,6 +26,6 @@ public:
     std::istream& operator>>(std::istream& cinn);
     NoAlc& operator=(const NoAlc& hydrating);
 
-    virtual ~NoAlc();
+    ~NoAlc();
 };
 
