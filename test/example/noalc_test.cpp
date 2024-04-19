@@ -1,6 +1,5 @@
 #include "noalc.h" 
 #include <gtest/gtest.h>
-#include <sstream>
 
 TEST(NoAlcTest, ConstructorTest) {
     NoAlc drink("Fruit Juice", 2.0, 100);
