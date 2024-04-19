@@ -4,8 +4,12 @@
 #include "cart.h"
 #include "account.h"
 #include "cout.h"
+//#include "drink.cpp"
+//#include "cout.cpp"
+//#include "noalc.cpp"
+//#include "withalc.cpp"
+//#include "account.cpp"
 
-using namespace std;
 
 int main() {
     Cart cart({}, 0, {});
@@ -82,3 +86,5 @@ int main() {
         }
     }
 }
+
+
