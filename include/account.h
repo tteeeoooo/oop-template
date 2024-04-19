@@ -13,7 +13,6 @@ protected:
 public:
     explicit Account(const string &nume = "", string parola = "");
     Account(const Account &cont);
-
     string getName() const;
 
     int exc();
@@ -29,5 +28,5 @@ public:
     std::ostream& operator<<(std::ostream& coutt) const;
     std::istream& operator>>(std::istream& cinn);
 
-    virtual ~Account();
+    ~Account();
 };
