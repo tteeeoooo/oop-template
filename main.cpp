@@ -9,6 +9,7 @@
 //#include "noalc.cpp"
 //#include "withalc.cpp"
 //#include "account.cpp"
+#include <functional>
 
 
 int main() {
@@ -38,6 +39,12 @@ int main() {
     menu.push_back(new WithAlc("Penfolds Grange Hermitage", 763.0, 12));
     menu.push_back(new WithAlc("Chateau d'Yquem", 1973.0, 16));
 
+    auto asd = [menu]() {
+        for (auto &a: menu) {
+            delete a;
+        }
+    };
+
 
 
 
@@ -64,10 +71,12 @@ int main() {
 
                 if (input == 0) {
                     cout << "We are sorry to see you leave! We hope you will come back soon!" << endl;
+                    asd();
                     return 0;
                 }
                 else if (input == 1){
                     cart.everything(cart, menu);
+                    asd();
                     return 0;
                 }
                 else {
@@ -76,6 +85,7 @@ int main() {
             }
             else {
                 cart.everything(cart, menu);
+                asd();
                 return 0;
             }
         }
@@ -86,6 +96,42 @@ int main() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
