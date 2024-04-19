@@ -15,7 +15,7 @@ parola
 123
 1
 1
-1 -inclusiv meniu
+1
 2
 19
 33
