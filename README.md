@@ -76,7 +76,7 @@ Nerespectarea duce la nepunctarea proiectului
 ### Tema 3
 
 #### Cerințe
- - Clase template (3p)
+ - Clase template (2p)
    - [ ] crearea unei ierarhii de clase template cu minim 2 clase
    - [ ] ilustrarea RTTI pe clase template
    - [ ] instanțieri cu logică a claselor create
@@ -85,7 +85,7 @@ Nerespectarea duce la nepunctarea proiectului
    - [ ] utilizarea a unui algoritm cu funcție lambda (de exemplu, sort, transform)
  - Design Patterns (2p)
    - [ ] utilizarea a două șabloane de proiectare
- - Prezentare (3p)
+ - Prezentare (4p)
    - [ ] răspunsuri la întrebări din cod / generale C++
    - [ ] explicarea a unei alte structuri sau a altui algoritm neutilizat (STL)
    - [ ] explicarea a altor două șabloane de proiectare
