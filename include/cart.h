@@ -16,8 +16,6 @@ private:
 public:
     explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {});
     Cart(const Cart &cos);
-
-
     void productDelete(int index);
     float cartPrice() const;
     vector<Drink*> getDrinks(Cart cart);
@@ -33,5 +31,5 @@ public:
     void giveATip(const Cart &cart) const;
     int everything(Cart cart, const vector<Drink*> &coffeeMenu);
 
-    virtual ~Cart();
+    ~Cart();
 };
