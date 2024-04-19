@@ -12,10 +12,7 @@ protected:
     double price;
 public:
     explicit Drink(const std::string &drinkName = "", const double &priceTag = 0);
-    Drink(const Drink &bauturica);
-
-    // Drink();
-    // explicit Drink
+    Drink(const Drink &bauturica) = default;
 
     Drink &operator=(const Drink &bauturica);
 
@@ -32,3 +29,4 @@ public:
     virtual ~Drink();
 };
 double operator -(const Drink &bauturica, double procent);
+
