@@ -1,61 +1,80 @@
 #include <iostream>
 #include <string>
 #include "drink.h"
-#include "noalc.h"
-//#include "withalc.h"
+//#include "noalc.h"
+#include "withalc.h"
 //#include "cart.h"
 //#include "account.h"
 //#include "cout.h"
 
 using namespace std;
 
-NoAlc::NoAlc(const string &nume, const double &pret, const int &calorii): Drink(nume, pret), calories(calorii) {};
 
 
+WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(nume, pret), alcohol(alc) {};
 
-void NoAlc::description() const {
-    cout << "This drink contains " << NoAlc::getCalories() << " calories!" << endl;
-}
+// WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
 
+//WithAlc::WithAlc(const WithAlc& notGood) = default;
 
-int NoAlc::getCalories() const {
-    return calories;
-}
-
-double NoAlc::priceModifier() const {
-    return price + (price * 19) / 100;
-}
-
-
-
-std::ostream& NoAlc::operator<<(std::ostream& coutt) {
-    coutt << drinkChoice << " " << price << " " << calories;
-    return coutt;
-}
-
-std::istream& NoAlc::operator>>(std::istream& cinn) {
-    cinn >> drinkChoice >> price;
-    return cinn;
-}
-
-
-//std::istream& NoAlc::operator>>(std::istream& cinn) {
-//    cinn >> drinkChoice >> price >> calories;
-//    return cinn;
+//void WithAlc::setAlc(int percent) {
+//    alcohol = percent;
 //}
 
 
-//    calorieCalc(const vector <NoAlc>& drinkities)
+void WithAlc::description() const  {
+    cout << "This drink contains alcohol in a percentage of " << WithAlc::getAlc() << "%" << endl;
+}
+
+int WithAlc::getAlc() const {
+    return alcohol;
+}
 
 
-NoAlc& NoAlc::operator=(const NoAlc& hydrating) {
-    if (this != &hydrating) {
-        drinkChoice = hydrating.drinkChoice;
-        price = hydrating.price;
-        calories = hydrating.calories;
+double WithAlc::priceModifier() const {
+    double p = price + (price * 19) / 100;
+    return p + p / 20;
+}   //returneaza pretul cu tva + acciza de 5% pe bauturile alcoolice
+
+
+
+
+bool WithAlc::ageCheck() {
+    short int input;
+    cout << "Please enter your age: ";
+    cin >> input;
+    if (input < 21) {
+        return false;
+    }
+    else {
+        cout << "You can have access to alcoholic drinks!" << endl;
+        cout << "Side note: according to the Romanian regulations regarding selling fo alcoholic drinks, you will be imposed with a 5% excise tax!" << endl;
+        return true;
+    }
+}
+
+
+std::ostream& WithAlc::operator<<(std::ostream& coutt) {
+    coutt << drinkChoice << " " << price << alcohol;
+    return coutt;
+}
+
+
+std::istream& WithAlc::operator>>(std::istream& cinnn) {
+    cinnn >> drinkChoice >> price >> alcohol;
+    return cinnn;
+}
+
+
+
+WithAlc& WithAlc::operator=(const WithAlc& hydratingg) {
+    if (this != &hydratingg) {
+        drinkChoice = hydratingg.drinkChoice;
+        price = hydratingg.price;
+        alcohol = hydratingg.alcohol;
     }
     return *this;
 }
 
 
-NoAlc::~NoAlc(){};
+WithAlc::~WithAlc() = default;
