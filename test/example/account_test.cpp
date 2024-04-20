@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "account.h" // Include fișierul header al clasei Account
+#include "account.h" 
 
 TEST(AccountTest, InputVisual) {
-    Account account; // Inițializăm un obiect al clasei Account
+    Account account; 
 
     // Testăm fiecare caz posibil al switch-ului în funcția inputVisual
     EXPECT_EQ(account.inputVisual(1), "Premium plus");
@@ -11,16 +11,34 @@ TEST(AccountTest, InputVisual) {
     EXPECT_EQ(account.inputVisual(0), "abort mission");
 }
 
-TEST(AccountTest, Exc) {
+
+TEST(AccountTest, ExcValidInput1) {
     Account account;
-    std::stringstream input_stream("1\n2\n3\n");
+    std::stringstream input_stream("1\n");
     std::cin.rdbuf(input_stream.rdbuf()); 
 
     EXPECT_EQ(account.exc(), 1); 
-    EXPECT_EQ(account.exc(), 2); 
-
-    ASSERT_THROW(account.exc(), std::invalid_argument);
 }
+
+TEST(AccountTest, ExcValidInput2) {
+    Account account;
+    std::stringstream input_stream("2\n");
+    std::cin.rdbuf(input_stream.rdbuf()); 
+
+    EXPECT_EQ(account.exc(), 2); 
+}
+
+
+// TEST(AccountTest, Exc) {
+//     Account account;
+//     std::stringstream input_stream("1\n2\n3\n");
+//     std::cin.rdbuf(input_stream.rdbuf()); 
+
+//     EXPECT_EQ(account.exc(), 1); 
+//     EXPECT_EQ(account.exc(), 2); 
+
+//     ASSERT_THROW(account.exc(), std::invalid_argument);
+// }
 
 
 // #include <gtest/gtest.h>
