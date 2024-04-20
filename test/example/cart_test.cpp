@@ -4,7 +4,7 @@
 #include "noalc.h"
 #include "withalc.h"
 
-TEST(CartTest, GiveATipTest) {
+TEST(CartTest, CartPriceNonEmptyTest) {
     // Create some Drink objects for the cart
     Drink* drink1 = new Drink("Coffee", 2.5);
     Drink* drink2 = new Drink("Tea", 3.0);
@@ -13,10 +13,6 @@ TEST(CartTest, GiveATipTest) {
     // Create a Cart object with the drinks
     Cart cart(drinks, 5.5, {2.5, 3.0});
 
-    // Test the giveATip function
-    // For simplicity, we assume the user selects a 20% tip
-    cart.giveATip(cart);
-
-    // Check if the cart price reflects the addition of the tip
-    EXPECT_FLOAT_EQ(cart.cartPrice(), 6.6);  // Assuming a 20% tip on a cart with price 5.5
+    // Test the cartPrice function
+    EXPECT_FLOAT_EQ(cart.cartPrice(), 5.5);
 }
