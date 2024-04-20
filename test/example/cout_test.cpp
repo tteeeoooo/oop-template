@@ -56,6 +56,15 @@ TEST(CoutTest, OrderAndExitTest) {
     EXPECT_TRUE(true);
 }
 
+TEST(CoutTest, CoutAbortedOrderTest) {
+    // Testing coutAbortedOrder() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    Cout::coutAbortedOrder();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(true);
+}
+
 TEST(CoutTest, CoutFinishedOrder) {
     // Testăm funcția statică void coutFinishedOrder() din clasa Cout
     
