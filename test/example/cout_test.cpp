@@ -29,6 +29,15 @@ TEST(CoutTest, UnderLineTest) {
     EXPECT_TRUE(true);
 }
 
+TEST(CoutTest, UpperLineTest) {
+    // Testing upperLine() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    Cout::upperLine();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(true);
+}
+
 TEST(CoutTest, CoutFinishedOrder) {
     // Testăm funcția statică void coutFinishedOrder() din clasa Cout
     
