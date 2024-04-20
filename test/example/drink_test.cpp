@@ -26,7 +26,13 @@ TEST(DrinkTest, MenuOptions) {
     std::cout.rdbuf(oldCout);
 }
 
-TEST(DrinkTest, PriceModifierTest) {
-    Drink drink("Latte", 4.0);
-    EXPECT_DOUBLE_EQ(drink.priceModifier(), 4.0); // No tax applied
+TEST(DrinkTest, AssignmentOperatorTest) {
+    Drink drink1("Coffee", 2.5);
+    Drink drink2("Tea", 3.0);
+    
+    drink1 = drink2;
+    
+    EXPECT_EQ(drink1.getDrinkName(), "Tea");
+    EXPECT_DOUBLE_EQ(drink1.getDrinkPrice(), 3.0);
 }
+
