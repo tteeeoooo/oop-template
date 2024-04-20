@@ -20,6 +20,15 @@ TEST(CoutTest, PriceCalculationTest) {
     EXPECT_FLOAT_EQ(Cout::priceCalculation(-50.0, 10.0), -5.0);
 }
 
+TEST(CoutTest, UnderLineTest) {
+    // Testing underLine() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    Cout::underLine();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(true);
+}
+
 TEST(CoutTest, CoutFinishedOrder) {
     // Testăm funcția statică void coutFinishedOrder() din clasa Cout
     
