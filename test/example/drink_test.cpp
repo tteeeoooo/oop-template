@@ -1,16 +1,27 @@
 #include <gtest/gtest.h>
 #include "drink.h" // Presupunând că aici este inclus fișierul header pentru clasa Drink
 
-TEST(SuiteName, TestName) {
-    // Testăm funcția priceModifier() din clasa Drink
+TEST(DrinkTest, MenuOptions) {
+    // Testăm funcția menuOptions() din clasa Drink
 
-    // Inițializăm un obiect de tip MockDrink cu un preț specific
-    double expectedPrice = 5.0;
-    MockDrink mockDrink(expectedPrice);
+    // Inițializăm vectorul de băuturi pentru meniu
+    std::vector<Drink*> coffeeMenu;
 
-    // Apelăm funcția priceModifier()
-    double result = mockDrink.priceModifier();
+    // Adăugăm câteva băuturi în meniu (presupunem că sunt inițializate corect)
+    // coffeeMenu.push_back(/* Obiect de tip Drink */);
+    // coffeeMenu.push_back(/* Obiect de tip Drink */);
+    // coffeeMenu.push_back(/* Obiect de tip Drink */);
 
-    // Verificăm dacă prețul întors de funcție este corect
-    EXPECT_EQ(result, expectedPrice);
+    // Redirecționăm ieșirea standard (cout) către un stringstream pentru a putea verifica mesajele afișate
+    std::stringstream output;
+    std::streambuf* oldCout = std::cout.rdbuf(output.rdbuf());
+
+    // Apelăm funcția menuOptions() pentru a afișa meniul
+    Drink::menuOptions(coffeeMenu);
+
+    // Verificăm dacă mesajele afișate sunt corecte
+    // Aici adăugați aserțiuni pentru a verifica mesajele afișate în funcția menuOptions()
+
+    // Resetăm ieșirea standard la valoarea anterioară
+    std::cout.rdbuf(oldCout);
 }
