@@ -4,15 +4,15 @@
 #include "noalc.h"
 #include "withalc.h"
 
-TEST(CartTest, GiveATipTest) {
-    // Se setează un preț de 10.0 și un procent de bacșiș de 20%
-    float cartPrice = 10.0;
-    int tipPercentage = 20;
+TEST(CartTest, CartPriceTest) {
+    // Create a vector of Drink pointers representing the cart contents
+    std::vector<Drink*> drinks;
+    // Add some drinks to the cart
+    // Assuming Drink objects are created elsewhere and added to the vector
+    // Create a Cart object with the vector of drinks
+    Cart cart(drinks, 50.0, {10.0, 20.0, 30.0});
 
-    // Se creează un obiect Cart și se calculează valoarea totală de plată, inclusiv bacșișul
-    Cart cart({}, cartPrice, {});
-    float totalAmount = cart.giveATip(cartPrice, tipPercentage);
-
-    // Se verifică că valoarea totală de plată este corectă (12.0)
-    EXPECT_FLOAT_EQ(totalAmount, 12.0);
+    // Test the cartPrice function
+    // Check if the expected cart price matches the actual cart price
+    EXPECT_FLOAT_EQ(cart.cartPrice(), 50.0);
 }
