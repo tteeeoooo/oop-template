@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "noalc.h"
 
+class NoAlc;
+
 TEST(SuiteName, TestName) {
     // Aici adaugăm codul pentru testarea operatorului <<
     NoAlc drink("Soda", 2.5, 100);
