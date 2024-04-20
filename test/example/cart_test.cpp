@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 #include "cart.h"
+#include "drink.h"
+#include "noalc.h"
+#include "withalc.h"
 
 TEST(CartTest, GiveATipTest) {
     // Se setează un preț de 10.0 și un procent de bacșiș de 20%
