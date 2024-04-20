@@ -15,3 +15,11 @@ TEST(NoAlcTest, DescriptionTest) {
     std::cout.rdbuf(oldCout); // Reset cout redirection
     EXPECT_EQ(ss.str(), "This drink contains 50 calories!\n");
 }
+
+TEST(NoAlcTest, InputOperatorTest) {
+    NoAlc drink("Mocktail", 0, 0); // Initialize with dummy values
+    std::stringstream ss("Mojito 7.5"); // Input string
+    ss >> drink;
+    EXPECT_EQ(drink.getDrinkChoice(), "Mojito");
+    EXPECT_DOUBLE_EQ(drink.getPrice(), 7.5);
+}
