@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "example.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
+#include "noalc.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
 
 TEST(DrinkTest, NoAlcPriceModifier) {
     // Testăm funcția priceModifier() din clasa NoAlc
