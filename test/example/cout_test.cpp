@@ -10,6 +10,16 @@ TEST(CoutTest, MenuTextTest) {
     EXPECT_TRUE(true);
 }
 
+TEST(CoutTest, PriceCalculationTest) {
+    // Testing priceCalculation() function
+    // Test case 1: No discount
+    EXPECT_FLOAT_EQ(Cout::priceCalculation(100.0, 0.0), 0.0);
+    // Test case 2: 20% discount
+    EXPECT_FLOAT_EQ(Cout::priceCalculation(100.0, 20.0), 20.0);
+    // Test case 3: Negative price (edge case)
+    EXPECT_FLOAT_EQ(Cout::priceCalculation(-50.0, 10.0), -5.0);
+}
+
 TEST(CoutTest, CoutFinishedOrder) {
     // Testăm funcția statică void coutFinishedOrder() din clasa Cout
     
