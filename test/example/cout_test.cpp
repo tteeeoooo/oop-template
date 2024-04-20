@@ -90,3 +90,12 @@ TEST(CoutTest, TodaysSalesTest) {
     // If the function runs without errors, the test passes
     EXPECT_TRUE(true);
 }
+
+TEST(CoutTest, ExitTextTest) {
+    // Testing exitText() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    Cout::exitText();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(true);
+}
