@@ -1,90 +1,119 @@
-#include "account.h" 
-#include <gtest/gtest.h> 
+#include <gtest/gtest.h>
+#include "account.h"
+
 TEST(AccountTest, ConstructorTest) {
-    Account acc("JohnDoe", "password123");
-    EXPECT_EQ(acc.getName(), "JohnDoe");
+    Account acc;
+    EXPECT_EQ(acc.getName(), "");
 }
 
-TEST(AccountTest, CopyConstructorTest) {
-    Account original("JaneDoe", "qwerty");
-    Account copy(original);
-    EXPECT_EQ(copy.getName(), "JaneDoe");
+TEST(AccountTest, ParameterizedConstructorTest) {
+    Account acc("test_user", "test_password");
+    EXPECT_EQ(acc.getName(), "test_user");
 }
 
 TEST(AccountTest, GetNameTest) {
-    Account acc("Alice", "secret");
-    EXPECT_EQ(acc.getName(), "Alice");
+    Account acc("test_user", "test_password");
+    EXPECT_EQ(acc.getName(), "test_user");
 }
 
 TEST(AccountTest, ExcTest) {
+    std::stringstream input_stream("1\n");
+    std::stringstream output_stream;
+    std::streambuf *old_cin = std::cin.rdbuf(input_stream.rdbuf());
+    std::streambuf *old_cout = std::cout.rdbuf(output_stream.rdbuf());
+
     Account acc;
-    std::stringstream input("1\n");
-    std::streambuf* old_cin = std::cin.rdbuf(input.rdbuf()); 
-    EXPECT_EQ(acc.exc(), 1);
-    std::cin.rdbuf(old_cin); 
+    int result = acc.exc();
+    EXPECT_EQ(result, 1);
+
+    // Resetare cin și cout
+    std::cin.rdbuf(old_cin);
+    std::cout.rdbuf(old_cout);
 }
 
 TEST(AccountTest, UserReadTest) {
+    // Redirectez cin și cout pentru a simula input/output
+    std::stringstream input_stream("test_user\ntest_password\n0\n");
+    std::stringstream output_stream;
+    std::streambuf *old_cin = std::cin.rdbuf(input_stream.rdbuf());
+    std::streambuf *old_cout = std::cout.rdbuf(output_stream.rdbuf());
+
     Account acc;
-    std::stringstream input("JohnDoe\n1\n");
-    std::streambuf* old_cin = std::cin.rdbuf(input.rdbuf());
     acc.userRead();
+
     std::cin.rdbuf(old_cin);
+    std::cout.rdbuf(old_cout);
+
+    EXPECT_EQ(acc.getName(), "test_user");
 }
 
 TEST(AccountTest, PremiumTextTest) {
-    Account acc;
-    std::stringstream ss;
-    acc.premiumText();
-    std::string output = ss.str();
-    EXPECT_NE(output.find("Discover the advantages of premium!"), std::string::npos);
-}
+    // Redirectez cout pentru a captura output-ul
+    std::stringstream output_stream;
+    std::streambuf *old_cout = std::cout.rdbuf(output_stream.rdbuf());
 
-TEST(AccountTest, InputDataTest) {
-    Account acc;
-    std::stringstream input("1234567890123456 JohnDoe 123\n");
-    std::streambuf* old_cin = std::cin.rdbuf(input.rdbuf());
-    acc.inputData();
-    std::cin.rdbuf(old_cin);
+    Account::premiumText();
+
+    std::cout.rdbuf(old_cout);
+
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("Discover the advantages of premium") != std::string::npos);
 }
 
 TEST(AccountTest, InputVisualTest) {
-    Account acc;
-    EXPECT_EQ(acc.inputVisual(1), "Premium plus");
-}
-
-TEST(AccountTest, UpgradeTest) {
-    Account acc;
-    std::stringstream input("1\n");
-    std::streambuf* old_cin = std::cin.rdbuf(input.rdbuf());
-    acc.upgrade();
-    std::cin.rdbuf(old_cin);
+    EXPECT_EQ(Account::inputVisual(1), "Premium plus");
+    EXPECT_EQ(Account::inputVisual(2), "Premium");
+    EXPECT_EQ(Account::inputVisual(3), "Business casual");
+    EXPECT_EQ(Account::inputVisual(0), "abort mission");
+    // Test suplimentar pentru alt input
+    EXPECT_EQ(Account::inputVisual(4), "");
 }
 
 TEST(AccountTest, SaveTest) {
-    Account acc("Alice", "pass123");
+    std::stringstream output_stream;
+    std::streambuf *old_cout = std::cout.rdbuf(output_stream.rdbuf());
+
+    Account acc("test_user", "test_password");
     acc.save();
-    Verificăm dacă fișierul date.txt conține datele corecte
+
+    std::cout.rdbuf(old_cout);
+
+    std::ifstream file("date.txt");
+    std::string username, password;
+    file >> username >> password;
+    file.close();
+
+    EXPECT_EQ(username, "test_user");
+    EXPECT_EQ(password, "test_password");
 }
 
 TEST(AccountTest, AssignmentOperatorTest) {
-    Account original("Bob", "pass123");
-    Account copy;
-    copy = original;
-    EXPECT_EQ(copy.getName(), "Bob");
+    Account acc1("user1", "pass1");
+    Account acc2("user2", "pass2");
+
+    acc2 = acc1;
+
+    EXPECT_EQ(acc2.getName(), "user1");
 }
 
-TEST(AccountTest, OutputOperatorTest) {
-    Account acc("Eve", "mysecret");
-    std::stringstream ss;
-    ss << acc;
-    std::string output = ss.str();
-    EXPECT_NE(output.find("Eve"), std::string::npos);
+TEST(AccountTest, InsertionOperatorTest) {
+    Account acc("test_user", "test_password");
+    std::stringstream output_stream;
+    output_stream << acc;
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("Username: test_user") != std::string::npos);
+    EXPECT_TRUE(output.find("Password: test_password") != std::string::npos);
 }
 
-TEST(AccountTest, InputOperatorTest) {
+TEST(AccountTest, ExtractionOperatorTest) {
     Account acc;
-    std::stringstream ss("John Jane\npass123\n");
-    ss >> acc;
-    EXPECT_EQ(acc.getName(), "John");
+    std::stringstream input_stream("test_user test_password");
+    input_stream >> acc;
+    EXPECT_EQ(acc.getName(), "test_user");
 }
+
+TEST(AccountTest, DestructorTest) {
+    Account* acc = new Account("test_user", "test_password");
+    delete acc;
+}
+
