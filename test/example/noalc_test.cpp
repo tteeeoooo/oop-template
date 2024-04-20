@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "noalc.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
+#include "example.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
 
-TEST(SuiteName, TestName) {
+TEST(DrinkTest, NoAlcPriceModifier) {
     // Testăm funcția priceModifier() din clasa NoAlc
 
     // Inițializăm un obiect de tip NoAlc
@@ -19,4 +19,3 @@ TEST(SuiteName, TestName) {
     // Verificăm dacă prețul întors de funcție este corect
     EXPECT_EQ(result, expectedPrice);
 }
-
