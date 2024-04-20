@@ -1,9 +1,7 @@
 #include <gtest/gtest.h>
-#include <sstream> // Pentru std::ostringstream
-#include "noalc.h" // Asigură-te că calea către headerul corect este inclusă aici
+#include "noalc.h"
 
-// Verificăm dacă operatorul << produce ieșirea corectă pentru obiectele de tip NoAlc
-TEST(NoAlcTest, OutputOperatorTest) {
+TEST(SuiteName, OutputOperatorTest) {
     // Cream un obiect de tip NoAlc cu anumite valori
     NoAlc drink("Soda", 2.5, 100);
 
@@ -15,11 +13,4 @@ TEST(NoAlcTest, OutputOperatorTest) {
 
     // Verificăm dacă ieșirea obținută este cea așteptată
     EXPECT_EQ(oss.str(), "Soda 2.5 100");
-}
-
-// Mai poți adăuga teste suplimentare pentru alte cazuri dacă este necesar
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
