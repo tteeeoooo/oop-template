@@ -52,6 +52,3 @@ TEST(WithAlcTest, InputOperatorTest) {
 }
 
 
-
-
-
