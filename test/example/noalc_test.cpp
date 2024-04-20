@@ -1,16 +1,25 @@
 #include <gtest/gtest.h>
-#include "noalc.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
+#include <sstream> // Pentru std::ostringstream
+#include "noalc.h" // Asigură-te că calea către headerul corect este inclusă aici
 
-TEST(NoAlcTest, PriceModifier) {
-    // Inițializăm un obiect de tip NoAlc cu un preț specific
-    NoAlc noAlc("Non-alcoholic Drink", 100.0, 200); // Presupunând că există un constructor corespunzător în clasa NoAlc
+// Verificăm dacă operatorul << produce ieșirea corectă pentru obiectele de tip NoAlc
+TEST(NoAlcTest, OutputOperatorTest) {
+    // Cream un obiect de tip NoAlc cu anumite valori
+    NoAlc drink("Soda", 2.5, 100);
 
-    // Obținem prețul folosind funcția priceModifier() din clasa NoAlc
-    double result = noAlc.priceModifier();
+    // Cream un std::ostringstream pentru a captura ieșirea
+    std::ostringstream oss;
+    
+    // Folosim operatorul << pentru a scrie obiectul în std::ostringstream
+    oss << drink;
 
-    // Calculăm prețul așteptat pentru testare
-    double expectedPrice = 100.0 + (100.0 * 19) / 100;
+    // Verificăm dacă ieșirea obținută este cea așteptată
+    EXPECT_EQ(oss.str(), "Soda 2.5 100");
+}
 
-    // Verificăm dacă prețul întors de funcție este cel așteptat
-    EXPECT_DOUBLE_EQ(result, expectedPrice);
+// Mai poți adăuga teste suplimentare pentru alte cazuri dacă este necesar
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
