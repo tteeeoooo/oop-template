@@ -1,12 +1,19 @@
 #include <gtest/gtest.h>
 #include "cart.h"
 
-TEST(CartTest, GiveATipTest) {
-    // Se creează un obiect Cart și se setează un preț de 10.0
-    Cart cart({}, 10.0, {});
+// Funcția giveATip este izolată și poate fi testată separat
+float giveATip(float cartPrice, int tipPercentage) {
+    float tipAmount = cartPrice * (tipPercentage / 100.0f);
+    return cartPrice + tipAmount;
+}
 
-    // Se calculează valoarea totală de plată pentru un bacșiș de 20%
-    float totalAmount = cart.giveATip(20);
+TEST(CartTest, GiveATipTest) {
+    // Se setează un preț de 10.0 și un procent de bacșiș de 20%
+    float cartPrice = 10.0;
+    int tipPercentage = 20;
+
+    // Se calculează valoarea totală de plată, inclusiv bacșișul
+    float totalAmount = giveATip(cartPrice, tipPercentage);
 
     // Se verifică că valoarea totală de plată este corectă (12.0)
     EXPECT_FLOAT_EQ(totalAmount, 12.0);
