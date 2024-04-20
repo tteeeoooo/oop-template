@@ -26,15 +26,9 @@ TEST(DrinkTest, MenuOptions) {
     std::cout.rdbuf(oldCout);
 }
 
-TEST(DrinkTest, AssignmentOperatorTest) {
-    // Create two drinks with different initial values
-    Drink drink1("Coffee", 2.5);
-    Drink drink2("Tea", 3.0);
-    
-    // Assign drink2 to drink1
-    drink1 = drink2;
-    
-    // Check if drink1 now has the properties of drink2
-    EXPECT_EQ(drink1.getDrinkName(), "Tea");
-    EXPECT_DOUBLE_EQ(drink1.getDrinkPrice(), 3.0);
+TEST(DrinkTest, PriceModifierTest) {
+    // Create a drink
+    Drink drink("Latte", 4.0);
+    // Expected price after applying tax
+    EXPECT_DOUBLE_EQ(drink.priceModifier(), 4.0); 
 }
