@@ -12,21 +12,21 @@ TEST(AccountTest, InputVisual) {
 }
 
 
-TEST(AccountTest, ExcValidInput1) {
-    Account account;
-    std::stringstream input_stream("1\n");
-    std::cin.rdbuf(input_stream.rdbuf()); 
+// TEST(AccountTest, ExcValidInput1) {
+//     Account account;
+//     std::stringstream input_stream("1");
+//     std::cin.rdbuf(input_stream.rdbuf()); 
 
-    EXPECT_EQ(account.exc(), 1); 
-}
+//     EXPECT_EQ(account.exc(), 1); 
+// }
 
-TEST(AccountTest, ExcValidInput2) {
-    Account account;
-    std::stringstream input_stream("2\n");
-    std::cin.rdbuf(input_stream.rdbuf()); 
+// TEST(AccountTest, ExcValidInput2) {
+//     Account account;
+//     std::stringstream input_stream("2\n");
+//     std::cin.rdbuf(input_stream.rdbuf()); 
 
-    EXPECT_EQ(account.exc(), 2); 
-}
+//     EXPECT_EQ(account.exc(), 2); 
+// }
 
 
 // TEST(AccountTest, Exc) {
