@@ -38,6 +38,16 @@ TEST(CoutTest, UpperLineTest) {
     EXPECT_TRUE(true);
 }
 
+TEST(CoutTest, TextToFinishTest) {
+    // Testing textToFinish() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    int result = Cout::textToFinish();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(result == 0);
+}
+
+
 TEST(CoutTest, CoutFinishedOrder) {
     // Testăm funcția statică void coutFinishedOrder() din clasa Cout
     
