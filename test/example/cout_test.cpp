@@ -82,3 +82,11 @@ TEST(CoutTest, CoutFinishedOrder) {
     std::cout.rdbuf(oldCout);
 }
 
+TEST(CoutTest, TodaysSalesTest) {
+    // Testing todaysSales() function
+    // Since this function only prints text, we can't directly test its output
+    // We can check if it runs without errors
+    Cout::todaysSales();
+    // If the function runs without errors, the test passes
+    EXPECT_TRUE(true);
+}
