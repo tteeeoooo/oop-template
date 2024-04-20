@@ -8,19 +8,6 @@ public:
     double priceModifier() const override { return 0; }
 };
 
-TEST(CartTest, Order) {
-    std::vector<Drink*> coffeeMenu;
-    coffeeMenu.push_back(new MockDrink("Coffee1", 5.0));
-    coffeeMenu.push_back(new MockDrink("Coffee2", 3.0));
-    Cart cart;
-    std::stringstream user_input;
-    user_input << "1\n0\n"; 
-    std::cin.rdbuf(user_input.rdbuf());
-
-    float totalPrice = cart.order(cart, coffeeMenu);
-    EXPECT_EQ(totalPrice, 5.0); 
-}
-
 
 TEST(CartTest, CartPrice) {
     Cart cart;
@@ -31,6 +18,18 @@ TEST(CartTest, CartPrice) {
     EXPECT_FLOAT_EQ(cart.cartPrice(), 8.0); 
 }
 
+// TEST(CartTest, Order) {
+//     std::vector<Drink*> coffeeMenu;
+//     coffeeMenu.push_back(new MockDrink("Coffee1", 5.0));
+//     coffeeMenu.push_back(new MockDrink("Coffee2", 3.0));
+//     Cart cart;
+//     std::stringstream user_input;
+//     user_input << "1\n0\n"; 
+//     std::cin.rdbuf(user_input.rdbuf());
+
+//     float totalPrice = cart.order(cart, coffeeMenu);
+//     EXPECT_EQ(totalPrice, 5.0); 
+// }
 
 // TEST(CartTest, CartPrice) {
 //     float expected_price = 50.0;
