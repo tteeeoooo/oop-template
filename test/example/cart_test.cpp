@@ -80,3 +80,19 @@ TEST(CartTest, OutputOperatorTest) {
         delete drink;
     }
 }
+
+TEST(CartTest, EverythingFunction) {
+    Cart cart;
+    vector<Drink*> coffeeMenu; // O listă goală de produse
+    EXPECT_NO_THROW({
+        cart.everything(cart, coffeeMenu);
+    });
+}
+
+TEST(CartTest, GiveATipFunction) {
+    Cart cart;
+    EXPECT_NO_THROW({
+        cart.giveATip(cart);
+    });
+}
+
