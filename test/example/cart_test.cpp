@@ -2,16 +2,17 @@
 #include "cart.h"
 
 TEST(CartTest, ProductDeleteTest) {
-    // Create a cart with some drinks
-    std::vector<Drink*> drinks;
-    drinks.push_back(new Drink("Coffee", 2.5));
-    drinks.push_back(new Drink("Tea", 3.0));
-    Cart cart(drinks, 5.5, {2.5, 3.0});
+    // Se creează un obiect Cart cu băuturi de test
+    std::vector<Drink*> drinks = {new NoAlc("TestDrink", 5.0), new NoAlc("TestDrink2", 7.0)};
+    Cart cart(drinks, 12.0, {5.0, 7.0});
 
-    // Delete a product from the cart
+    // Se șterge un produs din coș și se verifică prețul și numărul de produse
     cart.productDelete(1);
-
-    // Check if the price and number of drinks are updated correctly
-    EXPECT_FLOAT_EQ(cart.cartPrice(), 3.0);
+    EXPECT_EQ(cart.cartPrice(), 7.0);
     EXPECT_EQ(cart.getDrinks(cart).size(), 1);
+
+    // Se eliberează memoria pentru băuturi
+    for (auto drink : drinks) {
+        delete drink;
+    }
 }
