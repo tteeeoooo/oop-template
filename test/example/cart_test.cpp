@@ -5,9 +5,9 @@ TEST(CartTest, GiveATipTest) {
     // Se creează un obiect Cart și se setează un preț de 10.0
     Cart cart({}, 10.0, {});
 
-    // Se calculează valoarea bacșișului pentru 20%
-    float tipAmount = cart.calculateTip(20);
+    // Se calculează valoarea totală de plată pentru un bacșiș de 20%
+    float totalAmount = cart.giveATip(20);
 
-    // Se verifică că valoarea calculată este corectă (2.0)
-    EXPECT_FLOAT_EQ(tipAmount, 2.0);
+    // Se verifică că valoarea totală de plată este corectă (12.0)
+    EXPECT_FLOAT_EQ(totalAmount, 12.0);
 }
