@@ -2,7 +2,7 @@
 #include "drink.h"
 #include "withalc.h"
 
-TEST(NoAlcTest, PriceModifierTest) {
-    NoAlc drinkity("Wine", 25, 9);
-    EXPECT_DOUBLE_EQ(drinkity.priceModifier(), 31.2375);
+TEST(WithAlcTest, PriceModifierTest) {
+    WithAlc drink("Beer", 3.0, 5);
+    EXPECT_DOUBLE_EQ(drink.priceModifier(), 3.564); // Calculul a fost verificat manual
 }
