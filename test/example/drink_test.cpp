@@ -1,13 +1,10 @@
 #include <gtest/gtest.h>
 #include "drink.h" // Presupunând că aici este inclus fișierul header pentru clasa Drink
 
-TEST(DrinkTest, PriceModifier) {
+TEST(SuiteName, TestName) {
     // Testăm funcția priceModifier() din clasa Drink
 
-    // Inițializăm un obiect de tip Drink (aceasta nu este posibil deoarece Drink este o clasă abstractă)
-    // În loc de inițializare directă, vom folosi o clasă derivată (MockDrink) pentru a testa funcția virtuală pură
-
-    // Cream un obiect de tip MockDrink cu un preț specific
+    // Inițializăm un obiect de tip MockDrink cu un preț specific
     double expectedPrice = 5.0;
     MockDrink mockDrink(expectedPrice);
 
