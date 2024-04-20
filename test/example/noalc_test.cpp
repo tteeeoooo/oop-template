@@ -19,7 +19,8 @@ TEST(NoAlcTest, DescriptionTest) {
 TEST(NoAlcTest, OutputOperatorTest) {
     NoAlc drink("Mocktail", 5.0, 50);
     std::stringstream ss;
-    ss << drink;
+    drink.operator<<(ss); // Using the member function directly
     EXPECT_EQ(ss.str(), "Mocktail 5 50");
 }
+
 
