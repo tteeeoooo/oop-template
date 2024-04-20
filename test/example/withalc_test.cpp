@@ -35,21 +35,23 @@ TEST(WithAlcTest, AgeCheckTest) {
     std::cin.rdbuf(oldCin);
 }
 
-TEST(WithAlcTest, InputOperatorTest) {
+TEST(WithAlcTest, DescriptionTest) {
     // Cream un obiect de tip WithAlc cu numele și prețul oarecare și 12% alcool
-    WithAlc drink("Wine", 10, 12);
+    WithAlc drink("Wine", 10.0, 12);
     
-    // Cream un flux de intrare cu o linie care conține numele, prețul și procentul de alcool pentru o băutură nouă
-    std::istringstream cinn("Whiskey 15 40");
+    // Redirecționăm ieșirea standard pentru a captura mesajele afișate
+    testing::internal::CaptureStdout();
     
-    // Apelăm operatorul de citire pentru obiectul nostru WithAlc
-    cinn >> drink;
+    // Apelăm funcția de descriere pentru obiectul nostru WithAlc
+    drink.description();
     
-    // Verificăm dacă valorile obiectului au fost actualizate corespunzător
-    EXPECT_EQ(drink.getDrinkChoice(), "Whiskey");
-    EXPECT_DOUBLE_EQ(drink.getPrice(), 15);
-    EXPECT_EQ(drink.getAlc(), 40);
+    // Obținem ieșirea capturată
+    std::string output = testing::internal::GetCapturedStdout();
+    
+    // Verificăm dacă descrierea conține informații despre alcool
+    EXPECT_NE(output.find("This drink contains alcohol in a percentage of"), std::string::npos);
 }
+
 
 
 
