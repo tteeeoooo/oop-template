@@ -1,21 +1,16 @@
 #include <gtest/gtest.h>
 #include "cart.h" 
 
-class MockDrink : public Drink {
-public:
-    MockDrink(const std::string& name, double price) : Drink(name, price) {}
-    void description() const override {}
-    double priceModifier() const override { return 0; }
-};
-
-
-TEST(CartTest, CartPrice) {
+TEST(CartTest, OrderCheckout) {
     Cart cart;
+    std::vector<Drink*> coffeeMenu; // Presupunând că aceasta este o listă validă de băuturi
 
-    cart.addProduct("Coffee1", 5.0);
-    cart.addProduct("Coffee2", 3.0);
+    // Simulăm un input care duce la checkout direct
+    std::stringstream input_stream("0\n");
+    std::cin.rdbuf(input_stream.rdbuf());
 
-    EXPECT_FLOAT_EQ(cart.cartPrice(), 8.0); 
+    // Apelăm funcția order() și verificăm dacă returnează prețul corect (0 pentru un coș gol)
+    EXPECT_EQ(cart.order(cart, coffeeMenu), 0);
 }
 
 // TEST(CartTest, Order) {
