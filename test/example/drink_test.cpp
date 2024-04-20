@@ -26,9 +26,20 @@ TEST(DrinkTest, MenuOptions) {
     std::cout.rdbuf(oldCout);
 }
 
-TEST(DrinkTest, PriceModifierTest) {
-    // Create a drink
-    Drink drink("Latte", 4.0);
-    // Expected price after applying tax
-    EXPECT_DOUBLE_EQ(drink.priceModifier(), 4.0); 
+TEST(DrinkTest, SameDrinkEqualTest) {
+    // Create two drinks with the same name and price
+    Drink drink1("Latte", 3.5);
+    Drink drink2("Latte", 3.5);
+    
+    // Check if both drinks are equal
+    EXPECT_EQ(drink1, drink2);
+}
+
+TEST(DrinkTest, DifferentDrinksNotEqualTest) {
+    // Create two drinks with different names and prices
+    Drink drink1("Latte", 3.5);
+    Drink drink2("Mocha", 4.0);
+    
+    // Check if both drinks are not equal
+    EXPECT_NE(drink1, drink2);
 }
