@@ -16,3 +16,21 @@ TEST(WithAlcTest, PriceModifierTest) {
     // Verificăm dacă prețul modificat calculat este cel așteptat
     EXPECT_DOUBLE_EQ(modifiedPrice, expectedPrice);
 }
+
+TEST(WithAlcTest, AgeCheckTest) {
+    // Cream un obiect de tip WithAlc cu numele și prețul oarecare și 12% alcool
+    WithAlc drink("Whiskey", 10.0, 12);
+    
+    // Redirecționăm fluxurile de intrare și ieșire pentru a simula introducerea vârstei
+    std::istringstream iss("20");
+    std::ostringstream oss;
+    std::streambuf* oldCout = std::cout.rdbuf(oss.rdbuf());
+    std::streambuf* oldCin = std::cin.rdbuf(iss.rdbuf());
+    
+    // Verificăm dacă funcția ageCheck() returnează corect false pentru o vârstă sub 21 de ani
+    EXPECT_FALSE(drink.ageCheck());
+    
+    // Restaurăm fluxurile de intrare și ieșire pentru a reveni la comportamentul normal
+    std::cout.rdbuf(oldCout);
+    std::cin.rdbuf(oldCin);
+}
