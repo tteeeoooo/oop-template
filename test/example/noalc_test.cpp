@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
 #include "noalc.h"
 
-TEST(NoAlcTest, GetCaloriesTest) {
-    NoAlc drinkity("Espresso", 2.5, 100);
+TEST(NoAlcTest, PriceModifierTest) {
+    // Cream un obiect de tip NoAlc cu anumite valori
+    NoAlc drink("Coffee", 3.0, 120);
 
-    EXPECT_EQ(drinkity.getCalories(), 100);
+    // Verificăm dacă funcția priceModifier() calculează prețul corect
+    EXPECT_DOUBLE_EQ(drink.priceModifier(), 3.57);
 }
