@@ -25,3 +25,8 @@ TEST(DrinkTest, MenuOptions) {
     // Resetăm ieșirea standard la valoarea anterioară
     std::cout.rdbuf(oldCout);
 }
+
+TEST(DrinkTest, PriceModifierTest) {
+    Drink drink("Latte", 4.0);
+    EXPECT_DOUBLE_EQ(drink.priceModifier(), 4.0); // No tax applied
+}
