@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include "cart.h"
-#include "drink.h"
-#include "noalc.h"
-#include "withalc.h"
+// #include "drink.h"
+// #include "noalc.h"
+// #include "withalc.h"
 
 TEST(CartTest, CartPriceEmptyTest) {
     // Create an empty cart
