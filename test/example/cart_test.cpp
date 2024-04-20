@@ -1,18 +1,22 @@
 #include <gtest/gtest.h>
 #include "cart.h"
 
-TEST(CartTest, ProductDeleteTest) {
-    // Se creează un obiect Cart cu băuturi de test
-    std::vector<Drink*> drinks = {new NoAlc("TestDrink", 5.0), new NoAlc("TestDrink2", 7.0)};
-    Cart cart(drinks, 12.0, {5.0, 7.0});
+TEST(CartTest, GiveATipTest) {
+    // Se creează un meniu de băuturi de test
+    std::vector<Drink*> coffeeMenu = {new NoAlc("TestDrink1", 5.0), new NoAlc("TestDrink2", 7.0)};
+    Cart cart({}, 10.0, {});
 
-    // Se șterge un produs din coș și se verifică prețul și numărul de produse
-    cart.productDelete(1);
-    EXPECT_EQ(cart.cartPrice(), 7.0);
-    EXPECT_EQ(cart.getDrinks(cart).size(), 1);
+    // Se verifică că se calculează corect procentul pentru bacșiș
+    testing::internal::CaptureStdout();
+    testing::internal::CaptureStderr();
+    std::istringstream input("2"); // Se introduce 20% pentru bacșiș
+    std::cin.rdbuf(input.rdbuf());
+    cart.giveATip(cart);
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "You will have to pay: 12\n");
 
     // Se eliberează memoria pentru băuturi
-    for (auto drink : drinks) {
+    for (auto drink : coffeeMenu) {
         delete drink;
     }
 }
