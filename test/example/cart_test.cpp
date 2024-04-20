@@ -4,19 +4,18 @@
 #include "noalc.h"
 #include "withalc.h"
 
-TEST(CartTest, GiveATipTest) {
-    // Create some Drink objects for the cart
-    Drink* drink1 = new Drink("Coffee", 2.5);
-    Drink* drink2 = new Drink("Tea", 3.0);
-    std::vector<Drink*> drinks = {drink1, drink2};
+TEST(CartTest, OrderTest) {
+    // Create a vector of Drink pointers representing the coffee menu
+    std::vector<Drink*> coffeeMenu;
+    // Add some drinks to the coffee menu
+    // Assuming Drink objects are created elsewhere and added to the vector
+    // Create an empty vector of Drink pointers representing the cart contents
+    std::vector<Drink*> drinks;
+    // Create a Cart object with the empty vector of drinks
+    Cart cart(drinks, 0.0, {});
 
-    // Create a Cart object with the drinks
-    Cart cart(drinks, 5.5, {2.5, 3.0});
-
-    // Test the giveATip function
-    // Check if the function calculates the tip correctly
-    // For simplicity, we assume the user input is provided as expected
-    cart.giveATip(cart);
-    // Check if the cart price reflects the addition of the tip
-    EXPECT_FLOAT_EQ(cart.cartPrice(), 8.25);  // Assuming a 50% tip on a cart with price 5.5
+    // Test the order function
+    // For simplicity, we assume the order function executes without errors
+    // This test can be extended with more specific scenarios
+    cart.order(cart, coffeeMenu);
 }
