@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
-#include "noalc.h"
+#include "noalc.h" // Presupunând că aici este inclus fișierul header pentru clasa NoAlc
 
-TEST(DrinkTest, NoAlcPriceModifier) {
+TEST(SuiteName, TestName) {
     // Testăm funcția priceModifier() din clasa NoAlc
 
     // Inițializăm un obiect de tip NoAlc
     NoAlc noAlc;
 
     // Setăm un preț specific pentru testare
-    noAlc.setPrice(100); // Presupunând că există o metodă setPrice() pentru a seta prețul
+    noAlc.price = 100; // Accesăm direct membrul de date price
 
     // Calculăm prețul așteptat pentru testare
     double expectedPrice = 100 + (100 * 19) / 100;
