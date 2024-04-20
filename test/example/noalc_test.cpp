@@ -3,9 +3,8 @@
 
 // Testăm funcția getCalories()
 TEST(SuiteName, TestName) {
-    // Cream un obiect de tip NoAlc cu anumite valori
-    NoAlc drinkity("Soda", 2.5, 100);
+    NoAlc drinkity("Espresso", 2.5, 100);
 
     // Verificăm dacă funcția getCalories() returnează valoarea corectă
-    EXPECT_EQ(drink.getCalories(), 100);
+    EXPECT_EQ(drinkity.getCalories(), 100);
 }
