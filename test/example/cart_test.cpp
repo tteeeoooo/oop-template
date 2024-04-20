@@ -1,3 +1,12 @@
+#include <gtest/gtest.h>
+#include "cart.h" // Include fișierul header al clasei Cart
+
+TEST(CartTest, CartPrice) {
+    float expected_price = 50.0;
+    Cart cart(expected_price);
+    EXPECT_EQ(cart.cartPrice(), expected_price);
+}
+
 // #include <gtest/gtest.h>
 // #include <iostream>
 // #include <vector>
