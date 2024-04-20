@@ -19,7 +19,8 @@ TEST(NoAlcTest, DescriptionTest) {
 TEST(NoAlcTest, InputOperatorTest) {
     NoAlc drink("Mocktail", 0, 0); // Initialize with dummy values
     std::stringstream ss("Mojito 7.5"); // Input string
-    ss >> drink;
+    ss >> drink; // Using the member function
     EXPECT_EQ(drink.getDrinkChoice(), "Mojito");
     EXPECT_DOUBLE_EQ(drink.getPrice(), 7.5);
 }
+
