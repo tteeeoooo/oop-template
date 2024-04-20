@@ -37,18 +37,19 @@ TEST(WithAlcTest, AgeCheckTest) {
 
 TEST(WithAlcTest, InputOperatorTest) {
     // Cream un obiect de tip WithAlc cu numele și prețul oarecare și 12% alcool
-    WithAlc drink("Wine", 10.0, 12);
+    WithAlc drink("Wine", 10, 12);
     
     // Cream un flux de intrare cu o linie care conține numele, prețul și procentul de alcool pentru o băutură nouă
-    std::istringstream iss("Whiskey 15 40");
+    std::istringstream cinn("Whiskey 15 40");
     
     // Apelăm operatorul de citire pentru obiectul nostru WithAlc
-    iss >> drink;
+    cinn >> drink;
     
     // Verificăm dacă valorile obiectului au fost actualizate corespunzător
     EXPECT_EQ(drink.getDrinkChoice(), "Whiskey");
-    EXPECT_DOUBLE_EQ(drink.getPrice(), 15.0);
+    EXPECT_DOUBLE_EQ(drink.getPrice(), 15);
     EXPECT_EQ(drink.getAlc(), 40);
 }
+
 
 
