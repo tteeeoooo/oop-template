@@ -17,3 +17,14 @@ TEST(CoutTest, CoutFinishedOrder) {
     // Resetăm ieșirea standard la valoarea anterioară
     std::cout.rdbuf(oldCout);
 }
+
+TEST(CoutTest, CoutAbortedOrder) {
+    std::stringstream output;
+    std::streambuf* oldCout = std::cout.rdbuf(output.rdbuf()
+
+    Cout::coutAbortedOrder();
+
+    EXPECT_EQ(output.str(), "We are sorry that you are leaving! See you next time!");
+
+    std::cout.rdbuf(oldCout);
+}
