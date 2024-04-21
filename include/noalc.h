@@ -15,7 +15,7 @@ private:
 public:
 
     explicit NoAlc(const string &nume = "", const double &pret = 0, const int &calorii = 0);
-    NoAlc(const NoAlc &veryGood);
+    NoAlc(const NoAlc &bauturaSafe);
 
     void description() const override;
     int getCalories() const;
