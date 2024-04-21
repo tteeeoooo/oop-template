@@ -11,7 +11,11 @@ using namespace std;
 
 NoAlc::NoAlc(const string &nume, const double &pret, const int &calorii): Drink(nume, pret), calories(calorii) {};
 
-
+NoAlc::NoAlc(const NoAlc &bauturaSafe){
+    this -> drinkChoice = bauturaSafe.drinkChoice;
+    this -> price = bauturaSafe.price;
+    this -> calories = bauturaSafe.calories;
+}
 
 void NoAlc::description() const {
     cout << "This drink contains " << NoAlc::getCalories() << " calories!" << endl;
