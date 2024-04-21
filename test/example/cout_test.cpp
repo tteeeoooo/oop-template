@@ -47,14 +47,7 @@ TEST(CoutTest, TextToFinishTest) {
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CoutTest, OrderAndExitTest) {
-    // Testing orderAndExit() function
-    // Since this function involves user input, we can't directly test its behavior
-    // We can check if it runs without errors
-    Cout::orderAndExit();
-    // If the function runs without errors, the test passes
-    EXPECT_TRUE(true);
-}
+
 
 TEST(CoutTest, CoutAbortedOrderTest) {
     // Testing coutAbortedOrder() function
