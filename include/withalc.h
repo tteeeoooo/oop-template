@@ -12,7 +12,7 @@ private:
     int alcohol;
 public:
     explicit WithAlc(const string &nume = "", const double &pret = 0, const int &alc = 0);
-    WithAlc(const WithAlc &notGood);
+    WithAlc(const WithAlc &bauturaUnsafe);
 
     void description() const override;
     int getAlc() const;
