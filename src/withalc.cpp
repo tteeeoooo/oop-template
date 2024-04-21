@@ -13,7 +13,11 @@ using namespace std;
 
 WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(nume, pret), alcohol(alc) {};
 
-// WithAlc(string nume, double pret, int alc): Drink(nume, pret), alcohol(alc) {};
+WithAlc::WithAlc(const WithAlc &bauturaUnsafe){
+    this -> drinkChoice = bauturaUnsafe.drinkChoice;
+    this -> price = bauturaUnsafe.price;
+    this -> alcohol = bauturaUnsafe.alcohol;
+}
 
 //WithAlc::WithAlc(const WithAlc& notGood) = default;
 
