@@ -13,9 +13,7 @@ using namespace std;
 
 WithAlc::WithAlc(const string &nume, const double &pret, const int &alc): Drink(nume, pret), alcohol(alc) {};
 
-WithAlc::WithAlc(const WithAlc &bauturaUnsafe){
-    this -> drinkChoice = bauturaUnsafe.drinkChoice;
-    this -> price = bauturaUnsafe.price;
+WithAlc::WithAlc(const WithAlc &bauturaUnsafe): Drink(bauturaUnsafe){
     this -> alcohol = bauturaUnsafe.alcohol;
 }
 
