@@ -17,6 +17,7 @@ Account::Account(const std::string &nume, std::string parola): userName(nume), p
 Account::Account(const Account& cont): userName(cont.userName), password(cont.password) {}
 
 
+
 string Account::getName() const {
     return userName;
 }
