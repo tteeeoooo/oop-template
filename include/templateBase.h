@@ -14,12 +14,12 @@ class Cart;
 template <typename T>
 class Review {
 protected:
-    std::map<std::string, T> review;    //aici e review-ul (sub forma de nota/notita) general
+    std::map<std::string, T> review;    //aici e review-ul (sub forma de nota/notita) general, unde
 
 public:
     Review();
 
-    explicit Review(const string& cheie = "", const T& valoare = T{}) {
+    explicit Review(const string& cheie = "General", const T& valoare = T{}) {
         review[cheie] = valoare;
     }
 
@@ -29,7 +29,7 @@ public:
 
     void printReviews();
 
-    virtual void makeReview(Review<T>& review, const Account& user);
+    void makeReview(Review<T>& review, const string& user);
 
     void checkGrade(const T &grade);
 
