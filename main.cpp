@@ -1,48 +1,125 @@
-#include <iostream>
-#include <array>
+#include "drink.h"
+#include "noalc.h"
+#include "withalc.h"
+#include "cart.h"
+#include "account.h"
+#include "cout.h"
+#include "templateBase.h"
+#include "reviewDrink.h"
+#include "reviewapp.h"
+#include <map>
+
 
 int main() {
-    std::cout << "Hello, world!\n";
-    std::array<int, 100> v{};
-    int nr;
-    std::cout << "Introduceți nr: ";
-    /////////////////////////////////////////////////////////////////////////
-    /// Observație: dacă aveți nevoie să citiți date de intrare de la tastatură,
-    /// dați exemple de date de intrare folosind fișierul tastatura.txt
-    /// Trebuie să aveți în fișierul tastatura.txt suficiente date de intrare
-    /// (în formatul impus de voi) astfel încât execuția programului să se încheie.
-    /// De asemenea, trebuie să adăugați în acest fișier date de intrare
-    /// pentru cât mai multe ramuri de execuție.
-    /// Dorim să facem acest lucru pentru a automatiza testarea codului, fără să
-    /// mai pierdem timp de fiecare dată să introducem de la zero aceleași date de intrare.
-    ///
-    /// Pe GitHub Actions (bife), fișierul tastatura.txt este folosit
-    /// pentru a simula date introduse de la tastatură.
-    /// Bifele verifică dacă programul are erori de compilare, erori de memorie și memory leaks.
-    ///
-    /// Dacă nu puneți în tastatura.txt suficiente date de intrare, îmi rezerv dreptul să vă
-    /// testez codul cu ce date de intrare am chef și să nu pun notă dacă găsesc vreun bug.
-    /// Impun această cerință ca să învățați să faceți un demo și să arătați părțile din
-    /// program care merg (și să le evitați pe cele care nu merg).
-    ///
-    /////////////////////////////////////////////////////////////////////////
-    std::cin >> nr;
-    /////////////////////////////////////////////////////////////////////////
-    for(int i = 0; i < nr; ++i) {
-        std::cout << "v[" << i << "] = ";
-        std::cin >> v[i];
+    Cart cart({}, 0, {});
+    //Account user("", "", nullptr);
+    Account* user = Account::getInstance();
+
+    short int input;
+    vector<Drink*> menu;
+
+
+    menu.push_back(new NoAlc("Iced Latte", 5.9, 96));
+    menu.push_back(new NoAlc("Cold Brew", 3.9, 23));
+    menu.push_back(new NoAlc("Vanilla Bean Crème Frappuccino Blended Crème", 6.8, 407));
+    menu.push_back(new NoAlc("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5, 349));
+    menu.push_back(new NoAlc("Vanilla Sweet Cream Cold Brew", 6.5, 90));
+    menu.push_back(new NoAlc("Vanilla Cremè", 5.5, 137));
+    menu.push_back(new NoAlc("Cinnamon Caramel Cream Cold Brew", 4.0, 203));
+    menu.push_back(new NoAlc("Iced Blonde Vanilla Latte", 7.2, 231));
+    menu.push_back(new NoAlc("Caramel Ribbon Crunch Frappucino", 6.4, 189));
+    menu.push_back(new NoAlc("Iced White Chocolate Mocha", 5.8, 410));
+    menu.push_back(new NoAlc("Oleato Golden Foam Iced Shaken Espresso With Toffeenut", 7.5, 349));
+    menu.push_back(new NoAlc("Espresso Frappuccino Blended Beverage", 4.8, 278));
+    menu.push_back(new NoAlc("Lavender Crème Frappuccino Blended Beverage", 7.5, 428));
+    menu.push_back(new NoAlc("Pink Drink Refresher", 4.6, 196));
+    menu.push_back(new NoAlc("Matcha Latte", 6.5, 125));
+    menu.push_back(new NoAlc("Iced Matcha Tea Latte With Oatmilk", 6.5, 126));
+    menu.push_back(new WithAlc("Chateau Lafite Rothschild", 876.0, 15));
+    menu.push_back(new WithAlc("Penfolds Grange Hermitage", 763.0, 12));
+    menu.push_back(new WithAlc("Chateau d'Yquem", 1973.0, 16));
+
+    auto asd = [menu]() {
+        for (auto &a: menu) {
+            delete a;
+        }
+    };
+
+    cout << "Chamberlain Coffee - Easy Mobile & Online Ordering & Delivery" << endl;
+    Cout::todaysSales();
+
+    cout << "Connect to your account: " << endl;
+    user -> userRead();
+
+
+    cout << "Well hello " << user -> getName() << "! We are glad to have you back! :)" << endl;
+    cout << "What would you like to do today? Choose one of the following options!" << endl;
+    cout << "1. Menu" << endl;
+    cout << "0. Exit" << endl;
+
+    while(true) {
+        try {
+            cin >> input;
+
+            if (input == 0) {
+                Cout::exitText();
+                cin >> input;
+
+                if (input == 0) {
+                    cout << "We are sorry to see you leave! We hope you will come back soon!" << endl;
+                    asd();
+                    return 0;
+                } else if (input == 1) {
+                    cart.everything(cart, menu);
+                    asd();
+                    return 0;
+                } else {
+                    throw std::invalid_argument("Your choice is invalid. Please try again!");
+                }
+            } else {
+                cart.everything(cart, menu);
+
+                cout << "Would you like to help us with a review?" << endl;
+                cout << "Press 1 for yes" << endl;
+                cout << "Press 0 for no" << endl;
+                cin >> input;
+
+                if (input == 0) {
+                    cout << "Thank you for using our app! Have a good day!" << endl;
+                    asd();
+                    return 0;
+                }
+                else {
+                    cout << "Would you like to use grades or your own words?" << endl;
+                    cout << "Press 1 for grades" << endl;
+                    cout << "Press 2 for more detailed notes" << endl;
+                    cin >> input;
+
+                    if (input == 1) {
+                        string user2 = user ->getName();
+                        Review<float> review("General", 0);
+                        //review.makeReview(review, user2);
+                    }
+                }
+
+                asd();
+                return 0;
+            }
+        }
+
+        catch (const std::exception &e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            cin.clear();
+        }
     }
-    std::cout << "\n\n";
-    std::cout << "Am citit de la tastatură " << nr << " elemente:\n";
-    for(int i = 0; i < nr; ++i) {
-        std::cout << "- " << v[i] << "\n";
-    }
-    ///////////////////////////////////////////////////////////////////////////
-    /// Pentru date citite din fișier, NU folosiți tastatura.txt. Creați-vă voi
-    /// alt fișier propriu cu ce alt nume doriți.
-    /// Exemplu:
-    /// std::ifstream fis("date.txt");
-    /// for(int i = 0; i < nr2; ++i)
-    ///     fis >> v2[i];
+    asd();
     return 0;
+
 }
+
+
+
+
+
+
+
