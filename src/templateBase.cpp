@@ -42,16 +42,17 @@ void Review<T>::printReviews() {
 
 }
 
+
+
 template<typename T>
-void Review<T>::makeReview(Review<T>& review, const Account& user) {
+void Review<T>::makeReview(Review<T>& parere, const string& user) {
     short int input;
     try {
         cin >> input;
         if (input == 1) {    //pentru review la aplicatie
-            ReviewApp<T>* appReview = dynamic_cast<ReviewApp<T>*>(&review);
-//            static_cast<T*>(this)->makeReview();
-//            const ReviewApp<T> *appReview = dynamic_cast<const ReviewApp<T> *>(&review);
+            ReviewApp<T> appReview(review);
             if (appReview) {
+                cout << "okk";
                 makeReviewApp(input, appReview, user);
 //                appReview->makeReview(input, review, user);
             }
@@ -63,9 +64,12 @@ void Review<T>::makeReview(Review<T>& review, const Account& user) {
 
         else {
             if (input == 2) {
-                ReviewProduct<T>* productReview = dynamic_cast<ReviewProduct<T>*>(&review);
+                //ReviewProduct<T>* productReview = dynamic_cast<ReviewProduct<T>*>(&review);
+
+                ReviewProduct<T> productReview(review);
+
                 if (productReview) {
-                    makeReviewProduct(input, productReview, user);
+//                    makeReviewProduct(input, productReview, user);
 //                appReview->makeReview(input, review, user);
                 }
                 else {
@@ -142,49 +146,3 @@ void Review<T>::sortLambda(Review<T>& reviewSituation) {
         }
     }
 }
-
-//template <typename T>
-//friend std::ostream& operator<<(std::ostream& coutt, const Review<T>& reviewCout) {
-//    for (const auto& harta : reviewCout.review) {
-//        coutt << harta.first << " " << harta.second << endl;
-//    }
-//    return coutt;
-//}
-
-
-
-//Review<std::string>* newReview = review->changeType(true); // Convertire la ReviewProduct
-//Review* reviewPtr = new ReviewDrink<T>;
-//ReviewDrink<T>* drinkReviewPtr = dynamic_cast<ReviewDrink<T>*>("", 0);
-//        Review<T>* reviewPtr = new Review<T>("", 0); // Exemplu: trebuie să inițializezi cu parametrii relevanți
-//        Review<T>* drinkReviewPtr = dynamic_cast<Review<T>*>(reviewPtr);
-
-
-//        if (drinkReviewPtr) {
-//            cout << "Felicitari!" << endl;
-//        }
-
-//void Review<T>::printReviews() {
-//    std::cout << "Reviews for this product:" << std::endl;
-//    for (const auto& pair : review) {
-//        std::cout << "User: " << pair.first << ", Review: " << pair.second << std::endl;
-//    }
-//}
-
-
-//                cout << "Thank you for taking your time to help us improve our products, " << name
-//                     << "! You can either rate us using grades or your own words!" << endl;
-//                cin >> review[name];
-//                const ReviewApp<T> *appReview = dynamic_cast<const ReviewApp<T> *>(&review);
-//
-//                if (appReview) {
-//                    appReview->makeReview(input, review, user);
-//                }
-//                else {
-//                    cout << "We could not continue with your review. We are sorry. Try again later" << endl;
-//                }
-
-//template<typename T>
-//std::map<std::string, T>& getReview() {
-//    return review.second;
-//}
