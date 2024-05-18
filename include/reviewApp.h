@@ -16,7 +16,7 @@ private:
     std::map<string, T> caracteristici;
 public:
     ReviewApp() {
-        Review("", "0");
+        Review("", "");
         caracteristici["App name"] = "Chamberlain Coffee";
         caracteristici["Version"] = "3.0";
         caracteristici["Author"] = "Teodora Alexandra Nitu";
@@ -29,47 +29,3 @@ public:
 
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifndef OOP_REVIEWAPP_H
-#define OOP_REVIEWAPP_H
-
-#endif //OOP_REVIEWAPP_H
