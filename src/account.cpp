@@ -2,25 +2,33 @@
 #include <string>
 #include <fstream>
 #include <exception>
-//#include "drink.h"
-//#include "noalc.h"
-//#include "withalc.h"
-//#include "cart.h"
 #include "account.h"
-//#include "cout.h"
 
 using namespace std;
 
-Account::Account(const std::string &nume, std::string parola): userName(nume), password(std::move(parola)) {}
+//Account::Account(const std::string &nume, std::string parola): userName(nume), password(std::move(parola)) {}
 
 
-Account::Account(const Account& cont): userName(cont.userName), password(cont.password) {}
+std::unique_ptr<Account> Account::instance = nullptr;
 
 
+//Account* obiectNou() {
+//    return new Account();
+//}
 
 string Account::getName() const {
     return userName;
 }
+
+
+Account* Account::getInstance(const std::string& user, const std::string& pass) {
+    if (!instance) {
+        instance = std::unique_ptr<Account>(new Account(user, pass));
+    }
+    return instance.get();
+}
+
+
 
 
 int Account::exc() {
@@ -82,8 +90,9 @@ void Account::userRead() {
     else {
         cin >> password;
     }
-
-    Account cont(userName, password);
+    Account* cont = Account::getInstance(userName, password);
+//
+//    Account cont(userName, password);
     save();
     cout << endl << "You are currently using the free version of the app. Would you like to update to one of our exclusive versions?" << endl;
     cout << "Press 1 to see our options" << endl;
@@ -272,13 +281,13 @@ void Account::save() {
 
 
 
-Account& Account::operator=(const Account &acesta) {
-    if (this != &acesta) {
-        userName = acesta.userName;
-        password = acesta.password;
-    }
-    return *this;
-}
+//Account& Account::operator=(const Account &acesta) {
+//    if (this != &acesta) {
+//        userName = acesta.userName;
+//        password = acesta.password;
+//    }
+//    return *this;
+//}
 
 
 std::ostream& Account::operator<<(std::ostream& coutt) const {
