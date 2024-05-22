@@ -29,7 +29,7 @@ public:
     }
 
 
-    Review(const std::map<std::string, T>& rev) : review(rev) {}
+    explicit Review(const std::map<std::string, T>& rev) : review(rev) {}
 
     explicit Review(const string& cheie = "General", const T& valoare = T{}) {
         review[cheie] = valoare;
@@ -77,11 +77,12 @@ public:
     }
 
     static void makeReview(Review<T>& parere, short int input0, const string& user, vector<Drink*> menu){
-        short int input;
         cout << "Would you like to give a review to our app or one of our products?" << endl;
         cout << "Press 1 for app" << endl;
         cout << "Press 2 for product" << endl;
         try {
+            short int input;
+
             cin >> input;
             if (input == 1) {
 //                Review<T>* reviewPtr = new ReviewApp<T>(parere);
@@ -189,8 +190,8 @@ public:
                       });
 
             reviewSituation.reviews.clear();
-            for (const auto& review : reviewsVector) {
-                reviewSituation.reviews.insert(review);
+            for (const auto& parere : reviewsVector) {
+                reviewSituation.reviews.insert(parere);
             }
         }
     }
@@ -199,3 +200,59 @@ public:
 };
 
 
+
+
+//short int input;
+//try {
+//cin >> input;
+//if (input == 1) {    //pentru review la aplicatie
+//ReviewApp<T> appReview(review);
+//if (appReview) {
+//cout << "okk";
+//makeReviewApp(input, appReview, user);
+////                appReview->makeReview(input, review, user);
+//}
+//
+//else {
+//cout << "We could not continue with your review. We are sorry. Try again later" << endl;
+//}
+//}
+//
+//else {
+//if (input == 2) {
+////ReviewProduct<T>* productReview = dynamic_cast<ReviewProduct<T>*>(&review);
+//
+//ReviewProduct<T> productReview(review);
+//cout << "merge pana la revieProduct";
+////                    if (productReview) {
+////                        cout << ""
+////                    makeReviewProduct(input, productReview, user);
+////                appReview->makeReview(input, review, user);
+////                    }
+////                    else {
+////                        cout << "We could not continue with your review. We are sorry. Try again later" << endl;
+////                    }
+//}
+//else {
+//throw std::invalid_argument("Your choice is invalid. Please try again!");
+//}
+//}
+//}
+//catch (const std::exception& e) {
+//std::cerr << "Error: " << e.what() << std::endl;
+//cin.clear();
+//}
+
+
+
+
+
+//auto appReview = dynamic_cast<ReviewApp<T>*>(&parere);
+//                if (appReview) {
+//                    // Successfully cast to ReviewApp<T>*
+//                    appReview->makeReviewApp(appReview, input);
+//                    std::cout << "Dynamic cast successful and review updated!" << std::endl;
+//                }
+//                else {
+//                    std::cout << "Dynamic cast failed!" << std::endl;
+//                }
