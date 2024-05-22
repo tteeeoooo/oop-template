@@ -1,3 +1,6 @@
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,12 +10,17 @@
 using namespace std;
 
 class Account {
-protected:
+private:
+    static std::unique_ptr<Account> instance;
+
     string userName;
     string password;
+    explicit Account(const string &nume = "", string parola = ""): userName(nume), password(parola){};
 public:
-    explicit Account(const string &nume = "", string parola = "");
-    Account(const Account &cont);
+    static Account* getInstance(const std::string& user = "", const std::string& pass = "");
+
+    static Account* obiectNou();
+
     string getName() const;
 
     int exc();
@@ -24,9 +32,10 @@ public:
     void upgrade();
     virtual void save();
 
-    Account& operator=(const Account &acesta);
     std::ostream& operator<<(std::ostream& coutt) const;
     std::istream& operator>>(std::istream& cinn);
 
     ~Account();
 };
+
+#endif // ACCOUNT_H
