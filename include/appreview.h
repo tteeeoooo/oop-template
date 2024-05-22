@@ -32,7 +32,7 @@ public:
 
 
 
-    void makeReviewApp(ReviewApp<T>* review, short int input) {
+    void makeReviewApp(ReviewApp<T>* review) {
 //        cout << "Here are other users' reviews:" << endl;
 //        review -> printReviews();
         T opinie;
