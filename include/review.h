@@ -75,7 +75,7 @@ public:
         }
     }
 
-    static void makeReview(Review<T>& parere, short int input0, const string& user, vector<Drink*> menu){
+    static void makeReview(Review<T>& parere, short int input0, const string& user, const vector<Drink*> menu){
         cout << "Would you like to give a review to our app or one of our products?" << endl;
         cout << "Press 1 for app" << endl;
         cout << "Press 2 for product" << endl;
@@ -163,7 +163,7 @@ public:
         }
     }
 
-    bool checkWords(std::string &note) {
+    bool checkWords(const string &note) {
         std::unordered_set<std::string> uglyWords_ = {
                 "vulgar", "insult", "racism", "sexism", "homophobia",
                 "violence", "explicit", "offensive", "profanity", "harassment",
