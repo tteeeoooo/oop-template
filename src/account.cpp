@@ -23,7 +23,9 @@ string Account::getName() const {
 
 Account* Account::getInstance(const std::string& user, const std::string& pass) {
     if (!instance) {
-        instance = std::unique_ptr<Account>(new Account(user, pass));
+//        instance = std::unique_ptr<Account>(new Account(user, pass));
+        instance.reset(new Account(user, pass));
+
     }
     return instance.get();
 }
@@ -90,7 +92,7 @@ void Account::userRead() {
     else {
         cin >> password;
     }
-    Account* cont = Account::getInstance(userName, password);
+//    Account* cont = Account::getInstance(userName, password);
 //
 //    Account cont(userName, password);
     save();
