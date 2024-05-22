@@ -104,11 +104,11 @@ int main() {
                     string user2 = user -> getName();
                     if (input == 1) {
                         Review<float> review(user2, 0.0);
-                        Review<float>::makeReview(review, 1, user2, menu);
+                        Review<float>::makeReview(review, user2, menu);
                     }
                     else {
                         Review<string> review(user2, "");
-                        Review<string>::makeReview(review, 2, user2,  menu);
+                        Review<string>::makeReview(review, user2,  menu);
                     }
                     asd();
                     return 0;
@@ -131,7 +131,86 @@ int main() {
 
 
 
+//cout << "Would you like to give a review to a product or to our application?";
+//cout << "Press 1 for app" << endl;
+//cout << "Press 2 for application" << endl;
+//
+//
+//Review<string> parere(user.getName(), "");
+//Review<T>: makeReview(parere, input);
 
+//else {
+//        asd();
+//        return 0;
+//    }
+//
+//                else {
+//                    cout << "Thank you for your time. Have a good day!" << endl;
+//                    asd();
+//                    return 0;
+//                }
+//
+//                asd();
+//                return 0;
+//            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//cout << "Would you like to give a review to our products?" << endl;
+//cout << "Press 1 for yes" << endl;
+//cout << "Press 0 for no" << endl;
+//cin >> input;
+//if(input == 1) {
+//cout << "Would you like to give a review to a product or our app?";
+//cout << "Press 1 for non-alcoholic" << endl;
+//cout << "Press 2 for alcoholic" << endl;
+//
+//if(input == 1) {
+//Review<string> parere(user.getName(), "");
+//cout << parere;
+//}
+
+
+//if (input == 1){
+//cart.everything(cart, menu);
+//cout << endl << "Would you like to give a review to our little business?" << endl;
+//cout << "Press 1 for yes" << endl;
+//cout << "Press 0 for no" << endl;
+//cin >> input;
+//
+//if (input == 1) {
+//cout << "Would you like to give a review to a product or our app?" << endl;
+//cout << "Press 1 for product" << endl;
+//cout << "Press 2 for application" << endl;
+//
+//if (input == 1) {
+//cout << "Would you like to use grades or your own words?" << endl;
+//cout << "Press 1 for grade" << endl;
+//cout << "Press 2 for words" << endl;
+//cin >> input;
+//
+//if (input == 1) {
+//float rating = 0;
+//Review<float> parere(user.getName(), rating);
+//parere.
+//makeReview(input);
+//}
 
 
 
