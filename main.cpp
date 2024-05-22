@@ -4,10 +4,15 @@
 #include "cart.h"
 #include "account.h"
 #include "cout.h"
-#include "templateBase.h"
-#include "reviewDrink.h"
-#include "reviewapp.h"
-#include <map>
+#include "payment.h"
+#include "review.h"
+#include "drinkreview.h"
+#include "appreview.h"
+#include <unordered_map>
+
+
+//template <typename T>
+//class Review;
 
 
 int main() {
@@ -76,7 +81,8 @@ int main() {
                 } else {
                     throw std::invalid_argument("Your choice is invalid. Please try again!");
                 }
-            } else {
+            }
+            else {
                 cart.everything(cart, menu);
 
                 cout << "Would you like to help us with a review?" << endl;
@@ -95,11 +101,17 @@ int main() {
                     cout << "Press 2 for more detailed notes" << endl;
                     cin >> input;
 
+                    string user2 = user -> getName();
                     if (input == 1) {
-                        string user2 = user ->getName();
-                        Review<float> review("General", 0);
-                        //review.makeReview(review, user2);
+                        Review<float> review(user2, 0.0);
+                        Review<float>::makeReview(review, 1, user2, menu);
                     }
+                    else {
+                        Review<string> review(user2, "");
+                        Review<string>::makeReview(review, 2, user2,  menu);
+                    }
+                    asd();
+                    return 0;
                 }
 
                 asd();
@@ -116,6 +128,10 @@ int main() {
     return 0;
 
 }
+
+
+
+
 
 
 
