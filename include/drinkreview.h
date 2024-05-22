@@ -74,7 +74,7 @@ public:
     }
 
 
-    void makeReviewProduct(ReviewProduct *review, const string &nume, short int input0, vector<Drink *> menu) {
+    void makeReviewProduct(ReviewProduct *review, const string &nume, short int input0, vector<Drink *>& menu) {
         string drink;
         short int input2;
 
@@ -197,4 +197,4 @@ public:
 //
 //
 //
-//}; 
+//};
