@@ -15,7 +15,7 @@ private:
 
     string userName;
     string password;
-    explicit Account(const string &nume = "", string parola = ""): userName(nume), password(parola){};
+    explicit Account(const string &nume = "", const string &parola = ""): userName(nume), password(parola){};
 public:
     static Account* getInstance(const std::string& user = "", const std::string& pass = "");
 
@@ -39,4 +39,3 @@ public:
 };
 
 #endif // ACCOUNT_H
- 
