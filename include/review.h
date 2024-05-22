@@ -75,7 +75,7 @@ public:
         }
     }
 
-    static void makeReview(Review<T>& parere, short int input0, const string& user, const vector<Drink*>& menu){
+    static void makeReview(Review<T>& parere, const string& user, const vector<Drink*>& menu){
         cout << "Would you like to give a review to our app or one of our products?" << endl;
         cout << "Press 1 for app" << endl;
         cout << "Press 2 for product" << endl;
@@ -90,7 +90,7 @@ public:
                 Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
                 ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
                 if (reviewAppPtr) {
-                    reviewAppPtr -> makeReviewApp(reviewAppPtr, input0);
+                    reviewAppPtr -> makeReviewApp(reviewAppPtr);
                 }
                 else {
                     cout << "nu merge downcasting-ul pentru ReviewApp" << endl;
@@ -121,7 +121,7 @@ public:
                     Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
                     ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewProductPtr);
                     if (reviewProductPtr) {
-                        reviewProductPtr -> makeReviewProduct(reviewProductPtr, user, input0, menu);
+                        reviewProductPtr -> makeReviewProduct(reviewProductPtr, user, menu);
                     }
                     else {
                         cout << "nu merge downcasting-ul pentru ReviewProduct" << endl;
