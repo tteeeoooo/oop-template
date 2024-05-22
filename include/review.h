@@ -54,16 +54,15 @@ public:
         cout << "Reviews for this product:" << std::endl;
         string user, reviewText;
 
-        Review<string> parere;
+        Review<string> opinion;
         while (f >> user >> reviewText) {
-            parere.addReview(user, reviewText);
+            opinion.addReview(user, reviewText);
         }
         f.close();
 
 
         std::vector<std::pair<std::string, T>> reviewVector(review.begin(), review.end());
 
-        // Sortează vectorul de recenzii după cheie (user)
         std::sort(reviewVector.begin(), reviewVector.end(), [](const auto& a, const auto& b) {
             return a.first < b.first;
         });
