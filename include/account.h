@@ -5,13 +5,14 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <memory>
 #include <exception>
 
 using namespace std;
 
 class Account {
 private:
-    static std::unique_ptr<Account> instance;
+    static unique_ptr<Account> instance;
 
     string userName;
     string password;
