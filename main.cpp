@@ -104,11 +104,11 @@ int main() {
                     string user2 = user -> getName();
                     if (input == 1) {
                         Review<float> review(user2, 0.0);
-                        Review<float>::makeReview(user2, menu);
+                        Review<float>::makeReview(review, menu);
                     }
                     else {
                         Review<string> review(user2, "");
-                        Review<string>::makeReview(user2,  menu);
+                        Review<string>::makeReview(review, menu);
                     }
                     asd();
                     return 0;
