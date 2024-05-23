@@ -33,7 +33,8 @@ public:
 
 
 
-    void makeReviewApp(ReviewApp<T>* review) {
+//    void makeReviewApp(ReviewApp<T>* review) {
+    void makeReviewApp() {
 //        cout << "Here are other users' reviews:" << endl;
 //        review -> printReviews();
         T opinie;
