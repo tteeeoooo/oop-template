@@ -20,8 +20,8 @@ private:
     vector<float> priceList;
 
 public:
-    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {}): myDrinks(bauturi), price(pret), priceList(preturi), paymentStrategy(nullptr) {};
-    Cart(const Cart &cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList), paymentStrategy(nullptr) {};
+    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {}): paymentStrategy(nullptr), myDrinks(bauturi), price(pret), priceList(preturi) {};
+    Cart(const Cart &cos): paymentStrategy(nullptr), myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList) {};
     void productDelete(int index);
     float cartPrice() const;
     vector<Drink*> getDrinks(Cart cart);
