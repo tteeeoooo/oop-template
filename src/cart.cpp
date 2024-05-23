@@ -408,8 +408,7 @@ void Cart::readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
                 short int input2;
                 cin >> input2;
 
-                // Creare obiecte de strategie pentru fiecare opțiune de plată
-                Payment* paymentStrategy;
+                Payment* paymentStrategy = nullptr;
                 if (input2 == 1) {
                     paymentStrategy = new CreditCardPayment();
                 } else if (input2 == 2) {
@@ -418,16 +417,12 @@ void Cart::readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
                     throw std::invalid_argument("Your choice is invalid. Please try again!");
                 }
 
-                // Setare strategie de plată în coș
                 cart.setPaymentStrategy(paymentStrategy);
 
-                // Executare plata
                 cart.executePayment();
 
-                // Eliberare memorie
                 delete paymentStrategy;
 
-                // Terminarea comenzii
                 cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)" << endl;
                 break;
             } else if (input == 2) {
@@ -595,4 +590,3 @@ int Cart::everything(Cart cart, const vector<Drink*> &coffeeMenu) {
 }
 
 Cart::~Cart() {};
- 
