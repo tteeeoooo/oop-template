@@ -1,32 +1,46 @@
+#ifndef CART_H
+#define CART_H
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <exception>
+#include "drink.h"
+#include "payment.h"
 
 using namespace std;
 
-class Account {
-protected:
-    string userName;
-    string password;
+
+class Cart {
+private:
+    Payment* paymentStrategy;
+    vector<Drink*> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
+    float price;                        //suma care urmeaza sa fie platita
+    vector<float> priceList;            //lista prteurilor
+
 public:
-    explicit Account(const string &nume = "", string parola = "");
-    Account(const Account &cont);
-    string getName() const;
+    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {});
+    Cart(const Cart &cos);
+    void productDelete(int index);
+    float cartPrice() const;
+    vector<Drink*> getDrinks(Cart cart);
 
-    int exc();
-    void userRead();
-    void premiumText();
-    void inputData();
+    void setPaymentStrategy(Payment* strategy);
+    void executePayment();
 
-    string inputVisual(short int input);
-    void upgrade();
-    virtual void save();
+    Cart& operator=(const Cart& shopping);
+    friend std::ostream& operator<<(std::ostream& coutt, const Cart& cart);
 
-    Account& operator=(const Account &acesta);
-    std::ostream& operator<<(std::ostream& coutt) const;
-    std::istream& operator>>(std::istream& cinn);
+    void atAddressPayment(const Cart &cart);
+    static void creditCardInfo(const Cart &cart);
+    float order(Cart &cart, vector<Drink*> coffeeMenu);
+    void readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu);
+    void deliveryAddress(const Cart &cart);
+    void giveATip(const Cart &cart) const;
+    int everything(Cart cart, const vector<Drink*> &coffeeMenu);
 
-    ~Account();
+    ~Cart();
 };
+
+#endif // CART_H
