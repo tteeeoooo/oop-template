@@ -4,6 +4,7 @@
 #include <map>
 #include <unordered_set>
 #include <algorithm>
+#include <cmath>
 //#include "reviewDrink.h"
 //#include "reviewapp.h"
 #include "appreview.h"
@@ -87,7 +88,7 @@ public:
 //                Review<T>* reviewPtr = new ReviewApp<T>(parere);
 //                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr);
 //                reviewAppPtr -> makeReviewProduct(reviewAppPtr, user, input0, menu);
-                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
+//                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
                 ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp(reviewAppPtr);
