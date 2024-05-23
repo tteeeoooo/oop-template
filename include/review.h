@@ -122,7 +122,7 @@ public:
                     Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
                     ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewProductPtr);
                     if (reviewProductPtr) {
-                        reviewProductPtr -> makeReviewProduct(reviewProductPtr, user, menu);
+                        reviewProductPtr -> makeReviewProduct(user, menu);
                     }
                     else {
                         cout << "nu merge downcasting-ul pentru ReviewProduct" << endl;
