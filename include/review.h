@@ -76,7 +76,7 @@ public:
         }
     }
 
-    static void makeReview(const string& user, const vector<Drink*>& menu){
+    static void makeReview(Review<T> parere, const vector<Drink*>& menu){
         cout << "Would you like to give a review to our app or one of our products?" << endl;
         cout << "Press 1 for app" << endl;
         cout << "Press 2 for product" << endl;
@@ -89,7 +89,10 @@ public:
 //                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr);
 //                reviewAppPtr -> makeReviewProduct(reviewAppPtr, user, input0, menu);
 //                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
-                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
+//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
+                Review<T>* reviewPtr = new ReviewApp<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
+                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
+
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp();
                 }
@@ -119,8 +122,9 @@ public:
 
             else {
                 if (input == 2) {
-//                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
-                    ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewProductPtr);
+                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
+                    ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr2); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
+
                     if (reviewProductPtr) {
                         reviewProductPtr -> makeReviewProduct(menu);
                     }
