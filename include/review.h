@@ -92,36 +92,22 @@ public:
 //                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
 //                Review<T>* reviewPtr = new ReviewApp<T>(parere);
 //                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr);
-                ReviewProduct<T>* reviewProductPtr = new ReviewProduct<T>(parere); // Inițializare pointer la ReviewProduct
-                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewProductPtr); // Dynamic cast de la ReviewProduct<T>* la ReviewApp<T>*
-
+//                ReviewProduct<T>* reviewAppPtr = new ReviewProduct<T>(parere); // Inițializare pointer la ReviewProduct
+//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr); // Dynamic cast de la ReviewProduct<T>* la ReviewApp<T>*
+                Review<T>* reviewPtr1 = new ReviewApp<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
+                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr1); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
 
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp();
+                    delete reviewAppPtr;
+                    delete reviewPtr1;
                 }
                 else {
                     cout << "nu merge downcasting-ul pentru ReviewApp" << endl;
                 }
-//                if (input0 == 1){
-//                    Review<float>* reviewPtr = new ReviewApp<float>(parere);
-//                    ReviewApp<float>* reviewAppPtr = dynamic_cast<ReviewApp<float>*>(reviewPtr);
-//                }
-//                else {
-//                    Review<string>* reviewPtr = new ReviewApp<string>(parere);
-//                    ReviewApp<string>* reviewAppPtr = dynamic_cast<ReviewApp<string>*>(reviewPtr);
-//                    if (reviewAppPtr) {
-//                        reviewAppPtr -> makeReviewApp(reviewAppPtr, input0);
-//                    }
-//                    else {
-//                        cout << "nu merge downcasting-ul pentru ReviewApp" << endl;
-//                    }
-//                }
 
 
             }
-//            else {
-//                cout << "We could not continue with your review. We are sorry. Try again later" << endl;
-//            }
 
             else {
                 if (input == 2) {
@@ -130,6 +116,8 @@ public:
 
                     if (reviewProductPtr) {
                         reviewProductPtr -> makeReviewProduct(menu);
+                        delete reviewProductPtr;
+                        delete reviewPtr2;
                     }
                     else {
                         cout << "nu merge downcasting-ul pentru ReviewProduct" << endl;
@@ -207,59 +195,3 @@ public:
 };
 
 
-
-
-//short int input;
-//try {
-//cin >> input;
-//if (input == 1) {    //pentru review la aplicatie
-//ReviewApp<T> appReview(review);
-//if (appReview) {
-//cout << "okk";
-//makeReviewApp(input, appReview, user);
-////                appReview->makeReview(input, review, user);
-//}
-//
-//else {
-//cout << "We could not continue with your review. We are sorry. Try again later" << endl;
-//}
-//}
-//
-//else {
-//if (input == 2) {
-////ReviewProduct<T>* productReview = dynamic_cast<ReviewProduct<T>*>(&review);
-//
-//ReviewProduct<T> productReview(review);
-//cout << "merge pana la revieProduct";
-////                    if (productReview) {
-////                        cout << ""
-////                    makeReviewProduct(input, productReview, user);
-////                appReview->makeReview(input, review, user);
-////                    }
-////                    else {
-////                        cout << "We could not continue with your review. We are sorry. Try again later" << endl;
-////                    }
-//}
-//else {
-//throw std::invalid_argument("Your choice is invalid. Please try again!");
-//}
-//}
-//}
-//catch (const std::exception& e) {
-//std::cerr << "Error: " << e.what() << std::endl;
-//cin.clear();
-//}
-
-
-
-
-
-//auto appReview = dynamic_cast<ReviewApp<T>*>(&parere);
-//                if (appReview) {
-//                    // Successfully cast to ReviewApp<T>*
-//                    appReview->makeReviewApp(appReview, input);
-//                    std::cout << "Dynamic cast successful and review updated!" << std::endl;
-//                }
-//                else {
-//                    std::cout << "Dynamic cast failed!" << std::endl;
-//                }
