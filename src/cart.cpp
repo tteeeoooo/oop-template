@@ -61,6 +61,7 @@ Cart& Cart::operator=(const Cart& shopping) {
         this->myDrinks = shopping.myDrinks;
         this->price = shopping.price;
         this->priceList = shopping.priceList;
+        this->paymentStrategy = shopping.paymentStrategy;
     }
     return *this;
 }
