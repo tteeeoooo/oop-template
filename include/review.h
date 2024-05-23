@@ -91,7 +91,7 @@ public:
 //                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
                 ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
                 if (reviewAppPtr) {
-                    reviewAppPtr -> makeReviewApp(reviewAppPtr);
+                    reviewAppPtr -> makeReviewApp();
                 }
                 else {
                     cout << "nu merge downcasting-ul pentru ReviewApp" << endl;
