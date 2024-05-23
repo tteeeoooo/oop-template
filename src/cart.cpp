@@ -423,6 +423,7 @@ void Cart::readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
                 cart.executePayment();
 
                 delete paymentStrategy;
+                delete paymentStrategy;
 
                 cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)" << endl;
                 break;
