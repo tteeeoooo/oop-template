@@ -75,9 +75,9 @@ public:
     }
 
 
-    void makeReviewProduct(ReviewProduct *review, const string &nume, const vector<Drink *>& menu) {
+    void makeReviewProduct(const string &nume, const vector<Drink *>& menu) {
         string drink;
-        short int input2;
+//        short int input2;
 
         cout << "Thank you for taking your time to help us improve our app!" << endl
              << "! You can either rate us using grades or your own words!" << endl;
@@ -94,7 +94,7 @@ public:
             }
         }
         T opinie;
-        float n1, n2, n3;
+//        float n1, n2, n3;
         cout << "Well, let's grade your choice, which is: " << drink << endl;
 
         cout << "First of all, please grade the taste of the product: " << endl;
