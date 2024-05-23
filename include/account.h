@@ -36,7 +36,7 @@ public:
     std::ostream& operator<<(std::ostream& coutt) const;
     std::istream& operator>>(std::istream& cinn);
 
-    ~Account();
+    virtual ~Account();
 };
 
 #endif // ACCOUNT_H
