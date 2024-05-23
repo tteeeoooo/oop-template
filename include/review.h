@@ -119,7 +119,7 @@ public:
 
             else {
                 if (input == 2) {
-                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
+//                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
                     ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewProductPtr);
                     if (reviewProductPtr) {
                         reviewProductPtr -> makeReviewProduct(user, menu);
