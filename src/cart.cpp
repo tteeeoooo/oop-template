@@ -408,7 +408,8 @@ void Cart::readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
                 short int input2;
                 cin >> input2;
 
-                Payment* paymentStrategy = nullptr;
+//                Payment* paymentStrategy = nullptr;
+//                Payment* localPaymentStrategy = nullptr;
                 if (input2 == 1) {
                     paymentStrategy = new CreditCardPayment();
                 } else if (input2 == 2) {
