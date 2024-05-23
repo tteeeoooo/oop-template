@@ -21,10 +21,9 @@ class Cart;
 template <typename T>
 class Review {
 protected:
-    std::map<std::string, T> review;    //aici e review-ul (sub forma de nota/notita) general, unde
+    std::map<std::string, T> review;    
 
 public:
-//    Review();
     T& operator[](const std::string& key) {
         return review[key];
     }
@@ -47,7 +46,7 @@ public:
     }
 
     void printReviews(){
-        std::ifstream f("fisier1.txt"); //fisierul care contine review-uri pentru aplicatie
+        std::ifstream f("fisier1.txt");
         if (!f.is_open()) {
             std::cerr << "Unable to open file fisier.txt" << std::endl;
             return;
@@ -85,17 +84,8 @@ public:
 
             cin >> input;
             if (input == 1) {
-//                Review<T>* reviewPtr = new ReviewApp<T>(parere);
-//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr);
-//                reviewAppPtr -> makeReviewProduct(reviewAppPtr, user, input0, menu);
-//                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
-//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
-//                Review<T>* reviewPtr = new ReviewApp<T>(parere);
-//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr);
-//                ReviewProduct<T>* reviewAppPtr = new ReviewProduct<T>(parere); // Inițializare pointer la ReviewProduct
-//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr); // Dynamic cast de la ReviewProduct<T>* la ReviewApp<T>*
-                Review<T>* reviewPtr1 = new ReviewApp<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
-                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr1); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
+                Review<T>* reviewPtr1 = new ReviewApp<T>(parere);
+                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewPtr1); 
 
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp();
@@ -111,8 +101,8 @@ public:
 
             else {
                 if (input == 2) {
-                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
-                    ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr2); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
+                    Review<T>* reviewPtr2 = new ReviewProduct<T>(parere);
+                    ReviewProduct<T>* reviewProductPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr2); 
 
                     if (reviewProductPtr) {
                         reviewProductPtr -> makeReviewProduct(menu);
@@ -140,7 +130,7 @@ public:
         }
         else {
             if (float(grade) > 5) {
-                grade = 5;      //daca se introduce o nota care nu e intre 0 si 5, aceasta devine automat cea mai apropiata de limita
+                grade = 5;      //daca se introduce o nota care nu e intre 0 si 5 devine cea mai apropiata de limita
             }
             else {
                 if (grade - floor(grade) < 0.5) {
