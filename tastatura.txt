@@ -26,33 +26,6 @@ adresa
 4
 0
 
-numele_meu
-2
-parola
-0
-0
-1
-4
-6
-8
-7
-20
-1
-0
-0
-0
-1
-2
-2
-iced latte
-4
-4
-5
-5
-
-
-
-
 user_name123
 1
 parolagresita
