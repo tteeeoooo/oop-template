@@ -15,13 +15,13 @@ using namespace std;
 class Cart {
 private:
     Payment* paymentStrategy;
-    vector<Drink*> myDrinks;            //vector de bauturi din cos => neaparat sa invat cum functioneaza vectorii in C++!!!!
-    float price;                        //suma care urmeaza sa fie platita
-    vector<float> priceList;            //lista prteurilor
+    vector<Drink*> myDrinks;
+    float price;
+    vector<float> priceList;
 
 public:
-    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {});
-    Cart(const Cart &cos);
+    explicit Cart(const vector<Drink *> &bauturi = {}, float pret = 0, const vector<float> &preturi = {}): myDrinks(bauturi), price(pret), priceList(preturi), paymentStrategy(nullptr) {};
+    Cart(const Cart &cos): myDrinks(cos.myDrinks), price(cos.price), priceList(cos.priceList), paymentStrategy(nullptr) {};
     void productDelete(int index);
     float cartPrice() const;
     vector<Drink*> getDrinks(Cart cart);
