@@ -39,7 +39,7 @@ void AtAddressPayment::pay(const Cart& cart) {
             else {
                 throw std::invalid_argument("Your choice is invalid. Please try again!");
             }
-            return; // ieșim din while dacă am terminat cu succes
+            return; 
         }
         catch (const std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
