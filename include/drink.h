@@ -4,9 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
-#include <exception>
-
 using namespace std;
 
 class Drink {
