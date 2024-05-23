@@ -90,8 +90,11 @@ public:
 //                reviewAppPtr -> makeReviewProduct(reviewAppPtr, user, input0, menu);
 //                Review<T>* reviewPtr1 = new ReviewProduct<T>(parere);
 //                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewAppPtr);
-                Review<T>* reviewPtr = new ReviewApp<T>(parere); // Inițializare a pointerului la un obiect ReviewProduct
-                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr); // Dynamic cast de la Review<T>* la ReviewProduct<T>*
+//                Review<T>* reviewPtr = new ReviewApp<T>(parere);
+//                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewProduct<T>*>(reviewPtr);
+                ReviewProduct<T>* reviewProductPtr = new ReviewProduct<T>(parere); // Inițializare pointer la ReviewProduct
+                ReviewApp<T>* reviewAppPtr = dynamic_cast<ReviewApp<T>*>(reviewProductPtr); // Dynamic cast de la ReviewProduct<T>* la ReviewApp<T>*
+
 
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp();
