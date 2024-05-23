@@ -99,11 +99,11 @@ public:
 
                 if (reviewAppPtr) {
                     reviewAppPtr -> makeReviewApp();
-                    delete reviewAppPtr;
                     delete reviewPtr1;
                 }
                 else {
                     cout << "nu merge downcasting-ul pentru ReviewApp" << endl;
+                    delete reviewPtr1;
                 }
 
 
@@ -116,11 +116,11 @@ public:
 
                     if (reviewProductPtr) {
                         reviewProductPtr -> makeReviewProduct(menu);
-                        delete reviewProductPtr;
                         delete reviewPtr2;
                     }
                     else {
                         cout << "nu merge downcasting-ul pentru ReviewProduct" << endl;
+                        delete reviewPtr2;
                     }
                 }
                 else {
@@ -193,5 +193,8 @@ public:
 
     virtual ~Review() = default;
 };
+
+
+
 
 
