@@ -60,3 +60,11 @@ nume
 0
 0
 
+nume_de_utilizator_123
+2
+parola_mea123
+0
+0
+0
+0
+
