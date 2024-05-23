@@ -1,3 +1,6 @@
+#ifndef DRINK_H
+#define DRINK_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -13,6 +16,10 @@ protected:
 public:
     explicit Drink(const std::string &drinkName = "", const double &priceTag = 0);
     Drink(const Drink &bauturica) = default;
+
+//    virtual string consume() = 0;
+
+
 
     Drink &operator=(const Drink &bauturica);
 
@@ -30,4 +37,6 @@ public:
 };
 double operator -(const Drink &bauturica, double procent);
 
- 
+
+
+#endif // DRINK_H
