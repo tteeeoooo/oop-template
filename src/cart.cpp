@@ -423,18 +423,20 @@ void Cart::readyToOrder(Cart &cart, const vector<Drink*>& coffeeMenu) {
                 cart.executePayment();
 
                 delete paymentStrategy;
-                delete paymentStrategy;
 
                 cout << "Thank you for your order! We are grinding your coffee right now, to make sure that you will have it as soon as possible! :)" << endl;
                 break;
-            } else if (input == 2) {
+            }
+            else if (input == 2) {
                 order(cart, coffeeMenu);
                 readyToOrder(cart, coffeeMenu);
                 break;
-            } else if (input == 0) {
+            }
+            else if (input == 0) {
                 cout << "We are sorry to see you leave!" << endl;
                 break;
-            } else {
+            }
+            else {
                 throw std::invalid_argument("Your choice is invalid. Please try again!");
             }
         } catch (const std::exception &e) {
