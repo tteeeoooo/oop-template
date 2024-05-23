@@ -1,12 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <exception>
+#include <limits>
 #include "drink.h"
-//#include "noalc.h"
-//#include "withalc.h"
-//#include "cart.h"
-//#include "account.h"
-//#include "cout.h"
 
 using namespace std;
 
@@ -20,7 +17,6 @@ Drink& Drink::operator=(const Drink &bauturica) {
     }
     return *this;
 }
-
 
 void Drink::description() const {};
 
@@ -49,7 +45,7 @@ void Drink::menuOptions(vector<Drink*> coffeeMenu) {
     }
 }
 
-Drink::~Drink(){};
+Drink::~Drink() {};
 
 double operator -(const Drink &bauturica, double procent) {
     double reducere = (bauturica.getDrinkPrice() * procent) / 100;
